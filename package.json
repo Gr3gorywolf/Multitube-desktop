@@ -1,0 +1,34 @@
+{
+  "name": "Multitube",
+  "version": "1.0.0",
+  "description": "The all in one youtube app",
+  "main": "main.js",
+  "scripts": {
+    "test": "testt",
+    "start": "electron ."
+  },
+  "keywords": [
+    "gr3"
+  ],
+  "author": "gr3",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^2.0.5"
+  },
+  "dependencies": {
+    "electron-download-manager": "^2.2.0",
+    "electron-media-service": "^0.2.2",
+    "electron-settings": "^3.2.0",
+    "ip": "^1.1.5",
+    "is-reachable": "^2.4.0",
+    "node-notifier": "^5.2.1",
+    "suchtube": "^0.5.3",
+    "youtube-dl": "^1.12.2",
+    "youtube-scrape": "^1.0.2",
+    "youtube-search": "^1.1.1",
+    "ytdl-core": "^0.20.4"
+  },
+  "build": {
+    "asar": true
+  }
+}

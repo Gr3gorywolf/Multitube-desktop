@@ -1,0 +1,214 @@
+
+<head>
+        <title>Configuraciones</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+        <script src='js/materialize.min.js'></script>
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+        <script type="text/javascript" src="js/qrcode.js"></script>
+        <link href="css/icon.css" rel="stylesheet">
+        <link rel="stylesheet" href="dist/css/ckin.css">
+        <link href="css/animate.css" rel="stylesheet">
+        <link rel='stylesheet' href='css/materialize.css'>
+        
+        </head>
+<body style="overflow: hidden;">
+
+    <div class='row' style="margin-left: 5%;margin-right: 5%;margin-top: 2%;margin-bottom:2%;">
+
+       <div class='col s12'>
+
+        <h5>Calidad de reproduccion</h5>
+       </div>
+       <form class='col s12' action='#'>
+
+            
+                  <p>
+                    
+                
+                 
+                        <label>
+                          <input class="with-gap" name="group1" type="radio" id='audio' onclick="calidadselected(this)" />
+                          <span>Solo audio</span>
+                        </label>
+                      
+                            <label>
+                              <input class="with-gap" name="group1" type="radio" id='360p' onclick="calidadselected(this)" />
+                              <span>360p</span>
+                            </label>
+                       
+
+                            <label>
+                                  
+
+
+                                <label>
+                                  <input class="with-gap" name="group1" type="radio" id='720p' onclick="calidadselected(this)" />
+                                  <span>720p</span>
+                                </label>
+
+                             
+                              </p>
+
+                
+       </form>
+
+       <div class='col s12'>
+
+        <h5>habilitar notificaciones?</h5>
+        <div class="switch">
+            <label>
+              No
+              <input type="checkbox" id='notis' onchange="cambiarnoti()">
+              <span class="lever"></span>
+              Si
+            </label>
+          </div>
+
+       </div>
+
+       <div class='col s12'>
+            <h5>Ruta de descargas</h5>
+           </div>
+
+           <form action="#" class='col s12'>
+                <div class="file-field input-field">
+                  <div class="btn" onclick='seleccionarpath()'>
+                    <span>Seleccionar</span>
+                  
+                  </div>
+                  <div class="file-path-wrapper">
+                    <input class="file-path validate" disabled type="text" id='textooo'>
+                  </div>
+                </div>
+              </form>
+      
+
+    </div>
+
+    
+                                
+</body>
+
+<style>
+:not(input):not(textarea),
+:not(input):not(textarea)::after,
+:not(input):not(textarea)::before {
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: default;
+}
+
+a:not([draggable=true]), img:not([draggable=true]) {
+    -webkit-user-drag: none;
+    
+}
+
+
+</style>
+
+<script>
+var calidad='';
+var ruta='';
+var noti=false;
+
+var calidades=['audio','240p','360p','720p']
+const perro = require('electron').remote
+const settings = perro.require('electron-settings');
+const fs=perro.require("fs");
+var dialog = perro.require('electron').dialog;
+calidad=settings.get('base.calidad');
+ruta=settings.get('base.pathdescarga');
+noti=settings.get('base.notificaciones');
+
+if(calidad==null)
+  calidad="audio"
+
+document.getElementById(calidad).checked=true;
+document.getElementById('notis').checked=Boolean(noti) ;
+document.getElementById('textooo').value=ruta ;
+
+
+function calidadselected(thiss){
+
+    calidad=thiss.id.toString();
+        ponersettings();
+
+        
+
+}
+function cambiarnoti(){
+
+noti=document.getElementById('notis').checked;
+ponersettings();
+}
+
+function verificarpath(path){
+console.log('pasante');
+fs.writeFile(path.toString().replace(/\\/g,"/")+"/testo.tst",
+"hola"
+, 
+function(err) {
+   if(err) {
+       M.toast({html: 'Esta ruta no puede ser utilizada!!'})
+       return console.log(err);
+   }
+});
+if (fs.existsSync(path.replace(/\\/g,"/")+"/testo.tst")) {
+   fs.unlink(path.replace(/\\/g,"/")+"/testo.tst", (err) => {
+       if (err) {
+          // alert("An error ocurred updating the file" + err.message);
+          // console.log(err);
+           return;
+       }
+       document.getElementById('textooo').value=path.replace(/\\/g,"/");
+       ruta=path.replace(/\\/g,"/");
+       ponersettings();
+       M.toast({html: 'Ruta de descarga cambiada!!'})
+      // console.log("File succesfully deleted");
+   });
+
+}
+}
+
+
+
+function ponersettings(){
+
+var calibilla='';
+
+if(calidad=='audio'){
+    calibilla=null;
+
+}else{
+    calibilla=calidad; 
+}
+   
+
+    settings.set('base',
+{
+pathdescarga:ruta,
+calidad:calibilla,
+notificaciones:noti
+
+}
+
+)
+}
+
+function seleccionarpath(){
+
+
+
+
+ var path = dialog.showOpenDialog({
+    properties: ['openDirectory']
+  
+
+},selectedFiles =>verificarpath(selectedFiles.toString()));
+
+
+
+}
+
+</script>

@@ -1,0 +1,501 @@
+<head>
+<title>Navegador personalizado</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+<script src='js/materialize.min.js'></script>
+<link href="css/icon.css" rel="stylesheet">
+<link href="css/animate.css" rel="stylesheet">
+
+<link rel='stylesheet' href='css/materialize.css'>
+
+</head>
+
+<body>
+
+    <div class="preloader-wrapper big active" id="progress" style="display:none; position: absolute;top:0;bottom: 0;left: 0;right: 0;margin: auto;z-index:9999;" >
+        <div class="spinner-layer spinner-red-only">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div><div class="gap-patch">
+            <div class="circle"></div>
+          </div><div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
+      </div>
+
+
+      <div id='shadow3' onclick="cerrardescargar()" >   </div>
+        
+      <div id='modal3' >
+   
+          
+          <ul class="collection with-header" id='listin'>
+                 
+                  <li class="collection-item " onclick="descargar('720p')"><div id='contextico'>Video 720p<a   class="secondary-content"><i class="material-icons"  id='imgsubelement'>file_download</i></a></div></li>
+                  <li class="collection-item " onclick="descargar('360p')"><div id='contextico'>Video 360p<a  class="secondary-content"><i class="material-icons"  id='imgsubelement'>file_download</i></a></div></li>
+                  <li class="collection-item " onclick="descargar('0')"><div id='contextico'>MP3<a  class="secondary-content "><i class="material-icons" id='imgsubelement'>file_download</i></a></div></li>
+                 
+                </ul>
+              </div>
+
+
+              <div id='shadow4' onclick="cerrarmodalesagelim()"></div>
+        
+                                    <div id='modal4'>
+                                 
+                                            <img class='circle' id='imagenmodal33' src=''>
+                                            <h3 id='textomodal11' ></h3>
+                                                    <h3 id='textomodal22' ></h3>
+                                                            <div id='liniitaxddd'></div>
+                                                            <ul class="collection with-header"  id='listin2'>
+                                               
+                                                                    <li class="collection-item" id='modalelem1' ><div id='contextico'>Reproducir<a   class="secondary-content"><i class="material-icons"  id='imgsubelement'>play_arrow</i></a></div></li>
+                                                                    <li class="collection-item" id='modalelem2' ><div id='contextico' class='textoagregar' >Agregar a la cola<a   class="secondary-content"><i class="material-icons"  id='imgsubelementd'>play_arrow</i></a></div></li>
+                                                                    <li class="collection-item" id='modalelem3'><div id='contextico'>Descargar<a  class="secondary-content "><i class="material-icons" id='imgsubelement'>file_download</i></a></div></li>
+                                                                   
+                                                                  </ul>
+                                     
+                                          </div>
+      
+    <nav class='red' style="position: fixed;z-index:999;">
+        <div class="nav-wrapper">
+          <form>
+            <div class="input-field">
+              <input id="search" type="search" required>
+              <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+              <i class="material-icons">close</i>
+            </div>
+          </form>
+        </div>
+      </nav>
+      <div class='row' id='scrollresults' style="overflow: auto;position: absolute;top:65px;">
+
+          
+
+      </div>
+
+
+</body>
+
+
+
+
+
+<style>
+:not(input):not(textarea),
+:not(input):not(textarea)::after,
+:not(input):not(textarea)::before {
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: default;
+}
+
+a:not([draggable=true]), img:not([draggable=true]) {
+    -webkit-user-drag: none;
+    
+}
+
+
+    h1  h2  h3 h4 h5 span strong img  a i li p ul{
+        -webkit-touch-callout: none; /* iOS Safari */
+        -webkit-user-select: none; /* Safari */
+         -khtml-user-select: none; /* Konqueror HTML */
+           -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* Internet Explorer/Edge */
+                user-select: none; /* Non-prefixed version, currently
+                                      supported by Chrome and Opera */
+    
+    }
+
+
+#imgsubelementd{
+
+color: red;
+}
+    #imgsubelement{
+
+        color: red;
+    }
+
+
+  #textomodal11{
+   margin-left: 60px;
+   top:-12px;
+   width:calc(100% - 62px); 
+     font-size: 14px;
+     user-select: none; 
+     text-overflow: ellipsis; 
+     overflow: hidden; 
+     white-space: nowrap;
+    position:absolute;
+   }
+   
+#textomodal22{
+   margin-left: 60px;
+   top:3px;
+     font-size: 14px;
+     color: gray;
+     user-select: none; 
+     text-overflow: ellipsis; 
+     overflow: hidden; 
+     white-space: nowrap;
+    position: absolute;;
+   }
+#imagenmodal33{
+   margin-left: 10px;
+   margin-top: 10px;
+   height: 45px;
+   width: 45px;
+  
+}
+  #shadow4{
+
+position: fixed;
+
+background-color: rgba(0, 0, 0, 0.799);
+top:0;
+bottom: 0;
+left: 0;
+right: 0;
+height: 100%;
+width: 100%;
+z-index:999998;
+display: none;
+
+}
+#modal4{
+    position: fixed;
+        top:0px;bottom: 0px;
+        left:0px;right: 0px;
+        margin: auto;
+        border-radius: 2%;
+background-color: white;
+height:210px;
+        width:400px;
+        z-index:999999;
+        display: none;
+
+}
+ #liniitaxddd{
+position: absolute;
+top:60px;
+width:100%;
+height:2px ;
+background-color:D6D6D4; 
+}
+#modal3{
+    position: fixed;
+        top:0px;bottom: 0px;
+        left:0px;right: 0px;
+        margin: auto;
+        border-radius: 2%;
+background-color: white;
+height:150px;
+        width:300px;
+        z-index:999999;
+        display: none;
+
+}
+#shadow3{
+
+position: fixed;
+
+background-color: rgba(0, 0, 0, 0.799);
+top:0;
+bottom: 0;
+left: 0;
+right: 0;
+height: 100%;
+width: 100%;
+z-index:999998;
+display: none;
+}
+
+
+
+</style>
+
+<script>
+  var linkactual='';
+  
+
+var keys=[];
+var linkeses=[];
+var nombreses=[];
+function pedircancion(indice){
+  var idx=parseInt(indice.id) ;
+  linkactual=linkeses[idx];
+
+/*
+  
+  var remo=require('electron').remote;
+  var net = remo.require('net');
+
+var client = new net.Socket();
+client.connect(1024, 'localhost', function() {
+	client.write(linkeses[idx].toString());
+  client.on('data',function(){
+    client.destroy();
+  console.log('Server is listening!');
+});
+  
+});
+*/
+
+}
+
+function llenarkeys(){
+  keys.push("AIzaSyB5C5btDfmVDKFihUkFPfWUYPmfSIT3nxk")
+  keys.push( "AIzaSyAn2rU7EeGvAkqK1gPCaZ7Rh1ZkaVcFQAA")
+  keys.push('AIzaSyDc0ZAEj9UeC3gBnkgUJfkC2Yw5u3-dd54')
+  keys.push('AIzaSyChhgpOaQQoNAv1v5tq-ix9B4Qf2p9E4PY')
+  keys.push('AIzaSyCG_yxDSI4PHUoYs4_tFcpBGgpYJLJFUXY')
+  keys.push( 'AIzaSyA5SZXDO8YEh5tsiNR-mMs4Z-HBhww5xAg')
+  keys.push( 'AIzaSyClecuVQRr7vq4uAWoE2prAKtIbB_1XjSY')
+  keys.push( 'AIzaSyDUwQGUszSHYtHACeEr1SvqkXO5fvxIoIw')
+  keys.push( 'AIzaSyAhjp9aYRz6QuYJOvlrAOQtFB-X4saNwqo')
+  keys.push( 'AIzaSyByBCH-UH3Px06Kb3ZvNHONWQeQRaR27p0')
+  keys.push( 'AIzaSyDtKGulZaN_Dg8sjjh-QR-rqszZ5xVFyTA')
+  keys.push( 'AIzaSyAYhv_IHm1VdWHmPcvtNTBJQCCflbJ8-HE')
+
+  }
+  llenarkeys();
+
+document.getElementById('search').onkeypress = function(e){
+    if (!e) e = window.event;
+    var keyCode = e.keyCode || e.which;
+    if (keyCode == '13'){
+      // Enter pressed
+      if(document.getElementById('search').value.toString().trim().length>0)
+      {
+        buscar();
+      }
+      return false;
+    }
+  }
+
+    function buscar(){
+      linkeses=[];
+      nombreses=[];
+      document.getElementById("scrollresults").innerHTML="";
+      document.getElementById('progress').style.display='';
+const perro = require('electron').remote
+
+
+
+var search = perro.require('youtube-search');
+ var fs=perro.require('fs');
+var opts = {
+
+  maxResults: 50,
+  key: keys[0]
+};
+ 
+search(document.getElementById('search').value, opts, function(err, results) {
+  if(err) {
+    keys.shift();
+    buscar();
+    return console.log(err)
+  };
+
+  document.getElementById('progress').style.display='none';
+  //console.dir(results);
+ 
+ for(var i=0;i<results.length;i++){
+if(results[i].kind.toString().includes("video")){
+
+  
+document.getElementById("scrollresults").innerHTML+="<div class='col s6  l4 xl3 animated zoomIn' id='"+i+"' onclick='abrirmodalagregar(this)' ><div class='card' ><div class='card-image'><img src='"+results[i].thumbnails["medium"].url.toString()+"' style='height:230px ;width:100%;'> <span class='card-title' style='background-color: rgba(0, 0, 0, 0.295);font-size:16px;' >"+results[i].title.toString()+"</span></div>    <div class='card-content'><p style='text-overflow: ellipsis; overflow: hidden; white-space: nowrap;'>"+results[i].channelTitle.toString()+"</p> </div> </div></div>";
+}
+linkeses.push(results[i].link.toString());
+nombreses.push(results[i].title.toString());
+   //console.log(results[i].title.toString());
+
+ }
+  const json = JSON.stringify(results, null, 2)
+    .replace(/(ip(?:=|%3D|\/))((?:(?:25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(?:25[0-5]|2[0-4]\d|[01]?\d\d?)|[0-9a-f]{1,4}(?:(?::|%3A)[0-9a-f]{1,4}){7})/ig, '$10.0.0.0');
+  fs.writeFile("search.json", json, err => {
+    if (err){
+     
+       throw err
+    
+    };
+  });
+});
+}
+buscar();
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////commiselaneous
+
+ function sleep(millis) {
+    return new Promise(resolve => setTimeout(resolve, millis));
+}
+
+async function agregar(link){
+
+var remo=require('electron').remote;
+  var net = remo.require('net');
+
+var client = new net.Socket();
+ client.connect(1024, 'localhost', async function() {
+	client.write("agregar()");
+  await sleep(500);
+ client.write(link);
+ await sleep(500);
+    client.destroy();
+
+  
+});
+
+}
+
+
+function reproducir(link){
+  var remo=require('electron').remote;
+  var net = remo.require('net');
+
+var client = new net.Socket();
+client.connect(1024, 'localhost', async function() {
+
+client.write(link);
+await sleep(500);
+client.destroy();
+
+  
+});
+
+
+}
+
+function descargar(calidad){
+  var remo=require('electron').remote;
+  var net = remo.require('net');
+
+var client = new net.Socket();
+ client.connect(1024, 'localhost', async function() {
+  cerrardescargar();
+	client.write("descargar()");
+  await sleep(500);
+ client.write(linkactual+"³"+calidad);
+ await sleep(500);
+    client.destroy();
+   
+  
+});
+
+
+}
+
+//////////////////////////////////////////////////////////////////////////////////////modal management
+function cerrardescargar(){
+    if(!(window.outerWidth>=995)){
+   document.body.style.overflowY='auto';
+
+  }
+    animarconcall("bounceOutDown",document.getElementById('modal3'),function(){
+
+document.getElementById('shadow3').style.display='none';
+    document.getElementById('modal3').style.display='none';
+}
+);
+    
+} 
+function abrirdescargar(){
+
+document.body.style.overflowY='hidden';
+document.getElementById('shadow3').style.display='initial';
+    document.getElementById('modal3').style.display='initial';
+    animar("bounceInUp", document.getElementById('modal3'));
+}
+
+function cerrarmodalesagelim(){
+    var shadow=document.getElementById('shadow4')
+    var modal=document.getElementById('modal4')
+    if(!(window.outerWidth>=995)){
+   document.body.style.overflowY='auto';
+
+  }
+    animarconcall("bounceOutDown",document.getElementById('modal4'),function(){
+        modal.style.display='none';
+    shadow.style.display='none';
+
+    });
+   
+
+}
+
+function cerrarmodalesagelimconcall(funcion){
+    var shadow=document.getElementById('shadow4')
+    var modal=document.getElementById('modal4')
+    if(!(window.outerWidth>=995)){
+   document.body.style.overflowY='auto';
+
+  }
+    animarconcall("bounceOutDown",document.getElementById('modal4'),function(){
+        modal.style.display='none';
+    shadow.style.display='none';
+    funcion();
+
+    });
+    
+   
+
+}
+
+function animar(nombre,elemento){
+    elemento.classList.add("animated");
+    elemento.classList.add(nombre);
+setTimeout(function(){
+    elemento.classList.remove("animated");
+    elemento.classList.remove(nombre);},700)
+}
+function animarconcall(nombre,elemento,funcion){
+    elemento.classList.add("animated");
+    elemento.classList.add(nombre);
+setTimeout(function(){
+    elemento.classList.remove("animated");
+    elemento.classList.remove(nombre);
+    funcion();
+    },700)
+
+  }
+
+
+function abrirmodalagregar(elem){
+    var idxx=elem.id;
+    var shadow=document.getElementById('shadow4')
+    var modal=document.getElementById('modal4')
+    modal.style.display='initial';
+    shadow.style.display='initial';
+    animar("bounceInUp", document.getElementById('modal4'));
+    var linkoo=elem.id.toString();
+    var boton1=document.getElementById('modalelem1')
+    var boton2=document.getElementById('modalelem2')
+    var boton3=document.getElementById('modalelem3')
+    document.getElementsByClassName('textoagregar')[0].innerHTML =  document.getElementsByClassName('textoagregar')[0].innerHTML.replace("Eliminar elemento","Agregar a la cola")
+   // document.getElementsByClassName('imagenagregar')[0].innerHTML="playlist_add"
+  //  actualizarimagen(document.getElementsByClassName('imagenagregar')[0]);
+ // console.log(document.getElementById('imgsubelementd').innerText);
+//  document.getElementById('imgsubelementd').innerText="playlist_add"
+ //  actualizarimagen(document.getElementById('imgsubelement'));
+ document.getElementById('imgsubelementd').innerHTML="playlist_add"
+    document.body.style.overflowY='hidden';
+     boton1.onclick= function() { reproducir(linkeses[idxx]);cerrarmodalesagelim();};
+     boton2.onclick= function() { agregar(linkeses[idxx]);cerrarmodalesagelim();};
+     boton3.onclick= function() { linkactual=linkeses[idxx]; cerrarmodalesagelimconcall(abrirdescargar);  };
+     document.getElementById('imagenmodal33').src="https://i.ytimg.com/vi/"+linkeses[idxx].split('=')[1]+"/mqdefault.jpg"
+     document.getElementById('textomodal11').innerText=nombreses[idxx];
+//     console.log(elem.childNodes[0].childNodes[2].childNodes[1].innerHTML);
+  document.getElementById('textomodal22').innerText=linkeses[idxx];
+
+
+
+}
+
+
+</script>
