@@ -30,7 +30,7 @@ DownloadManager.register();
       console.log(global.sharedObj.clienteses.lenght);
     })
 
-
+   
     win = new BrowserWindow({
       titleBarStyle: 'hidden',
       width: 800, 
@@ -38,9 +38,12 @@ DownloadManager.register();
       minHeight:700,
       minWidth:600, 
       show: false,
+     
       webPreferences: {
-        nativeWindowOpen: true
-      }
+        nativeWindowOpen: true,
+        nodeIntegration: true
+      },
+    
     })
 
     win.webContents.on('new-window', (event, url, frameName, disposition, options, additionalFeatures) => {
@@ -120,7 +123,7 @@ DownloadManager.register();
       win.show(); 
       win.focus(); 
     });
-  //win.toggleDevTools();
+  win.toggleDevTools();
   win.setMenu(null);
     // and load the index.html of the app.
     win.loadFile('index.html')

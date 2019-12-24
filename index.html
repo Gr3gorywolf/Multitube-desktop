@@ -873,7 +873,7 @@
 
 
 
-    const perro = require('electron').remote
+    const perro = require('electron').remote;
     const { app,shell } = perro.require('electron')
     const ipcRenderer = require('electron');
     const pelo = perro.require('./holamundo');
@@ -1680,6 +1680,7 @@
                 if (err) throw err;
                 infovideos = info;
                 var valor = "";
+                console.log(info);
                 for (var i = 0; i < info.formats.length; i++) {
                     if (info.formats[i].audioEncoding != null) {
 
