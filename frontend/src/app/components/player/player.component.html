@@ -4,15 +4,7 @@
   <div class='col s12 m12 l7'>
     <div class="row" id='rowsubvideo'>
 
-      <div id='submundo'>
-
-        <canvas id="canvas"> </canvas>
-
-
-        <video src="{{ play.currentElementUrl }}" controls autoplay id='laudio' data-color='white' data-ckin="default"
-          data-title=""> </video>
-      </div>
-
+         <app-video-player></app-video-player>
     </div>
 
 
@@ -61,6 +53,36 @@
 
 
     <div id='backoo' class='row'>
+
+
+      <div *ngIf="this.currentTab == 0">
+        <div *ngFor="let playItem of this.play.quenue">
+
+
+          <div class='col s12 animated slideInRight' (click)="openAddModalAsQuenue(playItem)">
+            <ul class='collection'>
+              <li class='collection-item avatar'><img style=' user-select: none;margin-top:12px;'
+                  src='{{  getImage(playItem.url) }}' alt='' class='circle'>
+                <div class='title truncate'
+                  style=' user-select: none; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;margin-top:20px;'>
+                  {{ playItem.title }}
+                </div> <a style=' user-select: none;' href='#!' class='secondary-content'>
+                  <i style=' user-select: none;' class='material-icons'>play</i></a>
+              <li>
+            </ul>
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+
+
+
+
+
       <div *ngIf="this.currentTab == 1">
 
         <div class='col s12' style='margin-left:2%;margin-right:2%;'>
@@ -70,14 +92,14 @@
             REPRODUCCIÓN AUTOMÁTICA</h3>
           <div class='switch '
             style='font-size:14px;margin-botton:20px; position:relative;display:inline-block;left:calc(100% - 338px);'>
-            <label><input type='checkbox' id='automata' onclick='ponerckeck()'><span class='lever'></span></label>
+            <label><input type='checkbox' [(ngModel)]="play.isAutoplayEnabled"  ><span class='lever'></span></label>
           </div>
         </div>
 
         <div *ngFor="let sugg of this.play.info.related_videos">
 
 
-          <div class='col s12 animated slideInRight' onclick='abrirmodalagregar(this)'>
+          <div class='col s12 animated slideInRight' (click)="openAddModal(sugg)">
             <ul class='collection'>
               <li class='collection-item avatar'><img style=' user-select: none;margin-top:12px;'
                   src='{{ sugg.video_thumbnail }}' alt='' class='circle'>

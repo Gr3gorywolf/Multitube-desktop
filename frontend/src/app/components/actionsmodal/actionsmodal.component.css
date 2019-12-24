@@ -30,9 +30,18 @@
 }
 
 
+#imagenmodal33 {
+  margin-left: 10px;
+  margin-top: 10px;
+  height: 45px;
+  width: 45px;
+
+}
+
+
 #textomodal11 {
   margin-left: 60px;
-  top: -12px;
+  top: -4px;
   width: calc(100% - 62px);
   font-size: 14px;
   user-select: none;
@@ -44,7 +53,7 @@
 
 #textomodal22 {
   margin-left: 60px;
-  top: 3px;
+  top: 12px;
   font-size: 14px;
   color: gray;
   user-select: none;

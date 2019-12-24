@@ -1,0 +1,22 @@
+#submundo {
+  position: relative;
+  height: 70%;
+  width: 100%;
+}
+#canvas {
+
+  margin-left: 3%;
+  margin-right: 3%;
+  bottom: 50px;
+  height: 100%;
+  width: 94%;
+  display: none;
+  position: absolute;
+
+
+}
+#videotag {
+
+  height: 100%;
+  width: 100%;
+}

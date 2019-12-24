@@ -5,6 +5,44 @@
   height: 1px;
   background-color: D6D6D4;
 }
+:not(input):not(textarea),
+:not(input):not(textarea)::after,
+:not(input):not(textarea)::before {
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: default;
+}
+
+a:not([draggable=true]),
+img:not([draggable=true]) {
+    -webkit-user-drag: none;
+
+}
+
+
+
+h1 h2 h3 h4 h5 span strong img a i li p ul {
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Safari */
+    -khtml-user-select: none;
+    /* Konqueror HTML */
+    -moz-user-select: none;
+    /* Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+
+
+#descripcion {
+    -webkit-user-select: initial;
+
+}
+
 @media only screen and (max-width: 990px) {
   #submundo {
     position: relative;

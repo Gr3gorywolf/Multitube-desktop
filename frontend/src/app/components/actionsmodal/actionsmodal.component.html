@@ -1,30 +1,38 @@
-<div id='shadow4' onclick="cerrarmodalesagelim()"></div>
+<div id='shadow4' (click)="modal.CloseActionsModal()"></div>
+    <div id='modal4' *ngIf="modal.selectedItem != undefined">
 
-    <div id='modal4'>
-
-        <img class='circle' id='imagenmodal33' src=''>
-        <h3 id='textomodal11'></h3>
-        <h3 id='textomodal22'></h3>
+        <img class='circle' id='imagenmodal33' src='{{ getThumbnail() }}'>
+        <h3 id='textomodal11'>{{ modal.selectedItem.title }}</h3>
+        <h3 id='textomodal22'>{{ modal.selectedItem.url}}</h3>
         <div id='liniitaxddd'></div>
         <ul class="collection with-header" id='listin2'>
 
-            <li class="collection-item" id='modalelem1'>
+            <li class="collection-item" id='modalelem1' (click)="playVideo()">
                 <div id='contextico'>Reproducir
-                    <a class="secondary-content">
+                    <a class="secondary-content red-text">
                         <i class="material-icons" id='imgsubelement'>play_arrow</i>
                     </a>
                 </div>
             </li>
-            <li class="collection-item" id='modalelem2'>
+            <li class="collection-item" id='modalelem2' *ngIf="!canDelete()" (click)="addVideo()">
                 <div id='contextico' class='textoagregar'>Agregar a la cola
-                    <a class="secondary-content">
-                        <i class="material-icons" id='imgsubelementd'>play_arrow</i>
+                    <a class="secondary-content red-text">
+                        <i class="material-icons" id='imgsubelementd'>library_add</i>
                     </a>
                 </div>
             </li>
+
+            <li class="collection-item" id='modalelem2' *ngIf="canDelete()" (click)="deleteVideo()">
+              <div id='contextico' class='textoagregar'>Eliminar de la cola
+                  <a class="secondary-content red-text">
+                      <i class="material-icons" id='imgsubelementd'>delete</i>
+                  </a>
+              </div>
+          </li>
+
             <li class="collection-item" id='modalelem3'>
                 <div id='contextico'>Descargar
-                    <a class="secondary-content ">
+                    <a class="secondary-content red-text ">
                         <i class="material-icons" id='imgsubelement'>file_download</i>
                     </a>
                 </div>

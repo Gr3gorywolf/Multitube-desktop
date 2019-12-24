@@ -2,6 +2,8 @@ import { Injectable, ChangeDetectorRef, NgZone } from '@angular/core';
 import { ElectronService } from 'ngx-electron';
 import { from } from 'rxjs';
 import { VideoInfo } from '../interfaces/videoinfo';
+import { PlayListItem } from '../models/PlaylistItem';
+import { toast } from 'angular2-materialize';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +12,10 @@ export class PlaybackserviceService {
 
 
   public currentElementUrl: string;
-  public info:VideoInfo;
-  public isLoading:boolean = false;
+  public info: VideoInfo;
+  public quenue: Array<PlayListItem> = [];
+  public isLoading: boolean = false;
+  public isAutoplayEnabled = false;
   perro: any;
   fs: any;
   ytdl: any;
@@ -27,29 +31,76 @@ export class PlaybackserviceService {
 
 
 
-  play() {
+  loadVideo(url: string) {
     this.isLoading = true;
-    this.ytdl.getInfo("https://www.youtube.com/watch?v=-kQVnqVwz_A", (err, info:VideoInfo) => {
+    this.ytdl.getInfo(url, (err, info: VideoInfo) => {
 
       this.zone.run(() => {
         this.isLoading = false;
+        this.addToQueue({
+          title: info.title,
+          url: info.video_url
+
+        } as PlayListItem)
       })
       if (err) throw err;
       this.info = info;
       for (var i = 0; i < info.formats.length; i++) {
-
-
         if (info.formats[i].qualityLabel == "360p") {
           this.zone.run(() => {
 
             this.currentElementUrl = info.formats[i].url;
           });
           break;
-
         }
       }
 
 
     });
   }
+
+  addToQueue(item: PlayListItem) {
+    if (this.quenue.find((ax) => ax.url == item.url) == undefined) {
+      this.quenue.push(item);
+      toast('El elemento agregado a la cola exitosamente');
+    } else {
+      toast('El elemento ya existe en la cola');
+    }
+  }
+
+  removeFromQueue(item: PlayListItem) {
+    var searchedElement = this.quenue.find((ax) => ax.url == item.url);
+    if (searchedElement != undefined) {
+      var idx = this.quenue.indexOf(searchedElement);
+      console.log(idx);
+      if (searchedElement.url != this.info.video_url) {
+        this.quenue.splice(idx, 1);
+      } else {
+        toast('No se puede eliminar un elemento en reproduccion');
+      }
+    }
+    else {
+      toast('El elemento no existe en la cola')
+    }
+  }
+  playNext() {
+
+    var currentPlaying = this.quenue.find(ax => ax.url == this.info.video_url);
+    if (currentPlaying != undefined) {
+      var nextIndex = this.quenue.indexOf(currentPlaying) +1;
+      console.log(nextIndex);
+      console.log(this.quenue.length);
+      if (nextIndex > this.quenue.length-1 && this.isAutoplayEnabled) {
+        let relatedUrl = this.info.related_videos[0].id;
+        if (relatedUrl != undefined) {
+          this.loadVideo("https://www.youtube.com/watch?v=" + relatedUrl)
+        }
+
+      }else
+      if(nextIndex <= this.quenue.length-1) {
+        this.loadVideo(this.quenue[nextIndex].url);
+      }
+    }
+  }
+
 }
