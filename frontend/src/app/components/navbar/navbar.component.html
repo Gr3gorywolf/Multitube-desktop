@@ -1,15 +1,13 @@
-<nav >
+<nav style="position: fixed;z-index:9999;top:0;left: 0;">
   <!-- navbar content here  -->
-   <div class="nav-wrapper red">
+   <div class="nav-wrapper red" >
   <a href="#" data-target="slide-out" class="button-collapse show-on-large" materialize="sideNav" [materializeParams]="[{edge:'left'}]"
   data-activates="mobile-demo">
     <i class="material-icons">menu</i>
   </a>
 </div>
 </nav>
-<div class="progress white" *ngIf="play.isLoading">
-  <div class="indeterminate red"></div>
-</div>
+
 
 
 <ul id="mobile-demo" class="side-nav" style="z-index:99999;">
@@ -29,3 +27,6 @@
     <a class="waves-effect" onclick="abrirsettings()">Configuracion</a>
   </li>
 </ul>
+<div class="progress white" *ngIf="play.isLoading" style="position: fixed;z-index:99999;margin-top:60px;top:0;left: 0;"  >
+  <div class="indeterminate red"></div>
+</div>

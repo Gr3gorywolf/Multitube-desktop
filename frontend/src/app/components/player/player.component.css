@@ -5,7 +5,7 @@
   z-index: 99999999;
   margin-left: 1%;
   margin-right: 1%;
-
+ margin-top: 95px;
 }
 
 #minidescripcion {
@@ -67,5 +67,14 @@
     width: 100%;
     overflow: visible;
     overflow-x: hidden;
+  }
+  #rowvideo {
+
+    height: 100%;
+    width: 100%;
+    z-index: 99999999;
+    margin-left: 1%;
+    margin-right: 1%;
+   margin-top: 0px;
   }
 }
