@@ -1,0 +1,31 @@
+<nav >
+  <!-- navbar content here  -->
+   <div class="nav-wrapper red">
+  <a href="#" data-target="slide-out" class="button-collapse show-on-large" materialize="sideNav" [materializeParams]="[{edge:'left'}]"
+  data-activates="mobile-demo">
+    <i class="material-icons">menu</i>
+  </a>
+</div>
+</nav>
+<div class="progress white" *ngIf="play.isLoading">
+  <div class="indeterminate red"></div>
+</div>
+
+
+<ul id="mobile-demo" class="side-nav" style="z-index:99999;">
+  <li>
+    <a class="waves-effect" onclick="abrirnavegador()">Abrir buscador</a>
+  </li>
+  <li>
+    <a class="waves-effect" onclick="abrirbuscardorrapido()">Busqueda rápida</a>
+  </li>
+  <li>
+    <a class="waves-effect" onclick="abrirclientes()">Abrir gestor de clientes</a>
+  </li>
+  <li>
+    <a class="waves-effect" id='downloadbutton' onclick="abrirdescargas()">Descargas</a>
+  </li>
+  <li>
+    <a class="waves-effect" onclick="abrirsettings()">Configuracion</a>
+  </li>
+</ul>

@@ -1,0 +1,68 @@
+/* You can add global styles to this file, and also import other style files */
+#liniita {
+
+  width: 100%;
+  height: 1px;
+  background-color: D6D6D4;
+}
+@media only screen and (max-width: 990px) {
+  #submundo {
+    position: relative;
+    height: 70%;
+    width: 100%;
+
+  }
+
+  #laudio {
+
+    height: 100%;
+    width: 100%;
+  }
+
+  #vermas {
+
+    margin-left: 45%;
+
+
+  }
+
+  #bodycito {
+    overflow: auto;
+    overflow-x: hidden;
+    margin-top: 0px;
+  }
+
+  #klowa {
+    padding: 0px;
+    margin: 0px;
+
+  }
+
+  #putita {
+    width: 100%;
+    position: fixed;
+    z-index: 900;
+    top: 0%;
+  }
+
+  #rowvideo {
+    padding-top: 75px;
+    margin-left: 0px;
+    margin-right: 0px;
+
+  }
+
+  #laudio {
+
+    margin-left: 1%;
+    margin-right: 1%;
+  }
+
+  #backoo {
+
+    overflow: visible;
+
+  }
+
+
+}

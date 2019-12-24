@@ -126,7 +126,7 @@ DownloadManager.register();
   win.toggleDevTools();
   win.setMenu(null);
     // and load the index.html of the app.
-    win.loadFile('index.html')
+    win.loadURL("http://localhost:4200");
   
   }
   function abrirnavegador () {

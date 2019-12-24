@@ -1,0 +1,69 @@
+#modal {
+  position: fixed;
+  top: 60%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  z-index: 999999;
+  display: none;
+  background-color: white;
+  height: 40%;
+  width: 100%;
+
+}
+#shadow {
+  display: none;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.799);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 999998;
+}
+
+#nombrecanalm {
+  margin-top: 23px;
+  position: absolute;
+  margin-left: 66px;
+  font-size: 16px;
+}
+#fechapublicacionm {
+  margin-top: 42px;
+  position: absolute;
+  font-size: 12px;
+  margin-left: 66px;
+  color: gray;
+
+}
+#linea2 {
+  margin-top: 68px;
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  background-color: D6D6D4;
+
+}
+#descripcion {
+  margin-top: 70px;
+  position: absolute;
+  width: 96%;
+  height: calc(95% - 70px);
+  word-wrap: break-word;
+  margin-left: 2%;
+  margin-right: 2%;
+  margin-bottom: 5%;
+  font-size: 16px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+#imagencanalm {
+  position: absolute;
+  margin-left: 12px;
+  margin-top: 15px;
+  height: 45px;
+  width: 45px;
+}

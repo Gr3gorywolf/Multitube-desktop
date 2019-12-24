@@ -1,0 +1,41 @@
+#shadow5 {
+  display: none;
+  position: fixed;
+
+  background-color: rgba(0, 0, 0, 0.799);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 6000;
+}
+
+#modal5 {
+  display: none;
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: calc(100% - 400px);
+      right: 0;
+      margin: auto;
+      background-color: white;
+      height: 100%;
+      width: 400px;
+      z-index: 7000;
+
+  }
+  #backoo5 {
+    overflow-x: hidden;
+
+
+    overflow-y: auto;
+    margin-top: 2%;
+    height: 98%;
+    width: 96%;
+    margin-left: 2%;
+    margin-right: 2%;
+
+
+}

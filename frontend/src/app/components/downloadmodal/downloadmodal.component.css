@@ -1,0 +1,31 @@
+#modal3 {
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  margin: auto;
+  border-radius: 2%;
+  background-color: white;
+  height: 150px;
+  width: 300px;
+  z-index: 999999;
+  display: none;
+
+}
+
+
+#shadow3 {
+
+  position: fixed;
+
+  background-color: rgba(0, 0, 0, 0.799);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 999998;
+  display: none;
+}

@@ -1,0 +1,17 @@
+<div id="modal">
+
+  <img style=' user-select: none;' src="{{ play.info.author.avatar }}" alt='' class='circle' id='imagencanalm'>
+
+
+  <h2 id='nombrecanalm'>{{ play.info.author.name }}</h2>
+
+  <h2 id='fechapublicacionm'>{{ play.info.player_response.microformat.playerMicroformatRenderer.publishDate |date}}</h2>
+  <div id='linea2'></div>
+  <p id='descripcion'>
+    {{ play.info.description}}
+
+  </p>
+
+
+</div>
+<div id="shadow" (click)="modal.CloseAboutModal()"></div>
