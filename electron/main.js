@@ -11,11 +11,8 @@ const {webFrame} = require('electron')
 //server.listen(1337, '127.0.0.1');
 const DownloadManager = require("electron-download-manager");
 
-
-
-
 console.log(process.versions['chrome']);
-
+app.commandLine.appendSwitch('autoplay-policy','no-user-gesture-required')
 app.on('window-all-closed', function() {
 
       app.quit();
@@ -41,7 +38,8 @@ DownloadManager.register();
      
       webPreferences: {
         nativeWindowOpen: true,
-        nodeIntegration: true
+        nodeIntegration: true,
+        webgl:true
       },
     
     })
@@ -127,7 +125,8 @@ DownloadManager.register();
   win.setMenu(null);
     // and load the index.html of the app.
     win.loadURL("http://localhost:4200");
-  
+//  win.loadURL(`file://${__dirname}/dist/index.html`);
+  win.webContents.frameRate = 60;
   }
   function abrirnavegador () {
     // Create the browser window.

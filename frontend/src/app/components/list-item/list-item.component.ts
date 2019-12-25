@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input ,ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { VideoInfo, RelatedVideo } from 'src/app/interfaces/videoinfo';
 import { PlayListItem } from 'src/app/models/PlaylistItem';
 import { UrlHelper } from 'src/app/Utils/UrlHelper';
@@ -7,11 +7,14 @@ import { PlaybackserviceService } from 'src/app/services/playbackservice.service
 @Component({
   selector: 'app-list-item',
   templateUrl: './list-item.component.html',
-  styleUrls: ['./list-item.component.css']
+  styleUrls: ['./list-item.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ListItemComponent implements OnInit {
+  detectionid:any;
 @Input() relatedvideo:RelatedVideo = null;
 @Input() listItem: PlayListItem  = null;
+@Input() currentPlayingUrl = null;
 selectedItem:PlayListItem;
   constructor(public play:PlaybackserviceService) { }
 
@@ -26,16 +29,20 @@ selectedItem:PlayListItem;
 
       } as PlayListItem)
     }
+
+
   }
   getImage(url:string){
-    if(url == this.play.info.video_url){
+    if(url == this.currentPlayingUrl){
         return "assets/img/circula.png"
     }else{
       return new UrlHelper().getThumbnailFromUrl(url);
     }
 
   }
-
+ngOnDestroy(){
+  clearInterval(this.detectionid);
+}
 canDelete(){
  return this.play.quenue.find((ax)=>ax.url == this.selectedItem.url) != undefined
 }

@@ -43,6 +43,43 @@ h1 h2 h3 h4 h5 span strong img a i li p ul {
 
 }
 
+
+.plyr--full-ui input[type=range] {
+  color: "#f44336";
+
+}
+
+.plyr--full-ui input[type='range']::-webkit-slider-runnable-track {
+
+  color: "#f44336";
+}
+
+.plyr--full-ui input[type='range']::-webkit-slider-thumb {
+
+  cursor: ew-resize;
+  background: "#f44336";
+  box-shadow: -80px 0 0 80px "#f44336";
+}
+
+
+.plyr__control--overlaid {
+  background: rgba(244, 67, 54, .8);
+}
+
+.plyr--video .plyr__control.plyr__tab-focus,
+.plyr--video .plyr__control:hover,
+.plyr--video .plyr__control[aria-expanded=true] {
+  background:  rgba(244, 67, 54, .8);
+}
+
+.plyr__control.plyr__tab-focus {
+  box-shadow: 0 0 0 5px rgba(244, 67, 54, .5);
+}
+
+.plyr__menu__container .plyr__control[role=menuitemradio][aria-checked=true]::before {
+  background:  rgba(244, 67, 54, .8);
+}
+
 @media only screen and (max-width: 990px) {
   #submundo {
     position: relative;

@@ -1,16 +1,17 @@
-import { Injectable, ChangeDetectorRef, NgZone } from '@angular/core';
+import { Injectable, ChangeDetectorRef, NgZone, ApplicationRef } from '@angular/core';
 import { ElectronService } from 'ngx-electron';
 import { from } from 'rxjs';
 import { VideoInfo } from '../interfaces/videoinfo';
 import { PlayListItem } from '../models/PlaylistItem';
 import { toast } from 'angular2-materialize';
+import { VideoQuality } from '../models/VideoQuality';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PlaybackserviceService {
 
-
+  public videoSources:Array<VideoQuality> = []
   public currentElementUrl: string;
   public info: VideoInfo;
   public quenue: Array<PlayListItem> = [];
@@ -20,7 +21,7 @@ export class PlaybackserviceService {
   fs: any;
   ytdl: any;
 
-  constructor(public electron: ElectronService, public zone: NgZone) {
+  constructor(public electron: ElectronService, public zone: NgZone,public apprf:ApplicationRef) {
 
     this.perro = electron.remote;
     this.fs = this.perro.require('fs');
@@ -32,6 +33,8 @@ export class PlaybackserviceService {
 
 
   loadVideo(url: string) {
+    let id = url.split("=")[1];
+    url = "http://www.youtube.com/watch\?v\="+id;
     this.isLoading = true;
     this.ytdl.getInfo(url, (err, info: VideoInfo) => {
 
@@ -42,19 +45,28 @@ export class PlaybackserviceService {
           url: info.video_url
 
         } as PlayListItem)
-      })
+
       if (err) throw err;
       this.info = info;
+    })
+    this.videoSources = [];
+    var availableQualities = ["144p","240p","360p","480p","720p","1080p"]
       for (var i = 0; i < info.formats.length; i++) {
-        if (info.formats[i].qualityLabel == "360p") {
+        var format = info.formats[i];
+        if (availableQualities.indexOf(format.qualityLabel) != -1) {
           this.zone.run(() => {
 
-            this.currentElementUrl = info.formats[i].url;
+            this.currentElementUrl = format.url;
+            this.videoSources.push({
+                src : format.url,
+                qualityLabel : format.qualityLabel
+
+            } as VideoQuality)
           });
-          break;
+
         }
       }
-
+       this.apprf.tick();
 
     });
   }

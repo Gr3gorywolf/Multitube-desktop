@@ -1,51 +1,87 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterContentInit, AfterViewInit, ChangeDetectorRef, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { PlaybackserviceService } from 'src/app/services/playbackservice.service';
 import { ElectronService } from 'ngx-electron';
 import { ModalsService } from 'src/app/services/modals.service';
 import { VideoInfo, RelatedVideo } from 'src/app/interfaces/videoinfo';
 import { PlayListItem } from 'src/app/models/PlaylistItem';
 import { UrlHelper } from 'src/app/Utils/UrlHelper';
-
 @Component({
   selector: 'app-player',
   templateUrl: './player.component.html',
-  styleUrls: ['./player.component.css']
+  styleUrls: ['./player.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PlayerComponent implements OnInit {
+export class PlayerComponent implements OnInit, AfterViewInit,OnDestroy {
 
 
-  currentTab:number = 0;
-  constructor(public play:PlaybackserviceService,public modal:ModalsService) { }
+  currentTab: number = 0;
+  detectionid: any = 0;
+  constructor(public play: PlaybackserviceService, public modal: ModalsService, public change: ChangeDetectorRef) { }
 
   ngOnInit() {
-   this.play.loadVideo("https://www.youtube.com/watch?v=-kQVnqVwz_A");
+    this.play.loadVideo("https://www.youtube.com/watch?v=-kQVnqVwz_A");
   }
-  selectTab(tab:number){
-      this.currentTab = tab;
+
+  ngOnDestroy(){
+    clearImmediate(this.detectionid);
+  }
+
+  ngAfterViewInit() {
+
+    window.addEventListener('resize', function (event) {
+      // do stuff here
+      if (window.outerWidth >= 995) {
+        window.scrollTo(0, 0);
+        if (document.body.style.overflowY != 'hidden') {
+
+          document.body.style.overflowY = 'hidden';
+        }
+
+
+      } else {
+
+        if (document.body.style.overflowY != 'auto') {
+
+          document.body.style.overflowY = 'auto';
+        }
+      }
+
+
+
+    });
+   this.detectionid =  setInterval(() => {
+      this.change.detectChanges();
+    }, 2000)
+  }
+  trackByFn(index, item) {
+    return item.id; // or item.id
+  }
+  selectTab(tab: number) {
+    this.currentTab = tab;
 
   }
-  getImage(url:string){
-    if(url == this.play.info.video_url){
-        return "assets/img/circula.png"
-    }else{
+  getImage(url: string) {
+    if (url == this.play.info.video_url) {
+      return "assets/img/circula.png"
+    } else {
       return new UrlHelper().getThumbnailFromUrl(url);
     }
 
   }
-  openAboutModal(){
+  openAboutModal() {
     this.modal.OpenAboutModal();
   }
-  openAddModal(suggestion:RelatedVideo){
-    var videoUrl = "https://www.youtube.com/watch?v="+suggestion.id;
-        this.modal.selectedItem = ({
-        title:suggestion.title,
-        url:videoUrl
-        } as PlayListItem);
-        this.modal.OpenActionsModal();
+  openAddModal(suggestion: RelatedVideo) {
+    var videoUrl = "https://www.youtube.com/watch?v=" + suggestion.id;
+    this.modal.selectedItem = ({
+      title: suggestion.title,
+      url: videoUrl
+    } as PlayListItem);
+    this.modal.OpenActionsModal();
   }
-  openAddModalAsQuenue(item:PlayListItem){
+  openAddModalAsQuenue(item: PlayListItem) {
     var videoUrl = item.url;
-        this.modal.selectedItem = item
-        this.modal.OpenActionsModal();
+    this.modal.selectedItem = item
+    this.modal.OpenActionsModal();
   }
 }
