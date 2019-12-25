@@ -4,11 +4,11 @@
   <div class='col s12 m12 l7'>
     <div class="row" id='rowsubvideo'>
 
-         <app-video-player></app-video-player>
+      <app-video-player></app-video-player>
     </div>
 
 
-    <h5 id='tumamaa'>{{ play.info.title }}</h5>
+    <h5 id='title'>{{ play.info.title }}</h5>
 
 
     <h5 id='views'>{{ play.info.player_response.videoDetails.viewCount |number}} Visualizaciones</h5>
@@ -40,86 +40,44 @@
   <div class='col s12 m12 l5' id='listaa' style="margin-top:10px">
 
     <div id='klowa' class='row'>
-      <ul class="tabs tabs-red" materialize="tabs">
+      <ul class="tabs" materialize="tabs">
 
-        <li class="tab waves-effect waves-red">
-          <a id='colaa' (click)="selectTab(0)">Cola</a>
+        <li class="tab col s6">
+          <a  href="#tab1" class="active" (click)="selectTab(0)">Cola</a>
         </li>
-        <li class="tab waves-effect waves-red">
-          <a id='sugg' (click)="selectTab(1)">Sugerencias</a>
+        <li class="tab col s6">
+          <a  href="#tab2" (click)="selectTab(1)">Sugerencias</a>
         </li>
       </ul>
     </div>
 
+    <div class='col s12' style='margin-left:2%;margin-right:2%;'>
+      <h3 style='font-size:16px;margin-botton:20px; display:inline-block;'>Siguiente</h3>
+      <h3
+        style='font-size:14px;color:gray;left:calc(100% - 350px);margin-botton:20px;position:relative;display:inline-block;'>
+        REPRODUCCIÓN AUTOMÁTICA</h3>
+      <div class='switch '
+        style='font-size:14px;margin-botton:20px; position:relative;display:inline-block;left:calc(100% - 338px);'>
+        <label><input type='checkbox' [(ngModel)]="play.isAutoplayEnabled"><span class='lever'></span></label>
+      </div>
+    </div>
 
     <div id='backoo' class='row'>
 
 
-      <div *ngIf="this.currentTab == 0">
+      <div id="tab1">
         <div *ngFor="let playItem of this.play.quenue">
-
-
-          <div class='col s12 animated slideInRight' (click)="openAddModalAsQuenue(playItem)">
-            <ul class='collection'>
-              <li class='collection-item avatar'><img style=' user-select: none;margin-top:12px;'
-                  src='{{  getImage(playItem.url) }}' alt='' class='circle'>
-                <div class='title truncate'
-                  style=' user-select: none; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;margin-top:20px;'>
-                  {{ playItem.title }}
-                </div> <a style=' user-select: none;' href='#!' class='secondary-content'>
-                  <i style=' user-select: none;' class='material-icons'>play</i></a>
-              <li>
-            </ul>
-          </div>
-
+          <app-list-item [listItem]="playItem"></app-list-item>
         </div>
-
       </div>
 
 
-
-
-
-
-
-
-      <div *ngIf="this.currentTab == 1">
-
-        <div class='col s12' style='margin-left:2%;margin-right:2%;'>
-          <h3 style='font-size:16px;margin-botton:20px; display:inline-block;'>Siguiente</h3>
-          <h3
-            style='font-size:14px;color:gray;left:calc(100% - 350px);margin-botton:20px;position:relative;display:inline-block;'>
-            REPRODUCCIÓN AUTOMÁTICA</h3>
-          <div class='switch '
-            style='font-size:14px;margin-botton:20px; position:relative;display:inline-block;left:calc(100% - 338px);'>
-            <label><input type='checkbox' [(ngModel)]="play.isAutoplayEnabled"  ><span class='lever'></span></label>
-          </div>
+      <div id="tab2">
+        <div *ngFor="let sugg of this.play.info.related_videos.slice(0, 10)">
+          <app-list-item [relatedvideo]="sugg"></app-list-item>
         </div>
-
-        <div *ngFor="let sugg of this.play.info.related_videos">
-
-
-          <div class='col s12 animated slideInRight' (click)="openAddModal(sugg)">
-            <ul class='collection'>
-              <li class='collection-item avatar'><img style=' user-select: none;margin-top:12px;'
-                  src='{{ sugg.video_thumbnail }}' alt='' class='circle'>
-                <div class='title'
-                  style=' user-select: none; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;'>
-                  {{ sugg.title }}
-                </div>
-                <p style=' user-select: none;'>
-                  {{ sugg.author }}
-                  <br>
-                  {{ sugg.short_view_count_text }}
-                </p> <a style=' user-select: none;' href='#!' class='secondary-content'>
-                  <i style=' user-select: none;' class='material-icons'>play</i></a>
-              <li>
-            </ul>
-          </div>
-
-        </div>
-
       </div>
+
     </div>
   </div>
 

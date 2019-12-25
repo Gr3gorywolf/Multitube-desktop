@@ -18,7 +18,7 @@ export class PlayerComponent implements OnInit {
   constructor(public play:PlaybackserviceService,public modal:ModalsService) { }
 
   ngOnInit() {
-    this.play.loadVideo("https://www.youtube.com/watch?v=-kQVnqVwz_A");
+   this.play.loadVideo("https://www.youtube.com/watch?v=-kQVnqVwz_A");
   }
   selectTab(tab:number){
       this.currentTab = tab;

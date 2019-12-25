@@ -13,6 +13,7 @@ import { SidesearcherComponent } from './components/sidesearcher/sidesearcher.co
 import { ActionsmodalComponent } from './components/actionsmodal/actionsmodal.component';
 import { AboutModalComponent } from './components/about-modal/about-modal.component';
 import { VideoPlayerComponent } from './components/video-player/video-player.component';
+import { ListItemComponent } from './components/list-item/list-item.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { VideoPlayerComponent } from './components/video-player/video-player.com
     SidesearcherComponent,
     ActionsmodalComponent,
     AboutModalComponent,
-    VideoPlayerComponent
+    VideoPlayerComponent,
+    ListItemComponent
   ],
   imports: [
     BrowserModule,

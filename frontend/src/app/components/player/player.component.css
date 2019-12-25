@@ -7,6 +7,9 @@
   margin-right: 1%;
  margin-top: 95px;
 }
+#title{
+  font-size: 18px;
+}
 
 #minidescripcion {
   height: 60px;
@@ -51,7 +54,7 @@
 
 #views {
   color: gray;
-  font-size: 19px;
+  font-size: 12px;
 }
 #liniita {
 

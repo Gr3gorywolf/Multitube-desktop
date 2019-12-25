@@ -15,7 +15,7 @@ export class PlaybackserviceService {
   public info: VideoInfo;
   public quenue: Array<PlayListItem> = [];
   public isLoading: boolean = false;
-  public isAutoplayEnabled = false;
+  public isAutoplayEnabled = true;
   perro: any;
   fs: any;
   ytdl: any;
