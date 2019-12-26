@@ -1,6 +1,8 @@
 import { Component, OnInit,ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { PlaybackserviceService } from 'src/app/services/playbackservice.service';
+import { OverflowHelper } from 'src/app/Utils/OverflowHelper';
  declare var Plyr:any;
+ declare var $:any;
 @Component({
   selector: 'app-video-player',
   templateUrl: './video-player.component.html',
@@ -28,6 +30,8 @@ export class VideoPlayerComponent implements OnInit,AfterViewInit {
       console.log("paseee");
       this.play.playNext();
   });
+  $(".plyr").css("max-height","420px");
+
 
     setInterval(()=>{
       if(this.play.currentElementUrl != this.currentElement){

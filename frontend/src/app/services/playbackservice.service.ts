@@ -34,7 +34,7 @@ export class PlaybackserviceService {
 
   loadVideo(url: string) {
     let id = url.split("=")[1];
-    url = "http://www.youtube.com/watch\?v\="+id;
+
     this.isLoading = true;
     this.ytdl.getInfo(url, (err, info: VideoInfo) => {
 
@@ -51,9 +51,10 @@ export class PlaybackserviceService {
     })
     this.videoSources = [];
     var availableQualities = ["144p","240p","360p","480p","720p","1080p"]
-      for (var i = 0; i < info.formats.length; i++) {
-        var format = info.formats[i];
-        if (availableQualities.indexOf(format.qualityLabel) != -1) {
+    console.log(info.player_response.streamingData.formats);
+      for (var i = 0; i < info.player_response.streamingData.formats.length; i++) {
+        var format = info.player_response.streamingData.formats[i];
+        if (availableQualities.indexOf(format.qualityLabel) != -1 ) {
           this.zone.run(() => {
 
             this.currentElementUrl = format.url;
@@ -74,9 +75,9 @@ export class PlaybackserviceService {
   addToQueue(item: PlayListItem) {
     if (this.quenue.find((ax) => ax.url == item.url) == undefined) {
       this.quenue.push(item);
-      toast('El elemento agregado a la cola exitosamente');
+      toast('El elemento agregado a la cola exitosamente',1000);
     } else {
-      toast('El elemento ya existe en la cola');
+      toast('El elemento ya existe en la cola',1000);
     }
   }
 
@@ -88,11 +89,11 @@ export class PlaybackserviceService {
       if (searchedElement.url != this.info.video_url) {
         this.quenue.splice(idx, 1);
       } else {
-        toast('No se puede eliminar un elemento en reproduccion');
+        toast('No se puede eliminar un elemento en reproduccion',1000);
       }
     }
     else {
-      toast('El elemento no existe en la cola')
+      toast('El elemento no existe en la cola',1000)
     }
   }
   playNext() {

@@ -5,6 +5,7 @@ import { ModalsService } from 'src/app/services/modals.service';
 import { VideoInfo, RelatedVideo } from 'src/app/interfaces/videoinfo';
 import { PlayListItem } from 'src/app/models/PlaylistItem';
 import { UrlHelper } from 'src/app/Utils/UrlHelper';
+import { OverflowHelper } from 'src/app/Utils/OverflowHelper';
 @Component({
   selector: 'app-player',
   templateUrl: './player.component.html',
@@ -19,33 +20,23 @@ export class PlayerComponent implements OnInit, AfterViewInit,OnDestroy {
   constructor(public play: PlaybackserviceService, public modal: ModalsService, public change: ChangeDetectorRef) { }
 
   ngOnInit() {
-    this.play.loadVideo("https://www.youtube.com/watch?v=-kQVnqVwz_A");
+    this.play.loadVideo("https://www.youtube.com/watch?v=7bm1_PciQxw");
   }
 
   ngOnDestroy(){
     clearImmediate(this.detectionid);
   }
 
-  ngAfterViewInit() {
 
+
+
+
+
+  ngAfterViewInit() {
+    new OverflowHelper().toggleOverflow();
     window.addEventListener('resize', function (event) {
       // do stuff here
-      if (window.outerWidth >= 995) {
-        window.scrollTo(0, 0);
-        if (document.body.style.overflowY != 'hidden') {
-
-          document.body.style.overflowY = 'hidden';
-        }
-
-
-      } else {
-
-        if (document.body.style.overflowY != 'auto') {
-
-          document.body.style.overflowY = 'auto';
-        }
-      }
-
+      new OverflowHelper().toggleOverflow();
 
 
     });
@@ -53,6 +44,11 @@ export class PlayerComponent implements OnInit, AfterViewInit,OnDestroy {
       this.change.detectChanges();
     }, 2000)
   }
+
+
+
+
+
   trackByFn(index, item) {
     return item.id; // or item.id
   }
@@ -84,4 +80,9 @@ export class PlayerComponent implements OnInit, AfterViewInit,OnDestroy {
     this.modal.selectedItem = item
     this.modal.OpenActionsModal();
   }
-}
+
+
+
+
+  }
+
