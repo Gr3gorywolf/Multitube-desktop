@@ -19,6 +19,7 @@
     "electron-download-manager": "^2.2.0",
     "electron-media-service": "^0.2.2",
     "electron-settings": "^3.2.0",
+    "g": "^2.0.1",
     "ip": "^1.1.5",
     "is-reachable": "^2.4.0",
     "node-notifier": "^5.2.1",
