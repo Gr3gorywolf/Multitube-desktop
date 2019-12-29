@@ -20,7 +20,6 @@ export class PlayerComponent implements OnInit, AfterViewInit,OnDestroy {
   constructor(public play: PlaybackserviceService, public modal: ModalsService, public change: ChangeDetectorRef) { }
 
   ngOnInit() {
-    this.play.loadVideo("https://www.youtube.com/watch?v=7bm1_PciQxw");
   }
 
   ngOnDestroy(){
