@@ -1,0 +1,19 @@
+.searchbar{
+  background-color: white;
+  color: black;
+  border-radius:15px;
+  height:30px;
+}
+.nav-wrapper form{
+  margin: auto;
+  width: 50%;
+}
+
+.nav-wrapper .input-field{
+  padding-top: 13px;
+}
+
+.nav-wrapper form #search{
+  height: 35px;
+}
+

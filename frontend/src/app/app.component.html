@@ -1,9 +1,18 @@
 <header>
 
 
-<app-navbar></app-navbar>
+  <app-navbar></app-navbar>
 
 </header>
+<div style="position: fixed;top:65px;left:0;background-color: white;z-index: 450;" *ngIf="!isOnIndex()">
+  <div style="height:calc(100vh - 65px);width:100vw;position: relative;overflow-y: auto;">
+    <router-outlet>
+
+    </router-outlet>
+  </div>
+</div>
+<div [ngStyle]="{'display':isOnIndex()?'initial':'none' }">
 <app-player></app-player>
+</div>
 <app-about-modal></app-about-modal>
 <app-actionsmodal></app-actionsmodal>

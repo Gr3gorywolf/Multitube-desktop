@@ -5,7 +5,7 @@ import { MaterializeModule } from "angular2-materialize";
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
-import { PlayerComponent } from './components/player/player.component';
+import { PlayerComponent } from './pages/player/player.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { DownloadmodalComponent } from './components/downloadmodal/downloadmodal.component';
 import { SidedownloadComponent } from './components/sidedownload/sidedownload.component';
@@ -14,6 +14,8 @@ import { ActionsmodalComponent } from './components/actionsmodal/actionsmodal.co
 import { AboutModalComponent } from './components/about-modal/about-modal.component';
 import { VideoPlayerComponent } from './components/video-player/video-player.component';
 import { ListItemComponent } from './components/list-item/list-item.component';
+import { SearcherComponent } from './pages/searcher/searcher.component';
+import { PreloaderComponent } from './components/preloader/preloader.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { ListItemComponent } from './components/list-item/list-item.component';
     ActionsmodalComponent,
     AboutModalComponent,
     VideoPlayerComponent,
-    ListItemComponent
+    ListItemComponent,
+    SearcherComponent,
+    PreloaderComponent
   ],
   imports: [
     BrowserModule,

@@ -17,15 +17,14 @@ export class PlaybackserviceService {
   public quenue: Array<PlayListItem> = [];
   public isLoading: boolean = false;
   public isAutoplayEnabled = true;
-  perro: any;
+  electronInstance: any;
   fs: any;
   ytdl: any;
 
   constructor(public electron: ElectronService, public zone: NgZone,public apprf:ApplicationRef) {
-
-    this.perro = electron.remote;
-    this.fs = this.perro.require('fs');
-    this.ytdl = this.perro.require('ytdl-core');
+    this.electronInstance = electron.remote;
+    this.fs = this.electronInstance.require('fs');
+    this.ytdl = this.electronInstance.require('ytdl-core');
   }
 
 
