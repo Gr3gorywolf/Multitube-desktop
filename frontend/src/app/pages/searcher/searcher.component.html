@@ -1,26 +1,38 @@
-<div class="row" style="overflow-y:auto" *ngIf="!searchSv.isLoading">
+<div  class="row container"  style="overflow-y:auto" *ngIf="!searchSv.isLoading" >
   <div *ngIf="searchSv.searchResults.length>0">
-    <div *ngFor="let res of  searchSv.searchResults " class='col s6  l4 xl3 animated zoomIn'
-      onclick='abrirmodalagregar(this)'>
-      <div class='card'>
-        <div class='card-image'><img src="{{  getImage(res) }}" style='height:230px ;width:100%;'> <span
-            class='card-title' style='background-color: rgba(0, 0, 0, 0.295);font-size:16px;'>{{ res.title }}</span>
-        </div>
-        <div class='card-content'>
-          <p style='text-overflow: ellipsis; overflow: hidden; white-space: nowrap;'>
-            {{ res.channelTitle }}
-          </p>
-        </div>
-        <h6 class="card-action center">
-          <i class='material-icons red-text' style="margin-right:20px;" (click)="playVideo(res)" materialize="tooltip"
-          data-position="top" [materializeParams]="[{tooltip:'Reproducir elemento'}]">play_arrow</i>
-          <i class='material-icons red-text' style="margin-right:20px;" (click)="addVideo(res)" materialize="tooltip"
-          data-position="top" [materializeParams]="[{tooltip:'Descargar elemento'}]">file_download</i>
 
-        <i class='material-icons red-text'(click)="addVideo(res)" materialize="tooltip"
-          data-position="top" [materializeParams]="[{tooltip:'Agregar a la lista'}]">library_add</i>
-        </h6>
+    <div *ngFor="let res of  searchSv.searchResults "
+      onclick='abrirmodalagregar(this)'>
+
+
+      <div class="col s12">
+        <div class="card horizontal" >
+          <div class="card-image" style="width:40%;">
+            <img src="{{  getImage(res) }}">
+          </div>
+          <div class="card-stacked" style="width:60%;">
+            <div class="card-content">
+              <p class="text-medium">
+                {{ res.title }}
+              </p>
+              <p  class="text-small-truncated grey-text">
+                {{ res.channelTitle }}
+              </p>
+              <p class="grey-text">{{ res.description }}.</p>
+            </div>
+            <h6 class="card-action center">
+              <i class='material-icons red-text' style="margin-right:20px;" (click)="playVideo(res)" materialize="tooltip"
+              data-position="top" [materializeParams]="[{tooltip:'Reproducir elemento'}]">play_arrow</i>
+              <i class='material-icons red-text' style="margin-right:20px;" (click)="addVideo(res)" materialize="tooltip"
+              data-position="top" [materializeParams]="[{tooltip:'Descargar elemento'}]">file_download</i>
+            <i class='material-icons red-text'(click)="addVideo(res)" materialize="tooltip"
+              data-position="top" [materializeParams]="[{tooltip:'Agregar a la lista'}]">library_add</i>
+            </h6>
+          </div>
+        </div>
       </div>
+
+
     </div>
   </div>
 </div>

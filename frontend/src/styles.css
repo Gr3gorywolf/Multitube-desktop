@@ -80,6 +80,21 @@ h1 h2 h3 h4 h5 span strong img a i li p ul {
   background:  rgba(244, 67, 54, .8);
 }
 
+
+
+
+
+.floating-video{
+  z-index:650;
+  position: fixed;
+  right:23px;
+  bottom:30px;
+  height:150px;
+  width:270px;
+}
+
+
+
 @media only screen and (max-width: 990px) {
   #submundo {
     position: relative;

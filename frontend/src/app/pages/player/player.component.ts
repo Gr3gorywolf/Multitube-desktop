@@ -6,23 +6,27 @@ import { VideoInfo, RelatedVideo } from 'src/app/interfaces/videoinfo';
 import { PlayListItem } from 'src/app/models/PlaylistItem';
 import { UrlHelper } from 'src/app/Utils/UrlHelper';
 import { OverflowHelper } from 'src/app/Utils/OverflowHelper';
+import { RouterModule, Router } from '@angular/router';
 @Component({
   selector: 'app-player',
   templateUrl: './player.component.html',
   styleUrls: ['./player.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PlayerComponent implements OnInit, AfterViewInit,OnDestroy {
+export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   currentTab: number = 0;
   detectionid: any = 0;
-  constructor(public play: PlaybackserviceService, public modal: ModalsService, public change: ChangeDetectorRef) { }
+  constructor(public play: PlaybackserviceService,
+    public modal: ModalsService,
+     public change: ChangeDetectorRef,
+     public Route:Router) { }
 
   ngOnInit() {
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     clearImmediate(this.detectionid);
   }
 
@@ -39,14 +43,10 @@ export class PlayerComponent implements OnInit, AfterViewInit,OnDestroy {
 
 
     });
-   this.detectionid =  setInterval(() => {
+    this.detectionid = setInterval(() => {
       this.change.detectChanges();
     }, 2000)
   }
-
-
-
-
 
   trackByFn(index, item) {
     return item.id; // or item.id
@@ -83,5 +83,5 @@ export class PlayerComponent implements OnInit, AfterViewInit,OnDestroy {
 
 
 
-  }
+}
 

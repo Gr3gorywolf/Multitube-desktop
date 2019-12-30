@@ -1,6 +1,5 @@
+<!--Related list view-->
 <div *ngIf="relatedvideo != null">
-
-
   <div class='col s12 ' (click)="playVideo()" *ngIf="!canDelete()">
     <ul class='collection'>
       <li class='collection-item avatar'><img style=' user-select: none;margin-top:12px;'
@@ -14,7 +13,7 @@
           {{ relatedvideo.short_view_count_text }}
 
 
-          <a href='#!' style="display: flex;margin-top:15px;" class='secondary-content'>
+          <a  style="display: flex;margin-top:15px;" class='secondary-content'>
             <i class='material-icons red-text' style="margin-right:10px;" materialize="tooltip" data-position="top"
               [materializeParams]="[{tooltip:'Descargar elemento'}]">file_download</i>
 
@@ -29,9 +28,8 @@
 
 </div>
 
+<!--Generic list view-->
 <div *ngIf="listItem != null">
-
-
   <div class='col s12' (click)="playVideo()">
     <ul class='collection'>
       <li class='collection-item avatar'>

@@ -1,0 +1,19 @@
+.card-image img{
+  height: 80%;
+  width:100%;
+  padding-left:5%;
+  padding-top:5%;
+  padding-bottom:5%;
+}
+.text-medium{
+  font-size:18px;
+}
+.text-small-truncated{
+  text-overflow: ellipsis;
+  overflow: hidden;
+   white-space: nowrap;
+   font-size:15px;
+}
+.card{
+  cursor: pointer;
+}

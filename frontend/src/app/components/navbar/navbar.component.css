@@ -15,5 +15,6 @@
 
 .nav-wrapper form #search{
   height: 35px;
+  border-radius:15px;
 }
 

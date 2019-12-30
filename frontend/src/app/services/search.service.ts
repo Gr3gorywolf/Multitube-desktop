@@ -1,7 +1,7 @@
 import { Injectable, NgZone } from '@angular/core';
 import { ElectronService } from 'ngx-electron';
 import { async } from '@angular/core/testing';
-import { SearchResult } from '../interfaces/SearchResult';
+import { SearchResult, Kind } from '../interfaces/SearchResult';
 @Injectable({
   providedIn: 'root'
 })
@@ -37,7 +37,7 @@ export class SearchService {
           return null
 
       } else {
-          this.searchResults = results
+          this.searchResults = results.filter(ax=>ax.kind == Kind.YoutubeVideo);
       }
       })
     });
