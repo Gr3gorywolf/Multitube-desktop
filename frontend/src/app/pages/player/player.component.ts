@@ -79,7 +79,9 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
     this.modal.selectedItem = item
     this.modal.OpenActionsModal();
   }
-
+ isPlayerVisible(){
+   return this.Route.url == "/"
+ }
 
 
 

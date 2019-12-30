@@ -54,11 +54,8 @@ export class SearcherComponent implements OnInit,OnDestroy {
     this.router.navigateByUrl("/");
 }
   getImage(res:SearchResult){
-    if(res.thumbnails != undefined){
-    return res.thumbnails.default.url;
-  }else{
+
     return new UrlHelper().getThumbnailFromUrl(res.link);
-  }
   }
 
 

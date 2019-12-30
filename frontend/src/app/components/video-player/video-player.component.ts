@@ -23,14 +23,16 @@ export class VideoPlayerComponent implements OnInit, AfterViewInit {
 
     this.player = new Plyr('#videotag', {
       hideControls: true,
-      retio: '16:9'
+      ratio: '16:9'
+
 
     });
     this.player.on('ended', event => {
       console.log("paseee");
       this.play.playNext();
     });
-    $(".plyr").css("max-height", "420px");
+    $(".plyr").css("max-height", "430px");
+    $("#videotag").css("max-height", "430px");
     $(".plyr").click(() => {
       this.zone.run(() => {
         if (!this.isOnPlayer()) {
@@ -64,11 +66,10 @@ export class VideoPlayerComponent implements OnInit, AfterViewInit {
         };
         this.play.currentElementUrl = this.currentElement;
       }
+
       $(".plyr").removeClass("floating-video");
       if (!this.isOnPlayer()) {
-
         $(".plyr").addClass("floating-video");
-
       }
 
 
