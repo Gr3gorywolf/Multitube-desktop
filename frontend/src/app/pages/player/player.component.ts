@@ -7,6 +7,7 @@ import { PlayListItem } from 'src/app/models/PlaylistItem';
 import { UrlHelper } from 'src/app/Utils/UrlHelper';
 import { OverflowHelper } from 'src/app/Utils/OverflowHelper';
 import { RouterModule, Router } from '@angular/router';
+import { TcpService } from 'src/app/services/tcp.service';
 @Component({
   selector: 'app-player',
   templateUrl: './player.component.html',
@@ -21,9 +22,11 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(public play: PlaybackserviceService,
     public modal: ModalsService,
      public change: ChangeDetectorRef,
-     public Route:Router) { }
+     public Route:Router,
+     private tcp: TcpService) { }
 
   ngOnInit() {
+    //this.tcp.initServer();
   }
 
   ngOnDestroy() {

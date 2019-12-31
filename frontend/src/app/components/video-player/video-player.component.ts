@@ -72,14 +72,10 @@ export class VideoPlayerComponent implements OnInit, AfterViewInit {
         $(".plyr").addClass("floating-video");
       }
 
-
-
-
     }, 1000)
-
-
-
+    this.play.playerInstance = this.player;
   }
+
   isOnPlayer() {
     return this.route.url == "/";
   }

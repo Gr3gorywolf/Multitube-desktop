@@ -21,6 +21,7 @@
     "@angular/router": "~8.2.7",
     "@types/fs-extra": "^8.0.1",
     "angular2-materialize": "^15.1.10",
+    "angularx-qrcode": "^2.0.2",
     "electron": "^7.1.7",
     "ngx-electron": "^2.2.0",
     "rxjs": "~6.4.0",

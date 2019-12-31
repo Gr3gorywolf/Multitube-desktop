@@ -5,13 +5,34 @@
   data-activates="mobile-demo">
     <i class="material-icons">menu</i>
   </a>
-  <form >
+  <a class="brand-logo center">
+  <form  class="center">
     <div class="input-field"  >
         <input id="search" (keyup)="search($event)" [(ngModel)]="searchQuery" type="search" name="search" placeholder="Buscar" style="background-color: white;color: black;">
         <label class="label-icon" for="search"><i class="material-icons black-text" style="margin-top: -12px;">search</i></label>
 
     </div>
 </form>
+</a>
+<ul id="nav-mobile" class="right">
+
+  <li><a >
+
+    <i class="material-icons">settings_remote</i>
+    <span class="custom-badge-first" *ngIf="tcp.connectedClients.length >0">{{ tcp.connectedClients.length }}</span>
+  </a></li>
+
+
+
+  <li><a >
+
+    <i class="material-icons">file_download</i>
+    <span class="custom-badge" *ngIf="tcp.connectedClients.length >0">0</span>
+  </a></li>
+</ul>
+
+
+
 </div>
 </nav>
 
@@ -25,7 +46,7 @@
     <a class="waves-effect" onclick="abrirbuscardorrapido()">Busqueda rápida</a>
   </li>
   <li>
-    <a class="waves-effect" onclick="abrirclientes()">Abrir gestor de clientes</a>
+    <a class="waves-effect"  [routerLink]="['/clients']" >Abrir gestor de clientes</a>
   </li>
   <li>
     <a class="waves-effect" id='downloadbutton' onclick="abrirdescargas()">Descargas</a>

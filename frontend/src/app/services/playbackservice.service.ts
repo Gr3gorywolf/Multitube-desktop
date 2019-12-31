@@ -1,38 +1,36 @@
-import { Injectable, ChangeDetectorRef, NgZone, ApplicationRef } from '@angular/core';
+import { Injectable, ChangeDetectorRef, NgZone, ApplicationRef, Injector } from '@angular/core';
 import { ElectronService } from 'ngx-electron';
 import { from } from 'rxjs';
 import { VideoInfo } from '../interfaces/videoinfo';
 import { PlayListItem } from '../models/PlaylistItem';
 import { toast } from 'angular2-materialize';
 import { VideoQuality } from '../models/VideoQuality';
-
+import { TcpService } from './tcp.service';
 @Injectable({
   providedIn: 'root'
 })
 export class PlaybackserviceService {
 
-  public videoSources:Array<VideoQuality> = []
+  public videoSources: Array<VideoQuality> = [];
   public currentElementUrl: string;
-  public info: VideoInfo;
+  public info: VideoInfo = null;
   public quenue: Array<PlayListItem> = [];
-  public isLoading: boolean = false;
+  public isLoading = false;
   public isAutoplayEnabled = true;
+  public playerInstance: any = null;
   electronInstance: any;
   fs: any;
   ytdl: any;
 
-  constructor(public electron: ElectronService, public zone: NgZone,public apprf:ApplicationRef) {
+  constructor(private electron: ElectronService, private zone: NgZone, private apprf: ApplicationRef) {
     this.electronInstance = electron.remote;
     this.fs = this.electronInstance.require('fs');
     this.ytdl = this.electronInstance.require('ytdl-core');
   }
 
 
-
-
-
   loadVideo(url: string) {
-    let id = url.split("=")[1];
+    const id = url.split('=')[1];
 
     this.isLoading = true;
     this.ytdl.getInfo(url, (err, info: VideoInfo) => {
@@ -43,75 +41,110 @@ export class PlaybackserviceService {
           title: info.title,
           url: info.video_url
 
-        } as PlayListItem)
+        } as PlayListItem);
 
-      if (err) throw err;
-      this.info = info;
-    })
-    this.videoSources = [];
-    var availableQualities = ["144p","240p","360p","480p","720p","1080p"]
-    console.log(info.player_response.streamingData.formats);
-      for (var i = 0; i < info.player_response.streamingData.formats.length; i++) {
-        var format = info.player_response.streamingData.formats[i];
-        if (availableQualities.indexOf(format.qualityLabel) != -1 ) {
+        if (err) { throw err; }
+        this.info = info;
+      });
+      this.videoSources = [];
+      const availableQualities = ['144p', '240p', '360p', '480p', '720p', '1080p'];
+     // console.log(info.player_response.streamingData.formats);
+      for (let i = 0; i < info.player_response.streamingData.formats.length; i++) {
+        const format = info.player_response.streamingData.formats[i];
+        if (availableQualities.indexOf(format.qualityLabel) !== -1) {
           this.zone.run(() => {
 
             this.currentElementUrl = format.url;
             this.videoSources.push({
-                src : format.url,
-                qualityLabel : format.qualityLabel
+              src: format.url,
+              qualityLabel: format.qualityLabel
 
-            } as VideoQuality)
+            } as VideoQuality);
           });
 
         }
       }
-       this.apprf.tick();
+      this.apprf.tick();
 
     });
+
   }
 
   addToQueue(item: PlayListItem) {
-    if (this.quenue.find((ax) => ax.url == item.url) == undefined) {
+
+    if (this.quenue.find((ax) => ax.url === item.url) === undefined) {
       this.quenue.push(item);
-      toast('El elemento agregado a la cola exitosamente',1000);
     } else {
-      toast('El elemento ya existe en la cola',1000);
+     // toast('El elemento ya existe en la cola', 1000);
     }
+
   }
+ addToQuenueByUrl(url:string){
+   toast("Agregando: "+ url,1000);
+  this.ytdl.getInfo(url, (err, info: VideoInfo) => {
+    toast(info.title+" Agregado a la cola exitosamente",1000);
+    this.zone.run(() => {
+      this.isLoading = false;
+      this.addToQueue({
+        title: info.title,
+        url: info.video_url
+
+      } as PlayListItem);
+
+      if (err) { throw err; }
+
+    });
+  });
+
+ }
+
 
   removeFromQueue(item: PlayListItem) {
-    var searchedElement = this.quenue.find((ax) => ax.url == item.url);
-    if (searchedElement != undefined) {
-      var idx = this.quenue.indexOf(searchedElement);
+    const searchedElement = this.quenue.find((ax) => ax.url === item.url);
+    if (searchedElement !== undefined) {
+      const idx = this.quenue.indexOf(searchedElement);
       console.log(idx);
-      if (searchedElement.url != this.info.video_url) {
+      if (searchedElement.url !== this.info.video_url) {
         this.quenue.splice(idx, 1);
+        toast(searchedElement.title + ' Eliminado de la cola exitosamente!', 1000);
       } else {
-        toast('No se puede eliminar un elemento en reproduccion',1000);
+      toast('No se puede eliminar un elemento en reproduccion', 1000);
       }
+    } else {
+      toast('El elemento no existe en la cola', 1000);
     }
-    else {
-      toast('El elemento no existe en la cola',1000)
+
+  }
+
+  playPrevious() {
+    const currentPlaying = this.quenue.find(ax => ax.url === this.info.video_url);
+    if (currentPlaying !== undefined) {
+      const previousIndex = this.quenue.indexOf(currentPlaying) - 1;
+      console.log(previousIndex);
+      console.log(this.quenue.length);
+
+      if (previousIndex > 0 && previousIndex <= this.quenue.length - 1) {
+        this.loadVideo(this.quenue[previousIndex].url);
+      }
     }
   }
   playNext() {
 
-    var currentPlaying = this.quenue.find(ax => ax.url == this.info.video_url);
-    if (currentPlaying != undefined) {
-      var nextIndex = this.quenue.indexOf(currentPlaying) +1;
+    const currentPlaying = this.quenue.find(ax => ax.url === this.info.video_url);
+    if (currentPlaying !== undefined) {
+      const nextIndex = this.quenue.indexOf(currentPlaying) + 1;
       console.log(nextIndex);
       console.log(this.quenue.length);
-      if (nextIndex > this.quenue.length-1 && this.isAutoplayEnabled) {
-        let relatedUrl = this.info.related_videos[0].id;
-        if (relatedUrl != undefined) {
-          this.loadVideo("https://www.youtube.com/watch?v=" + relatedUrl)
+      if (nextIndex > this.quenue.length - 1 && this.isAutoplayEnabled) {
+        const relatedUrl = this.info.related_videos[0].id;
+        if (relatedUrl !== undefined) {
+          this.loadVideo('https://www.youtube.com/watch?v=' + relatedUrl);
         }
 
-      }else
-      if(nextIndex <= this.quenue.length-1) {
-        this.loadVideo(this.quenue[nextIndex].url);
-      }
+      } else
+        if (nextIndex <= this.quenue.length - 1) {
+          this.loadVideo(this.quenue[nextIndex].url);
+        }
     }
   }
 

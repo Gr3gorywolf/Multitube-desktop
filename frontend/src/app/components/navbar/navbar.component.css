@@ -6,7 +6,7 @@
 }
 .nav-wrapper form{
   margin: auto;
-  width: 50%;
+  width: 60vw;
 }
 
 .nav-wrapper .input-field{
@@ -18,3 +18,65 @@
   border-radius:15px;
 }
 
+.counter-chip{
+  position: relative;
+  margin-bottom:-5px;
+  margin-left:-5px;
+  background-color: white;
+  border-radius:5px;
+}
+
+.custom-badge {
+  display: block;
+  position: absolute;
+  top: 40px;
+  right: 3px;
+  line-height: 16px;
+  height: 18px;
+  padding: 0 5px;
+  color: white;
+  text-shadow: 0 1px rgba(0, 0, 0, 0.25);
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 10px;
+  border-color: white;
+  font-size:10px;
+
+}
+.custom-badge-first {
+  display: block;
+  position: absolute;
+  top: 40px;
+  right: 58px;
+  line-height: 16px;
+  height: 18px;
+  padding: 0 5px;
+  color: white;
+  text-shadow: 0 1px rgba(0, 0, 0, 0.25);
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 10px;
+  border-color: white;
+  font-size:10px;
+
+}
+
+
+@media(max-width:720px){
+  .custom-badge {
+
+    top: 35px;
+    right: 3px;
+
+
+  }
+  .custom-badge-first {
+
+    top: 35px;
+    right: 58px;
+
+
+  }
+
+
+}

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PlaybackserviceService } from 'src/app/services/playbackservice.service';
 import { toast } from 'angular2-materialize';
 import { Router } from '@angular/router';
+import { TcpService } from 'src/app/services/tcp.service';
 
 @Component({
   selector: 'app-navbar',
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(public play:PlaybackserviceService,public router:Router) { }
+  constructor(public play:PlaybackserviceService,public router:Router,public tcp:TcpService) { }
   searchQuery:string="";
   ngOnInit() {
   }

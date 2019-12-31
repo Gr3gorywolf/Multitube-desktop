@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { NgxElectronModule } from 'ngx-electron';
 import { MaterializeModule } from "angular2-materialize";
 import { AppRoutingModule } from './app-routing.module';
+import { QRCodeModule } from 'angularx-qrcode';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { PlayerComponent } from './pages/player/player.component';
@@ -16,6 +17,7 @@ import { VideoPlayerComponent } from './components/video-player/video-player.com
 import { ListItemComponent } from './components/list-item/list-item.component';
 import { SearcherComponent } from './pages/searcher/searcher.component';
 import { PreloaderComponent } from './components/preloader/preloader.component';
+import { ConnectedClientsComponent } from './pages/connected-clients/connected-clients.component';
 
 @NgModule({
   declarations: [
@@ -30,15 +32,16 @@ import { PreloaderComponent } from './components/preloader/preloader.component';
     VideoPlayerComponent,
     ListItemComponent,
     SearcherComponent,
-    PreloaderComponent
+    PreloaderComponent,
+    ConnectedClientsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgxElectronModule,
     MaterializeModule,
-    FormsModule
-
+    FormsModule,
+    QRCodeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
