@@ -11,8 +11,9 @@
     </router-outlet>
   </div>
 </div>
-<div >
+<div *ngIf="play.quenue.length > 0" >
 <app-player></app-player>
-</div>
 <app-about-modal></app-about-modal>
 <app-actionsmodal></app-actionsmodal>
+</div>
+

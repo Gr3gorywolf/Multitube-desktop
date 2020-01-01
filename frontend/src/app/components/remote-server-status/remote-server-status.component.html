@@ -1,0 +1,16 @@
+
+<a (click) ="displayRemoteServer()" class='secondary-content' style="display: block;" materialize="tooltip"
+data-position="top" [materializeParams]="[{tooltip:'Abrir servidor remoto'}]">
+  <div >
+
+  <a *ngIf="isRemoteServerOpen" class="red-text">
+    <h6  class="status-img-active">
+      <img  src='assets/img/antenaencendida.png'   />
+
+    </h6>
+     Abrir
+
+  </a>
+  <img *ngIf="!isRemoteServerOpen" src='assets/img/antenaapagada.png' class="status-img"/>
+</div>
+</a>

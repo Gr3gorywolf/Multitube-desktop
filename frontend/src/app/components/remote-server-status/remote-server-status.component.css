@@ -1,0 +1,12 @@
+.status-img{
+  height:30px;
+  width:30px;
+  margin-top:10px;
+}
+.status-img-active{
+  margin-top:6px;
+}
+.status-img-active img{
+  height:25px;
+  width:25px;
+}

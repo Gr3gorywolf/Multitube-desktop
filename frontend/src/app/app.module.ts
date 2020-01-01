@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { NgxElectronModule } from 'ngx-electron';
 import { MaterializeModule } from "angular2-materialize";
 import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
 import { QRCodeModule } from 'angularx-qrcode';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
@@ -18,6 +19,7 @@ import { ListItemComponent } from './components/list-item/list-item.component';
 import { SearcherComponent } from './pages/searcher/searcher.component';
 import { PreloaderComponent } from './components/preloader/preloader.component';
 import { ConnectedClientsComponent } from './pages/connected-clients/connected-clients.component';
+import { RemoteServerStatusComponent } from './components/remote-server-status/remote-server-status.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,8 @@ import { ConnectedClientsComponent } from './pages/connected-clients/connected-c
     ListItemComponent,
     SearcherComponent,
     PreloaderComponent,
-    ConnectedClientsComponent
+    ConnectedClientsComponent,
+    RemoteServerStatusComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +44,8 @@ import { ConnectedClientsComponent } from './pages/connected-clients/connected-c
     NgxElectronModule,
     MaterializeModule,
     FormsModule,
-    QRCodeModule
+    QRCodeModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

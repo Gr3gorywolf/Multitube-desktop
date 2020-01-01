@@ -42,6 +42,7 @@ export class TcpService {
   initServer() {
    this.server = this.tcp.createServer((socket: Socket) => {
         socket.write('');
+        if(socket.remoteAddress != undefined){
         this.connectedClients.push(socket);
         this.clientsStatuses.set(socket,{
            isAdding : false,
@@ -49,7 +50,7 @@ export class TcpService {
            isDownloading : false,
            isRequesting : false
         } as TcpClientStatus)
-
+      }
 
         socket.on('error', (err:any) =>{
           if (err.code !== 'ECONNRESET') {
@@ -194,7 +195,10 @@ export class TcpService {
     if (query.toString() === 'next()') {
       this.play.playNext();
     }
-
+    else
+    if (query.toString() === 'fullscreen()') {
+      this.play.toggleFullscreen();
+    }
     this.clientsStatuses.set(socket,status);
 
   }

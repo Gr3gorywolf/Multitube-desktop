@@ -6,9 +6,11 @@ import { PlayListItem } from '../models/PlaylistItem';
 import { toast } from 'angular2-materialize';
 import { VideoQuality } from '../models/VideoQuality';
 import { TcpService } from './tcp.service';
+declare var $:any;
 @Injectable({
   providedIn: 'root'
 })
+
 export class PlaybackserviceService {
 
   public videoSources: Array<VideoQuality> = [];
@@ -18,6 +20,7 @@ export class PlaybackserviceService {
   public isLoading = false;
   public isAutoplayEnabled = true;
   public playerInstance: any = null;
+ public isPlayerFullScreen = false;
   electronInstance: any;
   fs: any;
   ytdl: any;
@@ -146,6 +149,17 @@ export class PlaybackserviceService {
           this.loadVideo(this.quenue[nextIndex].url);
         }
     }
+  }
+
+  toggleFullscreen(){
+    $(".plyr").removeClass("floating-video");
+    $(".plyr").removeClass("fullscreen-video");
+    if (!this.isPlayerFullScreen) {
+      $(".plyr").addClass("fullscreen-video");
+    }else{
+      this.isPlayerFullScreen = false;
+    }
+
   }
 
 }

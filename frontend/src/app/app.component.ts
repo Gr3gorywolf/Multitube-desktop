@@ -11,7 +11,7 @@ import { PlaybackserviceService } from './services/playbackservice.service';
 export class AppComponent implements OnInit {
   title = 'frontend';
 
-  constructor(public routing: Router,public tcp:TcpService) {
+  constructor(public routing: Router,public tcp:TcpService,private play:PlaybackserviceService) {
     tcp.initServer();
   }
 

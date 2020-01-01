@@ -1,24 +1,47 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { TcpService } from 'src/app/services/tcp.service';
-declare var $:any;
+import { HttpClient } from '@angular/common/http';
+declare var $: any;
 @Component({
   selector: 'app-connected-clients',
   templateUrl: './connected-clients.component.html',
-  styleUrls: ['./connected-clients.component.css']
+  styleUrls: ['./connected-clients.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ConnectedClientsComponent implements OnInit {
+export class ConnectedClientsComponent implements OnInit, OnDestroy {
 
-  constructor(public tcp:TcpService) { }
-
+  constructor(public tcp: TcpService, public http: HttpClient, private detect: ChangeDetectorRef) { }
+  intervalKey: any;
   ngOnInit() {
-    $(document).ready(()=>{
+    $(document).ready(() => {
       // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
-      $('.modal').modal();
+
+      $('#infoModal').detach().appendTo('body');
+      $('#infoModal').modal();
     });
+    this.intervalKey = setInterval(() => {
+      this.detect.detectChanges();
+   }, 1500);
 
   }
-  openModal(){
-    $('#modal1').modal('open');
+  ngOnDestroy() {
+    $('#infoModal').remove();
+    clearInterval(this.intervalKey);
+
+  }
+
+  getCleanAddress(dirtyAddress: string) {
+   return dirtyAddress.replace('::ffff:', '');
+
+  }
+
+
+
+  openModal() {
+    $('#infoModal').modal('open');
+    $('#infoModal').css('position', 'fixed');
+    $('#infoModal').css('z-index', '500');
+    $('.modal-overlay').css('z-index', '455');
 
   }
 }

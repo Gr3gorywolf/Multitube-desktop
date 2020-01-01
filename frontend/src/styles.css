@@ -83,6 +83,14 @@ h1 h2 h3 h4 h5 span strong img a i li p ul {
 
 
 
+.fullscreen-video{
+  z-index:9999;
+  position: fixed;
+  top:0px;
+  left:0px;
+  height:100vh;
+  width:100vw;
+}
 
 .floating-video{
   z-index:650;

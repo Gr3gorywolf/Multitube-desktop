@@ -68,7 +68,8 @@ export class VideoPlayerComponent implements OnInit, AfterViewInit {
       }
 
       $(".plyr").removeClass("floating-video");
-      if (!this.isOnPlayer()) {
+       $(".plyr").removeClass("floating-video");
+      if (!this.isOnPlayer() && !this.play.isPlayerFullScreen) {
         $(".plyr").addClass("floating-video");
       }
 

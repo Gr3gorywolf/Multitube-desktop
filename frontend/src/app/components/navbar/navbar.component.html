@@ -16,10 +16,16 @@
 </a>
 <ul id="nav-mobile" class="right">
 
-  <li><a >
+
+  <li><a [routerLink]="['/']">
+
+    <i class="material-icons">play_arrow</i>
+    <span class="custom-badge-first" *ngIf="play.quenue.length >0">{{ play.quenue.length }}</span>
+  </a></li>
+  <li><a   [routerLink]="['/clients']" >
 
     <i class="material-icons">settings_remote</i>
-    <span class="custom-badge-first" *ngIf="tcp.connectedClients.length >0">{{ tcp.connectedClients.length }}</span>
+    <span class="custom-badge-second" *ngIf="tcp.connectedClients.length >0">{{ tcp.connectedClients.length }}</span>
   </a></li>
 
 
@@ -27,7 +33,7 @@
   <li><a >
 
     <i class="material-icons">file_download</i>
-    <span class="custom-badge" *ngIf="tcp.connectedClients.length >0">0</span>
+    <span class="custom-badge-third" *ngIf="tcp.connectedClients.length >0">0</span>
   </a></li>
 </ul>
 
@@ -40,19 +46,19 @@
 
 <ul id="mobile-demo" class="side-nav" style="z-index:99999;">
   <li>
-    <a class="waves-effect" [routerLink]="['/']">Repoductor</a>
+    <a class="waves-effect" [routerLink]="['/']" (click)="closeSideNav()">Repoductor</a>
   </li>
   <li>
-    <a class="waves-effect" onclick="abrirbuscardorrapido()">Busqueda rápida</a>
+    <a class="waves-effect"  (click)="closeSideNav()"> Busqueda rápida</a>
   </li>
   <li>
-    <a class="waves-effect"  [routerLink]="['/clients']" >Abrir gestor de clientes</a>
+    <a class="waves-effect"  [routerLink]="['/clients']"  (click)="closeSideNav()">Abrir gestor de clientes</a>
   </li>
   <li>
-    <a class="waves-effect" id='downloadbutton' onclick="abrirdescargas()">Descargas</a>
+    <a class="waves-effect" id='downloadbutton' (click)="closeSideNav()">Descargas</a>
   </li>
   <li>
-    <a class="waves-effect" onclick="abrirsettings()">Configuracion</a>
+    <a class="waves-effect" (click)="closeSideNav()">Configuracion</a>
   </li>
 </ul>
 <div class="progress white" *ngIf="play.isLoading" style="position: fixed;z-index:99999;margin-top:60px;top:0;left: 0;"  >
