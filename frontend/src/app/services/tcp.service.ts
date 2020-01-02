@@ -115,10 +115,6 @@ export class TcpService {
        descargar(query.toString().split('³')[0], ".", quality);
        this.isDownloading = false;*/
     } else
-    if (query.toString() === 'fullscreen()') {
-
-
-    } else
     if (status.isRequesting) {
       if (parseInt(query.toString()) >= 0) {
         this.play.loadVideo(this.play.quenue[parseInt(query.toString())].url);
@@ -193,11 +189,13 @@ export class TcpService {
     }else
     if (query.toString() === 'next()') {
       this.play.playNext();
-    }
-    else
+    }else
     if (query.toString() === 'fullscreen()') {
+      console.log("invoque fullscreen");
       this.play.toggleFullscreen();
     }
+    console.log(query.toString());
+    console.log(query.toString() === 'fullscreen()');
     this.clientsStatuses.set(socket,status);
 
   }

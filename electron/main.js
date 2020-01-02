@@ -19,15 +19,34 @@ app.on('window-all-closed', function () {
 
 });
 DownloadManager.register();
+
+
+
+
+
+
+
+function pressKey(keyCode){
+
+  win.webContents.sendInputEvent({
+    type: "keyDown",
+    keyCode: keyCode
+  });
+  
+  win.webContents.sendInputEvent({
+    type: "keyUp",
+    keyCode: keyCode
+  });
+
+}
+
+
+
 function createWindow() {
   // Create the browser window.
 
 
-  ipcMain.on('imprimir', () => {
-    console.log(global.sharedObj.clienteses.lenght);
-  })
-
-
+  
   win = new BrowserWindow({
     titleBarStyle: 'hidden',
     width: 800,
@@ -147,7 +166,18 @@ function createWindow() {
   win.loadURL("http://localhost:4200");
   //  win.loadURL(`file://${__dirname}/dist/index.html`);
   win.webContents.frameRate = 60;
+
+
 }
+ipcMain.on('pressKey', (evt,args) => {
+  pressKey(args);
+})
+ipcMain.on('bringToFront', (evt,args) => {
+  win.focus();
+  //win.showInactive()
+});
+
+
 function abrirnavegador() {
   // Create the browser window.
   win = new BrowserWindow({ titleBarStyle: 'hidden', width: 600, height: 480, minHeight: 480, minWidth: 600 })

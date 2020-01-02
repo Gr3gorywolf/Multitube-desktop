@@ -23,6 +23,7 @@
     "ip": "^1.1.5",
     "is-reachable": "^2.4.0",
     "node-notifier": "^5.2.1",
+    "robotjs": "^0.6.0",
     "suchtube": "^0.5.3",
     "youtube-dl": "^2.3.0",
     "youtube-scrape": "^1.0.2",

@@ -23,9 +23,11 @@ export class VideoPlayerComponent implements OnInit, AfterViewInit {
 
     this.player = new Plyr('#videotag', {
       hideControls: true,
-      ratio: '16:9'
-
-
+      ratio: '16:9',
+      keyboard: {
+         focused: true,
+         global: true
+      }
     });
     this.player.on('ended', event => {
       console.log("paseee");

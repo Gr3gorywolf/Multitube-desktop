@@ -2,7 +2,7 @@ import { Component, OnInit, AfterContentInit, AfterViewInit, ChangeDetectorRef, 
 import { PlaybackserviceService } from 'src/app/services/playbackservice.service';
 import { ElectronService } from 'ngx-electron';
 import { ModalsService } from 'src/app/services/modals.service';
-import { VideoInfo, RelatedVideo } from 'src/app/interfaces/videoinfo';
+import { VideoInfo, RelatedVideo } from 'src/app/interfaces/VideoInfo';
 import { PlayListItem } from 'src/app/models/PlaylistItem';
 import { UrlHelper } from 'src/app/Utils/UrlHelper';
 import { OverflowHelper } from 'src/app/Utils/OverflowHelper';

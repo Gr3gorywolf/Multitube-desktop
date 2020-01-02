@@ -1,5 +1,5 @@
 import { Component, OnInit, Input ,ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy } from '@angular/core';
-import { VideoInfo, RelatedVideo } from 'src/app/interfaces/videoinfo';
+import { VideoInfo, RelatedVideo } from 'src/app/interfaces/VideoInfo';
 import { PlayListItem } from 'src/app/models/PlaylistItem';
 import { UrlHelper } from 'src/app/Utils/UrlHelper';
 import { PlaybackserviceService } from 'src/app/services/playbackservice.service';

@@ -1,7 +1,7 @@
 import { Injectable, ChangeDetectorRef, NgZone, ApplicationRef, Injector } from '@angular/core';
 import { ElectronService } from 'ngx-electron';
 import { from } from 'rxjs';
-import { VideoInfo } from '../interfaces/videoinfo';
+import { VideoInfo } from '../interfaces/VideoInfo';
 import { PlayListItem } from '../models/PlaylistItem';
 import { toast } from 'angular2-materialize';
 import { VideoQuality } from '../models/VideoQuality';
@@ -21,6 +21,7 @@ export class PlaybackserviceService {
   public isAutoplayEnabled = true;
   public playerInstance: any = null;
   public isPlayerFullScreen = false;
+  private mainProcess:any = null
   electronInstance: any;
   fs: any;
   ytdl: any;
@@ -29,6 +30,7 @@ export class PlaybackserviceService {
     this.electronInstance = electron.remote;
     this.fs = this.electronInstance.require('fs');
     this.ytdl = this.electronInstance.require('ytdl-core');
+    this.mainProcess = this.electronInstance.require('./main.js');
   }
 
 
@@ -152,14 +154,12 @@ export class PlaybackserviceService {
   }
 
   toggleFullscreen() {
-    $(".plyr").removeClass("floating-video");
-    $(".plyr").removeClass("fullscreen-video");
-    if (!this.isPlayerFullScreen) {
-      $(".plyr").addClass("fullscreen-video");
-    } else {
-      this.isPlayerFullScreen = false;
-    }
+    document.activeElement.blur();
+    $( "#audiotag" ).focus();
+    this.electron.ipcRenderer.send("bringToFront");
+    this.electron.ipcRenderer.send("pressKey","f");
 
+    console.log("ejecute tecla");
   }
 
 }

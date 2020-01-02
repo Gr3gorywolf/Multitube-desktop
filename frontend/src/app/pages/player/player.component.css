@@ -1,12 +1,12 @@
-
+.player-container{
+  margin-top: 95px;
+}
 #rowvideo {
 
   height: 100%;
   width: 100%;
   z-index: 99999999;
-  margin-left: 1%;
-  margin-right: 1%;
- margin-top: 95px;
+ margin-top: 5px;
 }
 
 #title{
@@ -67,6 +67,9 @@
 
 
 @media(max-width:990px){
+  .player-container{
+    margin-top: 0px;
+  }
   #backoo {
 
     height: 100%;
@@ -78,9 +81,6 @@
 
     height: 100%;
     width: 100%;
-    z-index: 99999999;
-    margin-left: 1%;
-    margin-right: 1%;
-   margin-top: 0px;
+    z-index: 400;
   }
 }
