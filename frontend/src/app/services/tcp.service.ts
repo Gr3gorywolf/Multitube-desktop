@@ -41,7 +41,6 @@ export class TcpService {
 
   initServer() {
    this.server = this.tcp.createServer((socket: Socket) => {
-        socket.write('');
         if(socket.remoteAddress != undefined){
         this.connectedClients.push(socket);
         this.clientsStatuses.set(socket,{

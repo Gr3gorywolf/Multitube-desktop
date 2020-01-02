@@ -95,7 +95,7 @@ h1 h2 h3 h4 h5 span strong img a i li p ul {
 .floating-video{
   z-index:650;
   position: fixed;
-  right:23px;
+  left:23px;
   bottom:30px;
   height:150px;
   width:270px;

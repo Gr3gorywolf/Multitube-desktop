@@ -6,7 +6,7 @@ import { PlayListItem } from '../models/PlaylistItem';
 import { toast } from 'angular2-materialize';
 import { VideoQuality } from '../models/VideoQuality';
 import { TcpService } from './tcp.service';
-declare var $:any;
+declare var $: any;
 @Injectable({
   providedIn: 'root'
 })
@@ -20,7 +20,7 @@ export class PlaybackserviceService {
   public isLoading = false;
   public isAutoplayEnabled = true;
   public playerInstance: any = null;
- public isPlayerFullScreen = false;
+  public isPlayerFullScreen = false;
   electronInstance: any;
   fs: any;
   ytdl: any;
@@ -51,16 +51,16 @@ export class PlaybackserviceService {
       });
       this.videoSources = [];
       const availableQualities = ['144p', '240p', '360p', '480p', '720p', '1080p'];
-     // console.log(info.player_response.streamingData.formats);
-      for (let i = 0; i < info.player_response.streamingData.formats.length; i++) {
-        const format = info.player_response.streamingData.formats[i];
-        if (availableQualities.indexOf(format.qualityLabel) !== -1) {
+      console.log(info.formats);
+      for (let i = 0; i <info.formats.length; i++) {
+        const format = info.formats[i];
+        if ( format.audioBitrate != null) {
           this.zone.run(() => {
 
             this.currentElementUrl = format.url;
             this.videoSources.push({
               src: format.url,
-              qualityLabel: format.qualityLabel
+              qualityLabel: "480"
 
             } as VideoQuality);
           });
@@ -78,28 +78,28 @@ export class PlaybackserviceService {
     if (this.quenue.find((ax) => ax.url === item.url) === undefined) {
       this.quenue.push(item);
     } else {
-     // toast('El elemento ya existe en la cola', 1000);
+      // toast('El elemento ya existe en la cola', 1000);
     }
 
   }
- addToQuenueByUrl(url:string){
-   toast("Agregando: "+ url,1000);
-  this.ytdl.getInfo(url, (err, info: VideoInfo) => {
-    toast(info.title+" Agregado a la cola exitosamente",1000);
-    this.zone.run(() => {
-      this.isLoading = false;
-      this.addToQueue({
-        title: info.title,
-        url: info.video_url
+  addToQuenueByUrl(url: string) {
+    toast("Agregando: " + url, 1000);
+    this.ytdl.getInfo(url, (err, info: VideoInfo) => {
+      toast(info.title + " Agregado a la cola exitosamente", 1000);
+      this.zone.run(() => {
+        this.isLoading = false;
+        this.addToQueue({
+          title: info.title,
+          url: info.video_url
 
-      } as PlayListItem);
+        } as PlayListItem);
 
-      if (err) { throw err; }
+        if (err) { throw err; }
 
+      });
     });
-  });
 
- }
+  }
 
 
   removeFromQueue(item: PlayListItem) {
@@ -111,7 +111,7 @@ export class PlaybackserviceService {
         this.quenue.splice(idx, 1);
         toast(searchedElement.title + ' Eliminado de la cola exitosamente!', 1000);
       } else {
-      toast('No se puede eliminar un elemento en reproduccion', 1000);
+        toast('No se puede eliminar un elemento en reproduccion', 1000);
       }
     } else {
       toast('El elemento no existe en la cola', 1000);
@@ -151,12 +151,12 @@ export class PlaybackserviceService {
     }
   }
 
-  toggleFullscreen(){
+  toggleFullscreen() {
     $(".plyr").removeClass("floating-video");
     $(".plyr").removeClass("fullscreen-video");
     if (!this.isPlayerFullScreen) {
       $(".plyr").addClass("fullscreen-video");
-    }else{
+    } else {
       this.isPlayerFullScreen = false;
     }
 
