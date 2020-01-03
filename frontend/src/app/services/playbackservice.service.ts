@@ -48,7 +48,10 @@ export class PlaybackserviceService {
 
         } as PlayListItem);
 
-        if (err) { throw err; }
+        if (err) {
+          toast("Ocurrio un problema al obtener la informacion del video",1000);
+          return;
+        }
         this.info = info;
       });
       this.videoSources = [];
@@ -76,7 +79,8 @@ export class PlaybackserviceService {
   }
 
   addToQueue(item: PlayListItem) {
-
+   console.log("Agregue elemento");
+   console.log(item);
     if (this.quenue.find((ax) => ax.url === item.url) === undefined) {
       this.quenue.push(item);
     } else {
@@ -154,7 +158,7 @@ export class PlaybackserviceService {
   }
 
   toggleFullscreen() {
-    document.activeElement.blur();
+    (document.activeElement as HTMLElement).blur();
     $( "#audiotag" ).focus();
     this.electron.ipcRenderer.send("bringToFront");
     this.electron.ipcRenderer.send("pressKey","f");

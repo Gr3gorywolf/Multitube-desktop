@@ -2,36 +2,9 @@
   <div *ngIf="searchSv.searchResults.length>0">
 
     <div *ngFor="let res of  searchSv.searchResults ">
-
-
       <div class="col s12">
-        <div class="card horizontal" >
-          <div class="card-image" style="width:45%;">
-            <img src="{{  getImage(res) }}">
-          </div>
-          <div class="card-stacked" style="width:65%;">
-            <div class="card-content">
-              <p class="text-medium">
-                {{ res.title }}
-              </p>
-              <p  class="text-small-truncated grey-text">
-                {{ res.channelTitle }}
-              </p>
-              <p class="grey-text">{{ res.description }}.</p>
-            </div>
-            <h6 class="card-action center">
-              <i class='material-icons red-text' style="margin-right:20px;" (click)="playVideo(res)" materialize="tooltip"
-              data-position="top" [materializeParams]="[{tooltip:'Reproducir elemento'}]">play_arrow</i>
-              <i class='material-icons red-text' style="margin-right:20px;" (click)="addVideo(res)" materialize="tooltip"
-              data-position="top" [materializeParams]="[{tooltip:'Descargar elemento'}]">file_download</i>
-            <i class='material-icons red-text'(click)="addVideo(res)" materialize="tooltip"
-              data-position="top" [materializeParams]="[{tooltip:'Agregar a la lista'}]">library_add</i>
-            </h6>
-          </div>
-        </div>
+          <app-search-result [result] = "res"></app-search-result>
       </div>
-
-
     </div>
   </div>
 </div>

@@ -13,8 +13,9 @@
           {{ relatedvideo.short_view_count_text }}
 
 
-          <a  style="display: flex;margin-top:15px;" class='secondary-content'>
-            <i class='material-icons red-text' style="margin-right:10px;" materialize="tooltip" data-position="top"
+          <a href="#" style="display: flex;margin-top:15px;" class='secondary-content'>
+
+            <i class='material-icons red-text' style="margin-right:10px;" (click)="downloadVideo()" materialize="tooltip" data-position="top"
               [materializeParams]="[{tooltip:'Descargar elemento'}]">file_download</i>
 
             <i class='material-icons red-text' *ngIf="!canDelete()" (click)="addVideo()" materialize="tooltip"
@@ -37,8 +38,9 @@
         <div class='title truncate centered-title' >
           {{ listItem.title }}
         </div>
-        <a  style="display: flex;margin-top:15px;" class='secondary-content'>
-          <i class='material-icons red-text' style="margin-right:10px;" (click)="addVideo()" materialize="tooltip"
+        <a href="#" style="display: flex;margin-top:15px;" class='secondary-content'>
+
+          <i class='material-icons red-text' style="margin-right:10px;" (click)="downloadVideo()" materialize="tooltip"
             data-position="top" [materializeParams]="[{tooltip:'Descargar elemento'}]">file_download</i>
 
           <i class='material-icons red-text' *ngIf="!canDelete()" (click)="addVideo()" materialize="tooltip"

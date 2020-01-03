@@ -1,0 +1,24 @@
+<div class="card horizontal" >
+  <div class="card-image" style="width:45%;">
+    <img src="{{  getImage(result) }}">
+  </div>
+  <div class="card-stacked" style="width:65%;">
+    <div class="card-content">
+      <p class="text-medium">
+        {{ result.title }}
+      </p>
+      <p  class="text-small-truncated grey-text">
+        {{ result.channelTitle }}
+      </p>
+      <p class="grey-text">{{ result.description }}.</p>
+    </div>
+    <h6 class="card-action center">
+      <i class='material-icons red-text' style="margin-right:20px;" (click)="addVideo()" materialize="tooltip"
+      data-position="top" [materializeParams]="[{tooltip:'Reproducir elemento'}]">play_arrow</i>
+      <i class='material-icons red-text' style="margin-right:20px;" (click)="downloadVideo()" materialize="tooltip"
+      data-position="top" [materializeParams]="[{tooltip:'Descargar elemento'}]">file_download</i>
+    <i class='material-icons red-text'(click)="addVideo()" materialize="tooltip"
+      data-position="top" [materializeParams]="[{tooltip:'Agregar a la lista'}]">library_add</i>
+    </h6>
+  </div>
+</div>

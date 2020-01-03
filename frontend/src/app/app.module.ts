@@ -20,6 +20,7 @@ import { SearcherComponent } from './pages/searcher/searcher.component';
 import { PreloaderComponent } from './components/preloader/preloader.component';
 import { ConnectedClientsComponent } from './pages/connected-clients/connected-clients.component';
 import { RemoteServerStatusComponent } from './components/remote-server-status/remote-server-status.component';
+import { SearchResultComponent } from './components/search-result/search-result.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { RemoteServerStatusComponent } from './components/remote-server-status/r
     SearcherComponent,
     PreloaderComponent,
     ConnectedClientsComponent,
-    RemoteServerStatusComponent
+    RemoteServerStatusComponent,
+    SearchResultComponent
   ],
   imports: [
     BrowserModule,

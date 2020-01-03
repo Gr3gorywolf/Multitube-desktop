@@ -39,24 +39,10 @@ export class SearcherComponent implements OnInit,OnDestroy {
     }, 1000)
   }
 
-
    search(query:string){
      this.searchSv.searchForResults(query);
   }
-  addVideo(res:SearchResult){
-            this.play.addToQueue({
-                   title: res.title,
-                   url: res.link
-            } as PlayListItem)
-  }
-  playVideo(res:SearchResult){
-    this.play.loadVideo(res.link);
-    this.router.navigateByUrl("/");
-}
-  getImage(res:SearchResult){
 
-    return new UrlHelper().getThumbnailFromUrl(res.link);
-  }
 
 
 }

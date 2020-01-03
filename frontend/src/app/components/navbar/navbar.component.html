@@ -28,12 +28,10 @@
     <span class="custom-badge-second" *ngIf="tcp.connectedClients.length >0">{{ tcp.connectedClients.length }}</span>
   </a></li>
 
-
-
   <li><a >
 
     <i class="material-icons">file_download</i>
-    <span class="custom-badge-third" *ngIf="tcp.connectedClients.length >0">0</span>
+    <span class="custom-badge-third" *ngIf="download.ongoingDownloads >0">{{download.ongoingDownloads  }}</span>
   </a></li>
 </ul>
 
@@ -46,7 +44,7 @@
 
 <ul id="mobile-demo" class="side-nav" style="z-index:99999;">
   <li>
-    <a class="waves-effect" [routerLink]="['/']" (click)="closeSideNav()">Repoductor</a>
+    <a class="waves-effect" [routerLink]="['/']" (click)="closeSideNav()">Reproductor</a>
   </li>
   <li>
     <a class="waves-effect"  (click)="closeSideNav()"> Busqueda rápida</a>
