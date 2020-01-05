@@ -21,6 +21,8 @@ import { PreloaderComponent } from './components/preloader/preloader.component';
 import { ConnectedClientsComponent } from './pages/connected-clients/connected-clients.component';
 import { RemoteServerStatusComponent } from './components/remote-server-status/remote-server-status.component';
 import { SearchResultComponent } from './components/search-result/search-result.component';
+import { DownloadsComponent } from './pages/downloads/downloads.component';
+import { SettingsComponent } from './pages/settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { SearchResultComponent } from './components/search-result/search-result.
     PreloaderComponent,
     ConnectedClientsComponent,
     RemoteServerStatusComponent,
-    SearchResultComponent
+    SearchResultComponent,
+    DownloadsComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,

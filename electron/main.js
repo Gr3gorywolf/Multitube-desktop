@@ -26,13 +26,13 @@ DownloadManager.register();
 
 
 
-function pressKey(keyCode){
+function pressKey(keyCode) {
 
   win.webContents.sendInputEvent({
     type: "keyDown",
     keyCode: keyCode
   });
-  
+
   win.webContents.sendInputEvent({
     type: "keyUp",
     keyCode: keyCode
@@ -46,7 +46,7 @@ function createWindow() {
   // Create the browser window.
 
 
-  
+
   win = new BrowserWindow({
     titleBarStyle: 'hidden',
     width: 800,
@@ -60,102 +60,8 @@ function createWindow() {
       nodeIntegration: true,
       webgl: true
     },
-
   })
 
-  win.webContents.on('new-window', (event, url, frameName, disposition, options, additionalFeatures) => {
-
-    if (frameName === 'webbrowser') {
-      // open window as modal
-      event.preventDefault()
-      Object.assign(options, {
-        modal: true,
-        //    parent: win,
-        width: 450,
-        height: 450,
-        minWidth: 650,
-        minHeight: 600,
-        titleBarStyle: 'hidden',
-
-      })
-      event.newGuest = new BrowserWindow(options)
-      event.newGuest.setMenu(null);
-      //  event.newGuest.toggleDevTools();
-      event.newGuest.loadFile('webbrowser.html')
-    }
-    else
-      if (frameName === 'connectdevices') {
-        // open window as modal
-        event.preventDefault()
-        Object.assign(options, {
-          modal: true,
-          //    parent: win,
-          width: 360,
-          height: 500,
-          titleBarStyle: 'hidden',
-          minWidth: 360,
-          minHeight: 500,
-          maxWidth: 360,
-          maxHeight: 500
-        })
-        event.newGuest = new BrowserWindow(options)
-        event.newGuest.setMenu(null);
-        // event.newGuest.toggleDevTools();
-        event.newGuest.loadFile('connectdevices.html')
-      }
-      else
-        if (frameName === 'settings') {
-          // open window as modal
-          event.preventDefault()
-          Object.assign(options, {
-            modal: true,
-            //    parent: win,
-            width: 400,
-            height: 360,
-            titleBarStyle: 'hidden',
-            minWidth: 400,
-            minHeight: 360,
-            maxWidth: 400,
-            maxHeight: 360
-
-
-
-
-
-          })
-          event.newGuest = new BrowserWindow(options)
-          event.newGuest.setMenu(null);
-          // event.newGuest.toggleDevTools();
-          event.newGuest.loadFile('settings.html')
-        }
-        else
-          if (frameName.includes( 'Multitube web')) {
-            // open window as modal
-            event.preventDefault()
-            Object.assign(options, {
-              modal: true,
-              //    parent: win,
-              width: 800,
-              height:650,
-              titleBarStyle: 'hidden',
-              minWidth: 800,
-              minHeight:650,
-              maxWidth: 800,
-              maxHeight:650
-
-
-
-
-
-            })
-            event.newGuest = new BrowserWindow(options)
-            event.newGuest.setMenu(null);
-            // event.newGuest.toggleDevTools();
-            //event.newGuest.loadFile('settings.html')
-          }
-
-
-  })
   win.on('ready-to-show', function () {
     win.show();
     win.focus();
@@ -168,11 +74,60 @@ function createWindow() {
   win.webContents.frameRate = 60;
 
 
+
+  win.webContents.on('new-window', (event, url, frameName, disposition, options, additionalFeatures) => {
+
+    if (frameName === 'settings') {
+      // open window as modal
+      event.preventDefault();
+      event.newGuest = new BrowserWindow({
+        //    parent: win,
+        modal: true,
+        width: 400,
+        height: 360,
+        titleBarStyle: 'hidden',
+        minWidth: 400,
+        minHeight: 360,
+        maxWidth: 400,
+        maxHeight: 360,
+        webPreferences: {
+          nodeIntegration: true
+        }
+      });
+      event.newGuest.setMenu(null);
+      event.newGuest.toggleDevTools();
+      event.newGuest.loadFile('settings.html')
+    }
+
+    if (frameName.includes('Multitube web')) {
+      // open window as modal
+      event.preventDefault()
+      Object.assign(options, {
+        modal: true,
+        //    parent: win,
+        width: 800,
+        height: 650,
+        titleBarStyle: 'hidden',
+        minWidth: 800,
+        minHeight: 650,
+        maxWidth: 800,
+        maxHeight: 650
+      })
+      event.newGuest = new BrowserWindow(options)
+      event.newGuest.setMenu(null);
+      // event.newGuest.toggleDevTools();
+    }
+
+
+  })
+
+
+
 }
-ipcMain.on('pressKey', (evt,args) => {
+ipcMain.on('pressKey', (evt, args) => {
   pressKey(args);
 })
-ipcMain.on('bringToFront', (evt,args) => {
+ipcMain.on('bringToFront', (evt, args) => {
   win.focus();
   //win.showInactive()
 });

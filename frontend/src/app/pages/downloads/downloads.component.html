@@ -1,0 +1,20 @@
+
+<h6 class="center">
+  <i class="material-icons red-text center" style="font-size:45px;">file_download</i>
+</h6>
+<h5 style="font-size:23px;color:#323538" class="center">Historial de descargas</h5>
+  <ul class='collection container'>
+    <li class='collection-item avatar' *ngFor="let down of download.downloads">
+      <img style=' user-select: none;margin-top:12px;' src='{{ getImage(down) }}' alt='' class='circle'>
+      <div class='title' style=' user-select: none; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;'>
+        {{ down.title }}</div>
+      <div class='progress white'>
+        <div class='determinate red' [ngStyle]="{'width':  down.progress+'%'}" ></div>
+      </div>
+      <h5 style='font-size:12px'>Descargando {{ getQualityString(down) }} -> {{ down.progress+'%' }}</h5>
+    </li>
+    <li class="collection-item" *ngIf="download.downloads.length == 0">
+      <h6 class="center">No se ha realizado ninguna descarga</h6>
+    </li>
+
+  </ul>

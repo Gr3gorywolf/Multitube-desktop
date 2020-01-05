@@ -1,0 +1,39 @@
+<h6 class="center">
+  <i class="material-icons red-text center" style="font-size:45px;">settings</i>
+</h6>
+<h5 style="font-size:23px;color:#323538" class="center">Configuraciones</h5>
+
+<div class="container">
+
+
+
+
+  <ul class="collection">
+
+
+    <li class="collection-item avatar">
+      <i class="material-icons circle">notifications</i>
+      <span class="title">Notificaciones</span>
+      <p class="grey-text "> {{ sett.notificationsStatus?"Habilitadas":"Deshabilitadas" }}
+      </p>
+      <a class="secondary-content">
+        <div class="switch ntf-switch">
+          <label>
+            <input type="checkbox" id='notis' [(ngModel)]="sett.notificationsStatus" onchange="changeNotificationsStatus()">
+            <span class="lever"></span>
+          </label>
+        </div>
+      </a>
+    </li>
+
+    <li class="collection-item avatar">
+      <i class="material-icons circle">folder</i>
+      <span class="title">Ruta de descargas</span>
+      <p class="grey-text ">{{ sett.selectedDownloadPath   }}
+      </p>
+      <a class="secondary-content pth-elem" (click)="selectPath()">
+        <i class="material-icons grey-text"> folder</i>
+      </a>
+    </li>
+  </ul>
+</div>

@@ -7,6 +7,8 @@ import { AsyncHelper } from '../Utils/AsyncHelper';
 import { UrlHelper } from '../Utils/UrlHelper';
 import { Router, NavigationStart } from '@angular/router';
 import { TcpClientStatus } from '../models/TcpClientStatus';
+import { Remote } from 'electron';
+import { DownloadService } from './download.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +16,7 @@ import { TcpClientStatus } from '../models/TcpClientStatus';
 export class TcpService {
 
 
-  private electronInstance: any;
+  private electronInstance: Remote;
   private clientsListCount = 0;
   private hostName = "Multitube server";
   private volumeState = "vol100()"
@@ -29,7 +31,8 @@ export class TcpService {
     private play: PlaybackserviceService
     , private zone: NgZone
     , private electron: ElectronService
-    ,private route:Router) {
+    ,private route:Router,
+    private download:DownloadService) {
     this.electronInstance = this.electron.remote;
     this.tcp = this.electronInstance.require('net');
     this.hostName = this.electronInstance.require('os').hostname();
@@ -103,25 +106,28 @@ export class TcpService {
     let status = this.clientsStatuses.get(socket);
     if (query.toString() === 'playpause()') {
       this.play.playerInstance.togglePlay();
-
-    } else
-    if (status.isDownloading) {
-      /* var quality = '';
-       if (query.toString().split('³')[1] == '0') {
-         quality = null
-       } else {
-          quality = query.toString().split('³')[1]
-       }
-       descargar(query.toString().split('³')[0], ".", quality);
-       this.isDownloading = false;*/
-    } else
+    }
+    else
+    if (this.play.info != null &&  query.toString().includes("desc")) {
+      if (query.toString() == "descvid360()") {
+        this.download.quenueDownload(this.play.info.video_url, "360p");
+      }
+      else
+      if (query.toString() == "descvid720()") {
+        this.download.quenueDownload(this.play.info.video_url, "720p");
+      }
+      else
+      if (query.toString() == "descmp3()") {
+        this.download.quenueDownload(this.play.info.video_url, null);
+      }
+    }
+    else
     if (status.isRequesting) {
       if (parseInt(query.toString()) >= 0) {
         this.play.loadVideo(this.play.quenue[parseInt(query.toString())].url);
       }
-
-    } else
-
+    }
+    else
     if (status.isDeleting === true) {
 
       const index = parseInt(query.toString());
@@ -129,74 +135,84 @@ export class TcpService {
         this.play.removeFromQueue(this.play.quenue[index]);
       }
       status.isDeleting = false;
-    } else
+    }
+    else
     if (query.toString().includes('youtube.com')) {
       if (status.isAdding) {
-          if (this.play.quenue.length == 0) {
-            this.play.loadVideo(query.toString());
-          } else {
-            this.play.addToQuenueByUrl(query.toString());
-         }
-         status.isAdding = false;
-      } else {
+        if (this.play.quenue.length == 0) {
+          this.play.loadVideo(query.toString());
+        }
+        else {
+          this.play.addToQuenueByUrl(query.toString());
+        }
+        status.isAdding = false;
+      }
+      else {
         this.play.loadVideo(query.toString());
       }
-    } else
-    if (query.toString() === 'descargar()') {
-
-      status.isDownloading = true;
-
-    } else
+    }
+    else
     if (query.toString() === 'pedirindice()' && status.isRequesting === false) {
       status.isRequesting = true;
-    } else
+    }
+    else
     if (query.toString() === 'eliminarelemento()' && status.isRequesting === false) {
       status.isDeleting = true;
-    } else
+    }
+    else
     if (query.toString() === 'agregar()') {
       status.isAdding = true;
-    } else
+    }
+    else
     if (query.toString() === 'actual+()') {
       this.play.playerInstance.forward();
-    } else
+    }
+    else
     if (query.toString() === 'actual-()') {
       this.play.playerInstance.rewind();
-    } else
+    }
+    else
     if (query.toString() === 'recall()') {
       toast('Nuevo cliente conectado!!', 1000);
       if (this.play.info != null) {
         this.updateClientData(socket);
       }
-    } else
+    }
+    else
     if (query.toString() === 'vol0()') {
       this.volumeState = query.toString();
       this.play.playerInstance.volume = 0;
       this.updateClientsData();
-    } else
+    }
+    else
     if (query.toString() === 'vol50()') {
       this.volumeState = query.toString();
       this.play.playerInstance.volume = 0.5;
       this.updateClientsData();
-    }else
+    }
+    else
     if (query.toString() === 'vol100()') {
       this.volumeState = query.toString();
       this.play.playerInstance.volume = 1;
       this.updateClientsData();
-    }else
+    }
+    else
     if (query.toString() === 'back()') {
       this.play.playPrevious();
 
-    }else
+    }
+    else
     if (query.toString() === 'next()') {
       this.play.playNext();
-    }else
+    }
+    else
     if (query.toString() === 'fullscreen()') {
       console.log("invoque fullscreen");
       this.play.toggleFullscreen();
     }
     console.log(query.toString());
     console.log(query.toString() === 'fullscreen()');
-    this.clientsStatuses.set(socket,status);
+    this.clientsStatuses.set(socket, status);
 
   }
 

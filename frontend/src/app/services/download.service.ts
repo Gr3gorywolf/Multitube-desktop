@@ -5,6 +5,8 @@ import { toast } from 'angular2-materialize';
 import { DownloadItem } from '../models/DownloadItem';
 import { Request } from 'request';
 import { RegexHelper } from '../Utils/RegexHelper';
+import { Remote } from 'electron';
+import { SettingsService } from './settings.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -13,17 +15,17 @@ export class DownloadService {
 
   downloads: Array<DownloadItem> = [];
   ongoingDownloads: number = 0;
-  electronInstance: any;
+  electronInstance: Remote;
   ytdl: any;
   fs: any;
   request: any;
   electronApp:Electron.App;
-  constructor(private electron: ElectronService, private zone: NgZone) {
+  constructor(private electron: ElectronService, private zone: NgZone,private sett:SettingsService) {
     this.electronInstance = electron.remote;
     this.ytdl = this.electronInstance.require('ytdl-core');
     this.request = this.electronInstance.require('request');
     this.fs = this.electronInstance.require('fs');
-    this.electronApp = this.electronInstance.require("electron").app;
+    this.electronApp = this.electronInstance.app;
   }
 
   public quenueDownload(url: string, qualityLabel: string) {
@@ -39,7 +41,7 @@ export class DownloadService {
             let rgx = new RegexHelper();
             let cleanTitle = rgx.removeIllegalPathCharacters(info.title);
             let fileExtension = qualityLabel == null ? ".mp3" : ".mp4";
-            let cleanPath = rgx.normalizePath(this.electronApp.getPath("documents"));
+            let cleanPath = rgx.normalizePath(this.sett.selectedDownloadPath);
             let fullPath =`${cleanPath}/${cleanTitle}${fileExtension}`;
 
             var download = {
@@ -79,6 +81,12 @@ export class DownloadService {
     req.on("data", (chunk) => {
       this.zone.run(() => {
         received_bytes += chunk.length;
+        let itemIdx = this.downloads.indexOf(download);
+        if( itemIdx != -1){
+          let percent = (received_bytes * 100) / total_bytes;
+          this.downloads[itemIdx].progress = Math.round(percent);
+          this.downloads = this.downloads;
+        }
       });
 
 

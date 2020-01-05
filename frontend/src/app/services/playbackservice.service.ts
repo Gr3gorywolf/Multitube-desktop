@@ -6,6 +6,7 @@ import { PlayListItem } from '../models/PlaylistItem';
 import { toast } from 'angular2-materialize';
 import { VideoQuality } from '../models/VideoQuality';
 import { TcpService } from './tcp.service';
+import { Remote } from 'electron';
 declare var $: any;
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ export class PlaybackserviceService {
   public playerInstance: any = null;
   public isPlayerFullScreen = false;
   private mainProcess:any = null
-  electronInstance: any;
+  electronInstance: Remote;
   fs: any;
   ytdl: any;
 

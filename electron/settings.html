@@ -2,13 +2,10 @@
   <title>Configuraciones</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=no" />
-  <script src='js/materialize.min.js'></script>
-  <script type="text/javascript" src="js/jquery.min.js"></script>
-  <script type="text/javascript" src="js/qrcode.js"></script>
+
   <link href="css/icon.css" rel="stylesheet">
-  <link rel="stylesheet" href="dist/css/ckin.css">
-  <link href="css/animate.css" rel="stylesheet">
-  <link rel='stylesheet' href='css/materialize.css'>
+  <link href="dist/assets/animate.css" rel="stylesheet">
+  <link  href='dist/assets/materialize.min.css' rel='stylesheet'>
 
 </head>
 
@@ -22,7 +19,7 @@
       <div class="switch">
         <label>
           No
-          <input type="checkbox" id='notis' onchange="changeQualityStatus()">
+          <input type="checkbox" id='notis' onchange="changeNotificationsStatus()">
           <span class="lever"></span>
           Si
         </label>
@@ -31,7 +28,7 @@
     </div>
 
     <div class='col s12'>
-      <h5>downloadPath de descargas</h5>
+      <h5>Ruta de descargas</h5>
     </div>
 
     <form action="#" class='col s12'>
@@ -68,25 +65,26 @@
 
   }
 </style>
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 
 <script>
+  window.jQuery = window.$ = require('jquery');
+  window.hammer = require('hammerjs');
   var currentQuality = '';
   var downloadPath = '';
   var noti = false;
-
   var calidades = ['audio', '240p', '360p', '720p']
   const perro = require('electron').remote
   const settings = perro.require('electron-settings');
   const fs = perro.require("fs");
   var dialog = perro.require('electron').dialog;
-  currentQuality = settings.get('base.quality');
-  downloadPath = settings.get('base.downloadPath');
-  noti = settings.get('base.notificationsEnabled');
-
+  currentQuality = settings.get('settings.quality');
+  downloadPath = settings.get('settings.downloadPath');
+  noti = settings.get('settings.notificationsEnabled');
+ console.log(downloadPath);
   if (currentQuality == null)
     currentQuality = "audio"
 
-  document.getElementById(currentQuality).checked = true;
   document.getElementById('notis').checked = Boolean(noti);
   document.getElementById('textooo').value = downloadPath;
 
@@ -99,8 +97,8 @@
 
 
   }
-  function changeQualityStatus() {
-
+  function changeNotificationsStatus() {
+    console.log(document.getElementById('notis'));
     noti = document.getElementById('notis').checked;
     setSettings();
   }
@@ -112,7 +110,7 @@
       ,
       function (err) {
         if (err) {
-          M.toast({ html: 'Esta ruta no puede ser utilizada!!' })
+          Materialize.toast('Esta ruta no puede ser utilizada!!', 1000);
           return console.log(err);
         }
       });
@@ -126,7 +124,7 @@
         document.getElementById('textooo').value = path.replace(/\\/g, "/");
         downloadPath = path.replace(/\\/g, "/");
         setSettings();
-        M.toast({ html: 'ruta de descarga cambiada!!' })
+        Materialize.toast('Ruta de descarga cambiada!!', 1000);
         // console.log("File succesfully deleted");
       });
 
@@ -159,18 +157,11 @@
   }
 
   function selectPath() {
-
-
-
-
     var path = dialog.showOpenDialog({
       properties: ['openDirectory']
-
-
     }, selectedFiles => verifyPath(selectedFiles.toString()));
-
-
 
   }
 
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>

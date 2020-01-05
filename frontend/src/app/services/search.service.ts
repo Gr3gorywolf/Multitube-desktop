@@ -2,11 +2,12 @@ import { Injectable, NgZone } from '@angular/core';
 import { ElectronService } from 'ngx-electron';
 import { async } from '@angular/core/testing';
 import { SearchResult, Kind } from '../interfaces/SearchResult';
+import { Remote } from 'electron';
 @Injectable({
   providedIn: 'root'
 })
 export class SearchService {
-  private electronInstance: any;
+  private electronInstance: Remote;
   private ytSearch: any;
   private fs: any;
   private keys: Array<string> = [];

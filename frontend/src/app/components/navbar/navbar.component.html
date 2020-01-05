@@ -28,7 +28,7 @@
     <span class="custom-badge-second" *ngIf="tcp.connectedClients.length >0">{{ tcp.connectedClients.length }}</span>
   </a></li>
 
-  <li><a >
+  <li><a  [routerLink]="['/downloads']" >
 
     <i class="material-icons">file_download</i>
     <span class="custom-badge-third" *ngIf="download.ongoingDownloads >0">{{download.ongoingDownloads  }}</span>
@@ -53,10 +53,10 @@
     <a class="waves-effect"  [routerLink]="['/clients']"  (click)="closeSideNav()">Abrir gestor de clientes</a>
   </li>
   <li>
-    <a class="waves-effect" id='downloadbutton' (click)="closeSideNav()">Descargas</a>
+    <a class="waves-effect" id='downloadbutton' [routerLink]="['/downloads']" (click)="closeSideNav()">Descargas</a>
   </li>
   <li>
-    <a class="waves-effect" (click)="closeSideNav()">Configuracion</a>
+    <a class="waves-effect" [routerLink]="['/settings']" (click)="closeSideNav()">Configuracion</a>
   </li>
 </ul>
 <div class="progress white" *ngIf="play.isLoading" style="position: fixed;z-index:99999;margin-top:60px;top:0;left: 0;"  >
