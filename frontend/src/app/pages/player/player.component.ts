@@ -48,7 +48,7 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
     });
     this.detectionid = setInterval(() => {
       this.change.detectChanges();
-    }, 2000)
+    }, 750)
   }
 
   trackByFn(index, item) {

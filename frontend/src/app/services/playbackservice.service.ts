@@ -86,6 +86,7 @@ export class PlaybackserviceService {
       if(previousCount == 0){
         this.loadVideo(item.url);
       }
+      toast("Elemento agregado a la cola exitosamente",1000);
     } else {
 
       // toast('El elemento ya existe en la cola', 1000);
