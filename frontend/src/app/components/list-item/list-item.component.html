@@ -1,6 +1,6 @@
 <!--Related list view-->
 <div *ngIf="relatedvideo != null">
-  <div class='col s12 ' (click)="playVideo()" *ngIf="!canDelete()">
+  <div class='col s12 ' *ngIf="!canDelete()">
     <ul class='collection'>
       <li class='collection-item avatar'><img style=' user-select: none;margin-top:12px;'
           src='{{ relatedvideo.video_thumbnail }}' alt='' class='circle'>
@@ -15,7 +15,10 @@
 
           <a href="#" style="display: flex;margin-top:15px;" class='secondary-content'>
 
-            <i class='material-icons red-text' style="margin-right:10px;" (click)="downloadVideo()" materialize="tooltip" data-position="top"
+
+            <i class='material-icons red-text'  (click)="playVideo()" materialize="tooltip"
+            data-position="top" [materializeParams]="[{tooltip:'Reproducir elemento'}]">play_arrow</i>
+            <i class='material-icons red-text'  (click)="downloadVideo()" materialize="tooltip" data-position="top"
               [materializeParams]="[{tooltip:'Descargar elemento'}]">file_download</i>
 
             <i class='material-icons red-text' *ngIf="!canDelete()" (click)="addVideo()" materialize="tooltip"
@@ -31,7 +34,7 @@
 
 <!--Generic list view-->
 <div *ngIf="listItem != null">
-  <div class='col s12' (click)="playVideo()">
+  <div class='col s12'>
     <ul class='collection'>
       <li class='collection-item avatar'>
         <img style=' user-select: none;margin-top:12px;'src='{{ getImage(listItem.url) }}' alt='' class='circle'>
@@ -40,7 +43,10 @@
         </div>
         <a href="#" style="display: flex;margin-top:15px;" class='secondary-content'>
 
-          <i class='material-icons red-text' style="margin-right:10px;" (click)="downloadVideo()" materialize="tooltip"
+
+          <i class='material-icons red-text' style="margin-right:10px;" (click)="playVideo()" materialize="tooltip"
+          data-position="top" [materializeParams]="[{tooltip:'Reproducir elemento'}]">play_arrow</i>
+          <i class='material-icons red-text' (click)="downloadVideo()" materialize="tooltip"
             data-position="top" [materializeParams]="[{tooltip:'Descargar elemento'}]">file_download</i>
 
           <i class='material-icons red-text' *ngIf="!canDelete()" (click)="addVideo()" materialize="tooltip"

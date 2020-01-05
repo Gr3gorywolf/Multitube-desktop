@@ -25,8 +25,8 @@ export class VideoPlayerComponent implements OnInit, AfterViewInit {
       hideControls: true,
       ratio: '16:9',
       keyboard: {
-         focused: true,
-         global: true
+        focused: true,
+        global: true
       }
     });
     this.player.on('ended', event => {
@@ -68,10 +68,10 @@ export class VideoPlayerComponent implements OnInit, AfterViewInit {
         };
         this.play.currentElementUrl = this.currentElement;
       }
-
       $(".plyr").removeClass("floating-video");
-       $(".plyr").removeClass("floating-video");
+      $(".plyr").removeClass("animated slideInLeft")
       if (!this.isOnPlayer() && !this.play.isPlayerFullScreen) {
+        $(".plyr").addClass("animated slideInLeft")
         $(".plyr").addClass("floating-video");
       }
 

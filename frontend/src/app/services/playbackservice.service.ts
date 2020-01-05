@@ -80,11 +80,14 @@ export class PlaybackserviceService {
   }
 
   addToQueue(item: PlayListItem) {
-   console.log("Agregue elemento");
-   console.log(item);
+    let previousCount = this.quenue.length;
     if (this.quenue.find((ax) => ax.url === item.url) === undefined) {
       this.quenue.push(item);
+      if(previousCount == 0){
+        this.loadVideo(item.url);
+      }
     } else {
+
       // toast('El elemento ya existe en la cola', 1000);
     }
 

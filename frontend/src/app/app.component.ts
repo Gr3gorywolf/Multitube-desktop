@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { TcpService } from './services/tcp.service';
 import { PlaybackserviceService } from './services/playbackservice.service';
 import { SettingsService } from './services/settings.service';
+import { DownloadService } from './services/download.service';
 
 @Component({
   selector: 'app-root',
@@ -12,9 +13,14 @@ import { SettingsService } from './services/settings.service';
 export class AppComponent implements OnInit {
   title = 'frontend';
 
-  constructor(public routing: Router,public tcp:TcpService,private play:PlaybackserviceService,private settings:SettingsService) {
-    settings.initializeSettings();
+  constructor(public routing: Router,
+    public tcp:TcpService,
+    private play:PlaybackserviceService,
+    private settings:SettingsService,
+    private download:DownloadService) {
+    settings.initSettings();
     tcp.initServer();
+    download.initDownloads();
 
   }
 

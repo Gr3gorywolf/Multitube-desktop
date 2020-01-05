@@ -1,64 +1,89 @@
 <nav style="position: fixed;z-index:500;top:0;left: 0;">
   <!-- navbar content here  -->
-   <div class="nav-wrapper red" >
-  <a href="#" data-target="slide-out" class="button-collapse show-on-large" materialize="sideNav" [materializeParams]="[{edge:'left'}]"
-  data-activates="mobile-demo">
-    <i class="material-icons">menu</i>
-  </a>
-  <a class="brand-logo center">
-  <form  class="center">
-    <div class="input-field"  >
-        <input id="search" (keyup)="search($event)" [(ngModel)]="searchQuery" type="search" name="search" placeholder="Buscar" style="background-color: white;color: black;">
-        <label class="label-icon" for="search"><i class="material-icons black-text" style="margin-top: -12px;">search</i></label>
+  <div class="nav-wrapper red">
+    <a href="#" data-target="slide-out" class="button-collapse show-on-large" materialize="sideNav"
+      [materializeParams]="[{edge:'left'}]" data-activates="mobile-demo">
+      <i class="material-icons">menu</i>
+    </a>
+    <a class="brand-logo center">
+      <form class="center">
+        <div class="input-field">
+          <input id="search" (keyup)="search($event)" [(ngModel)]="searchQuery" type="search" name="search"
+            placeholder="Buscar" style="background-color: white;color: black;">
+          <label class="label-icon" for="search"><i class="material-icons black-text"
+              style="margin-top: -12px;">search</i></label>
 
-    </div>
-</form>
-</a>
-<ul id="nav-mobile" class="right">
-
-
-  <li><a [routerLink]="['/']">
-
-    <i class="material-icons">play_arrow</i>
-    <span class="custom-badge-first" *ngIf="play.quenue.length >0">{{ play.quenue.length }}</span>
-  </a></li>
-  <li><a   [routerLink]="['/clients']" >
-
-    <i class="material-icons">settings_remote</i>
-    <span class="custom-badge-second" *ngIf="tcp.connectedClients.length >0">{{ tcp.connectedClients.length }}</span>
-  </a></li>
-
-  <li><a  [routerLink]="['/downloads']" >
-
-    <i class="material-icons">file_download</i>
-    <span class="custom-badge-third" *ngIf="download.ongoingDownloads >0">{{download.ongoingDownloads  }}</span>
-  </a></li>
-</ul>
+        </div>
+      </form>
+    </a>
 
 
+    <!--nav elements -->
+    <ul id="nav-mobile" class="right">
+      <li><a [routerLink]="['/']">
 
-</div>
+          <i class="material-icons">play_arrow</i>
+          <span class="custom-badge-first" *ngIf="play.quenue.length >0">{{ play.quenue.length }}</span>
+        </a></li>
+      <li><a [routerLink]="['/clients']">
+
+          <i class="material-icons">settings_remote</i>
+          <span class="custom-badge-second"
+            *ngIf="tcp.connectedClients.length >0">{{ tcp.connectedClients.length }}</span>
+        </a></li>
+
+      <li><a [routerLink]="['/downloads']">
+
+          <i class="material-icons">file_download</i>
+          <span class="custom-badge-third" *ngIf="download.ongoingDownloads >0">{{download.ongoingDownloads  }}</span>
+        </a></li>
+    </ul>
+
+
+
+  </div>
 </nav>
 
 
 
-<ul id="mobile-demo" class="side-nav" style="z-index:99999;">
-  <li>
-    <a class="waves-effect" [routerLink]="['/']" (click)="closeSideNav()">Reproductor</a>
+
+<!--Mobile sidenav-->
+<ul id="mobile-demo" class="side-nav red" style="z-index:99999;">
+  <li><a (click)="closeSideNav()" class="white-text">
+      <i class="material-icons white-text">arrow_back</i>
+      Cerrar menu</a>
   </li>
   <li>
-    <a class="waves-effect"  (click)="closeSideNav()"> Busqueda rápida</a>
+    <h6 class="center"><img class="nbar-logo" src="assets/img/multitube-logo.png" alt=""></h6>
   </li>
   <li>
-    <a class="waves-effect"  [routerLink]="['/clients']"  (click)="closeSideNav()">Abrir gestor de clientes</a>
+    <a class="waves-effect white-text" [routerLink]="['/']" (click)="closeSideNav()">
+      <i class="material-icons white-text">play_arrow</i>
+      Reproductor
+    </a>
   </li>
   <li>
-    <a class="waves-effect" id='downloadbutton' [routerLink]="['/downloads']" (click)="closeSideNav()">Descargas</a>
+    <a class="waves-effect white-text" [routerLink]="['/clients']" (click)="closeSideNav()">
+      <i class="material-icons white-text">settings_remote</i>
+      Abrir gestor de clientes
+    </a>
   </li>
   <li>
-    <a class="waves-effect" [routerLink]="['/settings']" (click)="closeSideNav()">Configuracion</a>
+    <a class="waves-effect white-text" id='downloadbutton' [routerLink]="['/downloads']" (click)="closeSideNav()">
+      <i class="material-icons white-text">file_download</i>
+      Descargas
+    </a>
+  </li>
+  <li>
+    <a class="waves-effect white-text" [routerLink]="['/settings']" (click)="closeSideNav()">
+      <i class="material-icons white-text">settings</i>
+      Configuracion
+    </a>
   </li>
 </ul>
-<div class="progress white" *ngIf="play.isLoading" style="position: fixed;z-index:99999;margin-top:60px;top:0;left: 0;"  >
+
+<!--video loading progress bar-->
+<div class="progress white white-text" *ngIf="play.isLoading"
+  style="position: fixed;z-index:1200;margin-top:60px;top:0;left: 0;">
   <div class="indeterminate red"></div>
 </div>

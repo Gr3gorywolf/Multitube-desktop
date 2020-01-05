@@ -33,7 +33,7 @@ export class SettingsService {
   }
 
 
- initializeSettings(){
+ initSettings(){
    console.log(this.selectedDownloadPath);
    if(!this.settingsInstance.has('settings')){
 

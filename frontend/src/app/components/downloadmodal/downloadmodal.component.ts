@@ -12,6 +12,7 @@ export class DownloadmodalComponent implements OnInit {
 
   constructor(private modal:ModalsService,private download:DownloadService) { }
 
+  isFetchingInfo = false;
   ngOnInit() {
 
 
@@ -19,12 +20,20 @@ export class DownloadmodalComponent implements OnInit {
 
 
   closeModal(){
-    this.modal.CloseDownloadModal();
+    if(!this.isFetchingInfo){
+      this.modal.CloseDownloadModal();
+    }else{
+      toast("Debe esperar hasta que se procese la descarga",1000);
+    }
+
   }
   beginDownload(quality:string){
-    this.closeModal();
+    this.isFetchingInfo = true;
     toast("Procesando descarga",1000);
-   this.download.quenueDownload(this.modal.selectedItem.url,quality);
+   this.download.quenueDownload(this.modal.selectedItem.url,quality,()=>{
+    this.isFetchingInfo = false;
+    this.closeModal();
+   });
 
   }
 

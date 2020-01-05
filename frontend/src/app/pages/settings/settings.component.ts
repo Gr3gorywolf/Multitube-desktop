@@ -29,7 +29,10 @@ export class SettingsComponent implements OnInit {
         properties: ['openDirectory']
       }
     ).then((val) => {
-      this.verifyAndSavePath(val.filePaths.toString());
+      if (val.filePaths.toString().trim() != "") {
+        this.verifyAndSavePath(val.filePaths.toString());
+      }
+
     });
 
 

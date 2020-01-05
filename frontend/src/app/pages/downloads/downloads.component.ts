@@ -13,6 +13,9 @@ export class DownloadsComponent implements OnInit {
   constructor(public download:DownloadService) { }
 
   ngOnInit() {
+
+
+
   }
   getImage(down:DownloadItem){
     return new UrlHelper().getThumbnailFromUrl( down.url);

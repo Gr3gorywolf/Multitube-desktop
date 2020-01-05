@@ -4,5 +4,10 @@
   overflow: hidden;
   white-space: nowrap;
   margin-top:20px;
-  margin-right:48px;
+  margin-right:87px;
+}
+
+.secondary-content i {
+margin-right:10px;
+
 }

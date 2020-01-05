@@ -44,6 +44,7 @@ export class ListItemComponent implements OnInit {
   }
   ngOnDestroy() {
     clearInterval(this.detectionid);
+
   }
   canDelete() {
     return this.play.quenue.find((ax) => ax.url == this.selectedItem.url) != undefined

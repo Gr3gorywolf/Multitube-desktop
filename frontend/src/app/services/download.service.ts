@@ -19,8 +19,8 @@ export class DownloadService {
   ytdl: any;
   fs: any;
   request: any;
-  electronApp:Electron.App;
-  constructor(private electron: ElectronService, private zone: NgZone,private sett:SettingsService) {
+  electronApp: Electron.App;
+  constructor(private electron: ElectronService, private zone: NgZone, private sett: SettingsService) {
     this.electronInstance = electron.remote;
     this.ytdl = this.electronInstance.require('ytdl-core');
     this.request = this.electronInstance.require('request');
@@ -28,21 +28,29 @@ export class DownloadService {
     this.electronApp = this.electronInstance.app;
   }
 
-  public quenueDownload(url: string, qualityLabel: string) {
+
+
+  public initDownloads(){
+    this.getDownloadHistory((down:Array<DownloadItem>) => {
+      this.downloads = down;
+    });
+  }
+  public quenueDownload(url: string, qualityLabel: string,callback:Function = null) {
 
     this.ytdl.getInfo(url, (err, info: VideoInfo) => {
+      callback()
       if (err) {
         toast("Ocurrio un problema al obtener la informacion del video", 1000);
         return;
       } else {
         console.log("encontre info");
         for (var format of info.formats) {
-          if (format.audioBitrate != null && format.qualityLabel=== qualityLabel) {
+          if (format.audioBitrate != null && format.qualityLabel === qualityLabel) {
             let rgx = new RegexHelper();
             let cleanTitle = rgx.removeIllegalPathCharacters(info.title);
             let fileExtension = qualityLabel == null ? ".mp3" : ".mp4";
             let cleanPath = rgx.normalizePath(this.sett.selectedDownloadPath);
-            let fullPath =`${cleanPath}/${cleanTitle}${fileExtension}`;
+            let fullPath = `${cleanPath}/${cleanTitle}${fileExtension}`;
 
             var download = {
               downloadPath: fullPath,
@@ -54,6 +62,7 @@ export class DownloadService {
               downloadUrl: format.url
 
             } as DownloadItem
+
             this.executeDownload(download);
             break;
           }
@@ -66,6 +75,48 @@ export class DownloadService {
 
     });
   }
+
+
+
+  public getDownloadHistory(callback:Function){
+    var dir = this.electronApp.getPath('userData').replace(/\\/g, "/") + '/gr3cache';
+    let registryFile = dir + "/" + "downloads.json";
+    this.fs.readFile(registryFile, (err, data:Buffer) => {
+      if (!err) {
+        this.zone.run(()=>{
+          callback(JSON.parse(data.toString()))
+        });
+      }});
+  }
+
+  private addDownloadToHistory(down: DownloadItem) {
+
+    var dir = this.electronApp.getPath('userData').replace(/\\/g, "/") + '/gr3cache';
+    let registryFile = dir + "/" + "downloads.json";
+    if (!this.fs.existsSync(dir)) {
+      this.fs.mkdirSync(dir);
+    }
+    var downloads: Array<DownloadItem> = [];
+    this.fs.readFile(registryFile, (err, data:Buffer) => {
+      if (!err) {
+        downloads = JSON.parse(data.toString());
+      }
+      downloads.push(down);
+      this.fs.writeFile(registryFile, JSON.stringify(downloads),
+        (err) => {
+          if (err) {
+            return console.log(err);
+          }
+
+
+        });
+      throw err;
+
+    });
+
+  }
+
+
   private executeDownload(download: DownloadItem) {
     console.log("ejecute la descarga");
     var received_bytes = 0;
@@ -82,7 +133,7 @@ export class DownloadService {
       this.zone.run(() => {
         received_bytes += chunk.length;
         let itemIdx = this.downloads.indexOf(download);
-        if( itemIdx != -1){
+        if (itemIdx != -1) {
           let percent = (received_bytes * 100) / total_bytes;
           this.downloads[itemIdx].progress = Math.round(percent);
           this.downloads = this.downloads;
@@ -106,7 +157,7 @@ export class DownloadService {
         if (this.ongoingDownloads > 0) {
           this.ongoingDownloads--;
         }
-
+        this.addDownloadToHistory(download);
       });
     });
 

@@ -4,7 +4,7 @@
 </h6>
 <h5 style="font-size:23px;color:#323538" class="center">Historial de descargas</h5>
   <ul class='collection container'>
-    <li class='collection-item avatar' *ngFor="let down of download.downloads">
+    <li class='collection-item avatar' *ngFor="let down of download.downloads.reverse()">
       <img style=' user-select: none;margin-top:12px;' src='{{ getImage(down) }}' alt='' class='circle'>
       <div class='title' style=' user-select: none; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;'>
         {{ down.title }}</div>
