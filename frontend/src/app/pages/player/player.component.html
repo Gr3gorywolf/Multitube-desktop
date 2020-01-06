@@ -70,7 +70,7 @@
 
         <div id="tab1">
           <ul class="collection" cdkDropList (cdkDropListDropped)="drop($event)">
-            <div *ngFor="let playItem of this.play.quenue" cdkDrag >
+            <div *ngFor="let playItem of this.play.quenue" cdkDrag>
               <div>
                 <div class="custom-placeholder" *cdkDragPlaceholder></div>
                 <app-list-item [listItem]="playItem" [currentPlayingUrl]=" this.play.info.video_url"></app-list-item>
@@ -91,6 +91,10 @@
         </div>
 
       </div>
+    </div>
+
+    <div [ngStyle]="{'display':  !isPlayerVisible()?'initial':'none'}">
+        <app-preloader [size]="'big'" *ngIf="!isPlayerVisible()"></app-preloader>
     </div>
 
   </div>

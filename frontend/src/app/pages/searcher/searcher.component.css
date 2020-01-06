@@ -1,3 +1,6 @@
+:host(){
+  overflow-y: hidden;
+}
 .card-image img{
   height: 80%;
   width:100%;
@@ -13,6 +16,10 @@
   overflow: hidden;
    white-space: nowrap;
    font-size:15px;
+}
+.preloader-centered{
+  margin-top: calc(73vh - 230px );
+
 }
 .card{
   cursor: pointer;
