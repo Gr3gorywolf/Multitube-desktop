@@ -142,6 +142,7 @@ export class TcpService {
           if (parseInt(query.toString()) >= 0) {
             this.play.loadVideo(this.play.quenue[parseInt(query.toString())].url);
           }
+          status.isRequesting = false;
         }
         else
           if (status.isDeleting === true) {
