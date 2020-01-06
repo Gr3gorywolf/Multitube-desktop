@@ -25,6 +25,7 @@ import { DownloadsComponent } from './pages/downloads/downloads.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { DownloadItemComponent } from './components/download-item/download-item.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import {ScrollingModule} from '@angular/cdk/scrolling';
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,7 +55,8 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     FormsModule,
     QRCodeModule,
     HttpClientModule,
-    DragDropModule
+    DragDropModule,
+    ScrollingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

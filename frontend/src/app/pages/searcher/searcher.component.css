@@ -17,3 +17,7 @@
 .card{
   cursor: pointer;
 }
+.infinite-scrolling-viewport{
+
+  height: calc(100vh - 70px);
+}

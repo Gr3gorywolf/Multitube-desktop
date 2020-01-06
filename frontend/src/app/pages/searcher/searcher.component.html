@@ -1,11 +1,15 @@
+
+
+<cdk-virtual-scroll-viewport itemSize="200" class="infinite-scrolling-viewport">
 <div  class="row container"  style="overflow-y:auto" *ngIf="!searchSv.isLoading" >
   <div *ngIf="searchSv.searchResults.length>0">
 
-    <div *ngFor="let res of  searchSv.searchResults ">
-      <div class="col s12">
+    <div *cdkVirtualFor="let res of  searchSv.searchResults ">
+      <div class="col s12 animated fadeIn" >
           <app-search-result [result] = "res"></app-search-result>
       </div>
     </div>
   </div>
 </div>
 <app-preloader [size]="'big'" *ngIf="searchSv.isLoading" ></app-preloader>
+</cdk-virtual-scroll-viewport>

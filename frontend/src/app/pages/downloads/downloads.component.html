@@ -3,10 +3,18 @@
   <i class="material-icons red-text center" style="font-size:45px;">file_download</i>
 </h6>
 <h5 style="font-size:23px;color:#323538" class="center">Historial de descargas</h5>
-  <ul class='collection container'>
-     <app-download-item [download]="down" *ngFor="let down of download.downloads.reverse()"></app-download-item>
+
+<cdk-virtual-scroll-viewport itemSize="96" class="infinite-scrolling-viewport">
+
+  <ul class='collection container' style="margin-top:30px;" >
+    <li> <div class="divider"></div></li>
+    <div class="animated fadeIn" *cdkVirtualFor="let down of download.downloads.reverse()">
+      <app-download-item [download]="down" ></app-download-item>
+    </div>
+
     <li class="collection-item" *ngIf="download.downloads.length == 0">
       <h6 class="center">No se ha realizado ninguna descarga</h6>
     </li>
 
   </ul>
+</cdk-virtual-scroll-viewport>
