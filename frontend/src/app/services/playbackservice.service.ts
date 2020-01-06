@@ -8,6 +8,7 @@ import { VideoQuality } from '../models/VideoQuality';
 import { TcpService } from './tcp.service';
 import { Remote } from 'electron';
 import { NotificationService } from './notification.service';
+import { UrlHelper } from '../Utils/UrlHelper';
 declare var $: any;
 @Injectable({
   providedIn: 'root'
@@ -39,6 +40,8 @@ export class PlaybackserviceService {
   }
 
 
+
+
   loadVideo(url: string) {
     const id = url.split('=')[1];
 
@@ -54,7 +57,6 @@ export class PlaybackserviceService {
       } as PlayListItem);
       this.zone.run(() => {
         this.isLoading = false;
-    
         this.addToQueue(playItem,true);
         if (err) {
           toast("Ocurrio un problema al obtener la informacion del video", 1000);
@@ -76,17 +78,17 @@ export class PlaybackserviceService {
               qualityLabel: "480"
 
             } as VideoQuality);
-            
           });
-
         }
       }
       this.notification.notifyByPlayItem("Actualmente reproduciendose",playItem);
+      this.updateMediaSession()
       this.apprf.tick();
-
     });
-
   }
+
+
+
 
   addToQueue(item: PlayListItem,preventNotifications:boolean = false) {
     let previousCount = this.quenue.length;
@@ -99,9 +101,7 @@ export class PlaybackserviceService {
       if(!preventNotifications){
         this.notification.notifyByPlayItem("Agregado a la cola exitosamente", item)
       }
-     
     } else {
-
       // toast('El elemento ya existe en la cola', 1000);
     }
 
@@ -151,7 +151,7 @@ export class PlaybackserviceService {
       console.log(previousIndex);
       console.log(this.quenue.length);
 
-      if (previousIndex > 0 && previousIndex <= this.quenue.length - 1) {
+      if (previousIndex >= 0 && previousIndex <= this.quenue.length - 1) {
         this.loadVideo(this.quenue[previousIndex].url);
       }
     }
@@ -183,6 +183,36 @@ export class PlaybackserviceService {
     this.electron.ipcRenderer.send("pressKey", "f");
 
     console.log("ejecute tecla");
+  }
+
+  private updateMediaSession(){
+    if ('mediaSession' in navigator) {
+
+
+       let portrait =new UrlHelper().getThumbnailFromUrl(this.info.video_url);
+        // @ts-ignore
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title: this.info.title,
+        artist: this.info.author.name,
+        artwork: [
+          { src: portrait, sizes: '96x96', type: 'image/png' },
+          { src: portrait, sizes: '128x128', type: 'image/png' },
+          { src: portrait, sizes: '192x192', type: 'image/png' },
+          { src: portrait, sizes: '256x256', type: 'image/png' },
+          { src: portrait, sizes: '384x384', type: 'image/png' },
+          { src: portrait, sizes: '512x512', type: 'image/png' },
+        ]
+      });
+    }
+     // @ts-ignore
+    navigator.mediaSession.setActionHandler('previoustrack',()=> {
+     this.playPrevious();
+    });
+     // @ts-ignore
+    navigator.mediaSession.setActionHandler('nexttrack',  ()=> {
+      this.playNext();
+    });
+
   }
 
 }

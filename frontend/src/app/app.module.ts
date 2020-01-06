@@ -23,6 +23,7 @@ import { RemoteServerStatusComponent } from './components/remote-server-status/r
 import { SearchResultComponent } from './components/search-result/search-result.component';
 import { DownloadsComponent } from './pages/downloads/downloads.component';
 import { SettingsComponent } from './pages/settings/settings.component';
+import { DownloadItemComponent } from './components/download-item/download-item.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { SettingsComponent } from './pages/settings/settings.component';
     RemoteServerStatusComponent,
     SearchResultComponent,
     DownloadsComponent,
-    SettingsComponent
+    SettingsComponent,
+    DownloadItemComponent
   ],
   imports: [
     BrowserModule,

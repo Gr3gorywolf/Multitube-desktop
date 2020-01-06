@@ -17,11 +17,5 @@ export class DownloadsComponent implements OnInit {
 
 
   }
-  getImage(down:DownloadItem){
-    return new UrlHelper().getThumbnailFromUrl( down.url);
-  }
-  getQualityString(down:DownloadItem){
-    return (down.quality == null) ?"Audio":"Video"
-  }
 
 }
