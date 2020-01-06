@@ -7,6 +7,7 @@ import { Request } from 'request';
 import { RegexHelper } from '../Utils/RegexHelper';
 import { Remote } from 'electron';
 import { SettingsService } from './settings.service';
+import { NotificationService } from './notification.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -20,7 +21,11 @@ export class DownloadService {
   fs: any;
   request: any;
   electronApp: Electron.App;
-  constructor(private electron: ElectronService, private zone: NgZone, private sett: SettingsService) {
+  constructor(
+    private electron: ElectronService, 
+    private zone: NgZone, 
+    private sett: SettingsService,
+    private notification:NotificationService) {
     this.electronInstance = electron.remote;
     this.ytdl = this.electronInstance.require('ytdl-core');
     this.request = this.electronInstance.require('request');
@@ -118,6 +123,11 @@ export class DownloadService {
 
 
   private executeDownload(download: DownloadItem) {
+    
+    this.notification.notify("Descargando: "+ download.title
+    ,"Click el icono para ver el progreso"
+    ,download.url);
+
     console.log("ejecute la descarga");
     var received_bytes = 0;
     var total_bytes = 0;

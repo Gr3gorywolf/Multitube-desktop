@@ -7,6 +7,7 @@ import { toast } from 'angular2-materialize';
 import { VideoQuality } from '../models/VideoQuality';
 import { TcpService } from './tcp.service';
 import { Remote } from 'electron';
+import { NotificationService } from './notification.service';
 declare var $: any;
 @Injectable({
   providedIn: 'root'
@@ -22,12 +23,15 @@ export class PlaybackserviceService {
   public isAutoplayEnabled = true;
   public playerInstance: any = null;
   public isPlayerFullScreen = false;
-  private mainProcess:any = null
+  private mainProcess: any = null
   electronInstance: Remote;
   fs: any;
   ytdl: any;
 
-  constructor(private electron: ElectronService, private zone: NgZone, private apprf: ApplicationRef) {
+  constructor(private electron: ElectronService,
+    private zone: NgZone,
+    private apprf: ApplicationRef,
+    private notification: NotificationService) {
     this.electronInstance = electron.remote;
     this.fs = this.electronInstance.require('fs');
     this.ytdl = this.electronInstance.require('ytdl-core');
@@ -41,16 +45,19 @@ export class PlaybackserviceService {
     this.isLoading = true;
     this.ytdl.getInfo(url, (err, info: VideoInfo) => {
 
+
+
+      let playItem = ({
+        title: info.title,
+        url: info.video_url
+
+      } as PlayListItem);
       this.zone.run(() => {
         this.isLoading = false;
-        this.addToQueue({
-          title: info.title,
-          url: info.video_url
-
-        } as PlayListItem);
-
+    
+        this.addToQueue(playItem,true);
         if (err) {
-          toast("Ocurrio un problema al obtener la informacion del video",1000);
+          toast("Ocurrio un problema al obtener la informacion del video", 1000);
           return;
         }
         this.info = info;
@@ -58,9 +65,9 @@ export class PlaybackserviceService {
       this.videoSources = [];
       const availableQualities = ['144p', '240p', '360p', '480p', '720p', '1080p'];
       console.log(info.formats);
-      for (let i = 0; i <info.formats.length; i++) {
+      for (let i = 0; i < info.formats.length; i++) {
         const format = info.formats[i];
-        if ( format.audioBitrate != null) {
+        if (format.audioBitrate != null) {
           this.zone.run(() => {
 
             this.currentElementUrl = format.url;
@@ -69,24 +76,30 @@ export class PlaybackserviceService {
               qualityLabel: "480"
 
             } as VideoQuality);
+            
           });
 
         }
       }
+      this.notification.notifyByPlayItem("Actualmente reproduciendose",playItem);
       this.apprf.tick();
 
     });
 
   }
 
-  addToQueue(item: PlayListItem) {
+  addToQueue(item: PlayListItem,preventNotifications:boolean = false) {
     let previousCount = this.quenue.length;
     if (this.quenue.find((ax) => ax.url === item.url) === undefined) {
       this.quenue.push(item);
-      if(previousCount == 0){
+      if (previousCount == 0) {
         this.loadVideo(item.url);
       }
-      toast("Elemento agregado a la cola exitosamente",1000);
+      toast("Elemento agregado a la cola exitosamente", 1000);
+      if(!preventNotifications){
+        this.notification.notifyByPlayItem("Agregado a la cola exitosamente", item)
+      }
+     
     } else {
 
       // toast('El elemento ya existe en la cola', 1000);
@@ -97,13 +110,14 @@ export class PlaybackserviceService {
     toast("Agregando: " + url, 1000);
     this.ytdl.getInfo(url, (err, info: VideoInfo) => {
       toast(info.title + " Agregado a la cola exitosamente", 1000);
+
       this.zone.run(() => {
         this.isLoading = false;
-        this.addToQueue({
+        let item = ({
           title: info.title,
           url: info.video_url
-
         } as PlayListItem);
+        this.addToQueue(item);
 
         if (err) { throw err; }
 
@@ -164,9 +178,9 @@ export class PlaybackserviceService {
 
   toggleFullscreen() {
     (document.activeElement as HTMLElement).blur();
-    $( "#audiotag" ).focus();
+    $("#audiotag").focus();
     this.electron.ipcRenderer.send("bringToFront");
-    this.electron.ipcRenderer.send("pressKey","f");
+    this.electron.ipcRenderer.send("pressKey", "f");
 
     console.log("ejecute tecla");
   }

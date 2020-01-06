@@ -9,6 +9,7 @@ import { Router, NavigationStart } from '@angular/router';
 import { TcpClientStatus } from '../models/TcpClientStatus';
 import { Remote } from 'electron';
 import { DownloadService } from './download.service';
+import { NotificationService } from './notification.service';
 
 @Injectable({
   providedIn: 'root'
@@ -32,7 +33,8 @@ export class TcpService {
     , private zone: NgZone
     , private electron: ElectronService
     , private route: Router,
-    private download: DownloadService) {
+    private download: DownloadService,
+    private notification:NotificationService) {
     this.electronInstance = this.electron.remote;
     this.tcp = this.electronInstance.require('net');
     this.hostName = this.electronInstance.require('os').hostname();
@@ -146,7 +148,10 @@ export class TcpService {
 
             const index = parseInt(query.toString());
             if (index >= 0) {
+              
+              this.notification.notifyByPlayItem("Eliminado de la cola",this.play.quenue[index]);
               this.play.removeFromQueue(this.play.quenue[index]);
+             
             }
             status.isDeleting = false;
           }
@@ -191,6 +196,7 @@ export class TcpService {
                           if (this.play.info != null) {
                             this.updateClientData(socket);
                           }
+                          this.notification.notify("Nuevo cliente conectado","Se ha conectado un nuevo cliente al servidor");
                         }
                         else
                           if (query.toString() === 'vol0()') {
