@@ -19,6 +19,9 @@ img:not([draggable=true]) {
 
 }
 
+li{
+  list-style-type: none;
+}
 
 
 h1 h2 h3 h4 h5 span strong img a i li p ul {

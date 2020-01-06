@@ -24,7 +24,7 @@ import { SearchResultComponent } from './components/search-result/search-result.
 import { DownloadsComponent } from './pages/downloads/downloads.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { DownloadItemComponent } from './components/download-item/download-item.component';
-
+import {DragDropModule} from '@angular/cdk/drag-drop';
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,6 +54,7 @@ import { DownloadItemComponent } from './components/download-item/download-item.
     FormsModule,
     QRCodeModule,
     HttpClientModule,
+    DragDropModule
   ],
   providers: [],
   bootstrap: [AppComponent]

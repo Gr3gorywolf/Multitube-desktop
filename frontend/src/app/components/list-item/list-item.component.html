@@ -1,63 +1,53 @@
 <!--Related list view-->
-<div *ngIf="relatedvideo != null">
-  <div class='col s12 ' *ngIf="!canDelete()">
-    <ul class='collection'>
-      <li class='collection-item avatar'><img style=' user-select: none;margin-top:12px;'
-          src='{{ relatedvideo.video_thumbnail }}' alt='' class='circle'>
-        <div class='title' style=' user-select: none; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;'>
-          {{ relatedvideo.title }}
-        </div>
-        <p style=' user-select: none;'>
-          {{ relatedvideo.author }}
-          <br>
-          {{ relatedvideo.short_view_count_text }}
-
-
-          <a href="#" style="display: flex;margin-top:15px;" class='secondary-content'>
-
-
-            <i class='material-icons red-text'  (click)="playVideo()" materialize="tooltip"
-            data-position="top" [materializeParams]="[{tooltip:'Reproducir elemento'}]">play_arrow</i>
-            <i class='material-icons red-text'  (click)="downloadVideo()" materialize="tooltip" data-position="top"
-              [materializeParams]="[{tooltip:'Descargar elemento'}]">file_download</i>
-
-            <i class='material-icons red-text' *ngIf="!canDelete()" (click)="addVideo()" materialize="tooltip"
-              data-position="top" [materializeParams]="[{tooltip:'Agregar a la lista'}]">library_add</i>
-            <i class='material-icons red-text' *ngIf="canDelete()" (click)="deleteVideo()" materialize="tooltip"
-              data-position="top" [materializeParams]="[{tooltip:'Eliminar de la lista'}]">delete</i>
-          </a>
-      <li>
-    </ul>
-  </div>
-
-</div>
-
-<!--Generic list view-->
-<div *ngIf="listItem != null">
-  <div class='col s12'>
-    <ul class='collection'>
-      <li class='collection-item avatar'>
-        <img style=' user-select: none;margin-top:12px;'src='{{ getImage(listItem.url) }}' alt='' class='circle'>
-        <div class='title truncate centered-title' >
-          {{ listItem.title }}
-        </div>
-        <a  style="display: flex;margin-top:15px;" class='secondary-content'>
-
-
-          <i class='material-icons red-text' style="margin-right:10px;" (click)="playVideo()" materialize="tooltip"
-          data-position="top" [materializeParams]="[{tooltip:'Reproducir elemento'}]">play_arrow</i>
-          <i class='material-icons red-text' (click)="downloadVideo()" materialize="tooltip"
-            data-position="top" [materializeParams]="[{tooltip:'Descargar elemento'}]">file_download</i>
+<div *ngIf="!canDelete()">
+  <div *ngIf="relatedvideo != null  " class='collection'>
+    <li class='collection-item avatar'>
+      <img style=' user-select: none;margin-top:12px;' src='{{ relatedvideo.video_thumbnail }}' alt='' class='circle'>
+      <div class='title truncate'>
+        {{ relatedvideo.title }}
+      </div>
+      <p>
+        {{ relatedvideo.author }}
+        <br>
+        {{ relatedvideo.short_view_count_text }}
+        <a href="#" style="display: flex;margin-top:15px;" class='secondary-content'>
+          <i class='material-icons red-text' (click)="playVideo()" materialize="tooltip" data-position="top"
+            [materializeParams]="[{tooltip:'Reproducir elemento'}]">play_arrow</i>
+          <i class='material-icons red-text' (click)="downloadVideo()" materialize="tooltip" data-position="top"
+            [materializeParams]="[{tooltip:'Descargar elemento'}]">file_download</i>
 
           <i class='material-icons red-text' *ngIf="!canDelete()" (click)="addVideo()" materialize="tooltip"
             data-position="top" [materializeParams]="[{tooltip:'Agregar a la lista'}]">library_add</i>
           <i class='material-icons red-text' *ngIf="canDelete()" (click)="deleteVideo()" materialize="tooltip"
             data-position="top" [materializeParams]="[{tooltip:'Eliminar de la lista'}]">delete</i>
         </a>
-
-      <li>
-    </ul>
+    <li>
   </div>
+  <li>
+    <div class="divider"></div>
+  </li>
+</div>
+
+<!--Generic list view-->
+<div *ngIf="listItem != null" class="collection">
+  <li class='collection-item avatar'>
+    <img style=' user-select: none;margin-top:12px;' src='{{ getImage(listItem.url) }}' alt='' class='circle'>
+    <div class='title truncate centered-title'>
+      {{ listItem.title }}
+    </div>
+    <a style="display: flex;margin-top:15px;" class='secondary-content'>
 
 
+      <i class='material-icons red-text' style="margin-right:10px;" (click)="playVideo()" materialize="tooltip"
+        data-position="top" [materializeParams]="[{tooltip:'Reproducir elemento'}]">play_arrow</i>
+      <i class='material-icons red-text' (click)="downloadVideo()" materialize="tooltip" data-position="top"
+        [materializeParams]="[{tooltip:'Descargar elemento'}]">file_download</i>
+
+      <i class='material-icons red-text' *ngIf="!canDelete()" (click)="addVideo()" materialize="tooltip"
+        data-position="top" [materializeParams]="[{tooltip:'Agregar a la lista'}]">library_add</i>
+      <i class='material-icons red-text' *ngIf="canDelete()" (click)="deleteVideo()" materialize="tooltip"
+        data-position="top" [materializeParams]="[{tooltip:'Eliminar de la lista'}]">delete</i>
+    </a>
+
+  <li>
 </div>

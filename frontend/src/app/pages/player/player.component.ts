@@ -8,6 +8,7 @@ import { UrlHelper } from 'src/app/Utils/UrlHelper';
 import { OverflowHelper } from 'src/app/Utils/OverflowHelper';
 import { RouterModule, Router } from '@angular/router';
 import { TcpService } from 'src/app/services/tcp.service';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 @Component({
   selector: 'app-player',
   templateUrl: './player.component.html',
@@ -86,6 +87,13 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
    return this.Route.url == "/"
  }
 
+ drop(event: CdkDragDrop<PlayListItem[]>) {
+   console.log(event.previousIndex);
+   console.log(event.currentIndex);
+
+  moveItemInArray(this.play.quenue, event.previousIndex, event.currentIndex);
+  this.tcp.updateClientsData();
+  }
 
 
 }

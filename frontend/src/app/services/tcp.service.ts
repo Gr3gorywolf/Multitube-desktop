@@ -196,14 +196,12 @@ export class TcpService {
       if (query.toString() == "descvid360()") {
         this.download.quenueDownload(this.play.info.video_url, "360p");
       }
-      else
-        if (query.toString() == "descvid720()") {
-          this.download.quenueDownload(this.play.info.video_url, "720p");
-        }
-        else
-          if (query.toString() == "descmp3()") {
-            this.download.quenueDownload(this.play.info.video_url, null);
-          }
+      if (query.toString() == "descvid720()") {
+        this.download.quenueDownload(this.play.info.video_url, "720p");
+      }
+      if (query.toString() == "descmp3()") {
+        this.download.quenueDownload(this.play.info.video_url, null);
+      }
     }
     else
       //requesting status action
@@ -245,10 +243,6 @@ export class TcpService {
     return status;
   }
 
-
-
-
-
   public async updateClientsData() {
     for (const cli of this.connectedClients) {
       this.updateClientData(cli);
@@ -267,8 +261,7 @@ export class TcpService {
       names.push(quen.title);
       urls.push(quen.url);
     }
-    console.log("urls-->" + urls);
-    console.log("names-->" + names)
+
     var jsonFront = JSON.stringify([
       thumbnail,
       title,

@@ -11,3 +11,11 @@
 margin-right:10px;
 
 }
+
+.collection {
+  margin: 0px;
+  border:0px;
+  border-radius: 0px;
+  overflow: hidden;
+  position: relative
+}
