@@ -120,121 +120,129 @@ export class TcpService {
 
 
     let status = this.clientsStatuses.get(socket);
-    if (query.toString() === 'playpause()') {
-      this.play.playerInstance.togglePlay();
+    switch (query.toString()) {
+      case 'playpause()':
+        this.play.playerInstance.togglePlay();
+        break;
+      case 'pedirindice()':
+        if (status.isRequesting === false) {
+          status.isRequesting = true;
+        }
+        break;
+      case 'eliminarelemento()':
+        if (status.isRequesting === false) {
+          status.isDeleting = true;
+        }
+        break;
+      case 'agregar()':
+        status.isAdding = true;
+        break;
+      case 'actual-()':
+        this.play.playerInstance.rewind();
+        break;
+      case 'actual+()':
+        this.play.playerInstance.forward();
+        break;
+      case 'recall()':
+        toast('Nuevo cliente conectado!!', 1000);
+        if (this.play.info != null) {
+          this.updateClientData(socket);
+        }
+        this.notification.notify("Nuevo cliente conectado", "Se ha conectado un nuevo cliente al servidor");
+        break;
+      case 'vol0()':
+        this.volumeState = query.toString();
+        this.play.playerInstance.volume = 0;
+        this.updateClientsData();
+        break;
+      case 'vol50()':
+        this.volumeState = query.toString();
+        this.play.playerInstance.volume = 0.5;
+        this.updateClientsData();
+        break
+      case 'vol100()':
+        this.volumeState = query.toString();
+        this.play.playerInstance.volume = 1;
+        this.updateClientsData();
+      case 'back()':
+        this.play.playPrevious();
+        break;
+      case 'next()':
+        this.play.playNext();
+        break;
+      case 'fullscreen()':
+        this.play.toggleFullscreen();
+        break
+      /////special actions like download,add etc
+      default:
+        status = this.manageSpecialActions(query.toString(), status);
+        break;
+
     }
-    else
-      if (this.play.info != null && query.toString().includes("desc")) {
-        if (query.toString() == "descvid360()") {
-          this.download.quenueDownload(this.play.info.video_url, "360p");
-        }
-        else
-          if (query.toString() == "descvid720()") {
-            this.download.quenueDownload(this.play.info.video_url, "720p");
-          }
-          else
-            if (query.toString() == "descmp3()") {
-              this.download.quenueDownload(this.play.info.video_url, null);
-            }
-      }
-      else
-        if (status.isRequesting) {
-          if (parseInt(query.toString()) >= 0) {
-            this.play.loadVideo(this.play.quenue[parseInt(query.toString())].url);
-          }
-          status.isRequesting = false;
-        }
-        else
-          if (status.isDeleting === true) {
-
-            const index = parseInt(query.toString());
-            if (index >= 0) {
-
-              this.notification.notifyByPlayItem("Eliminado de la cola", this.play.quenue[index]);
-              this.play.removeFromQueue(this.play.quenue[index]);
-
-            }
-            status.isDeleting = false;
-          }
-          else
-            if (query.toString().includes('youtube.com')) {
-              if (status.isAdding) {
-                if (this.play.quenue.length == 0) {
-                  this.play.loadVideo(query.toString());
-                }
-                else {
-                  this.play.addToQuenueByUrl(query.toString());
-                }
-                status.isAdding = false;
-              }
-              else {
-                this.play.loadVideo(query.toString());
-              }
-            }
-            else
-              if (query.toString() === 'pedirindice()' && status.isRequesting === false) {
-                status.isRequesting = true;
-              }
-              else
-                if (query.toString() === 'eliminarelemento()' && status.isRequesting === false) {
-                  status.isDeleting = true;
-                }
-                else
-                  if (query.toString() === 'agregar()') {
-                    status.isAdding = true;
-                  }
-                  else
-                    if (query.toString() === 'actual+()') {
-                      this.play.playerInstance.forward();
-                    }
-                    else
-                      if (query.toString() === 'actual-()') {
-                        this.play.playerInstance.rewind();
-                      }
-                      else
-                        if (query.toString() === 'recall()') {
-                          toast('Nuevo cliente conectado!!', 1000);
-                          if (this.play.info != null) {
-                            this.updateClientData(socket);
-                          }
-                          this.notification.notify("Nuevo cliente conectado", "Se ha conectado un nuevo cliente al servidor");
-                        }
-                        else
-                          if (query.toString() === 'vol0()') {
-                            this.volumeState = query.toString();
-                            this.play.playerInstance.volume = 0;
-                            this.updateClientsData();
-                          }
-                          else
-                            if (query.toString() === 'vol50()') {
-                              this.volumeState = query.toString();
-                              this.play.playerInstance.volume = 0.5;
-                              this.updateClientsData();
-                            }
-                            else
-                              if (query.toString() === 'vol100()') {
-                                this.volumeState = query.toString();
-                                this.play.playerInstance.volume = 1;
-                                this.updateClientsData();
-                              }
-                              else
-                                if (query.toString() === 'back()') {
-                                  this.play.playPrevious();
-
-                                }
-                                else
-                                  if (query.toString() === 'next()') {
-                                    this.play.playNext();
-                                  }
-                                  else
-                                    if (query.toString() === 'fullscreen()') {
-                                      console.log("invoque fullscreen");
-                                      this.play.toggleFullscreen();
-                                    }
     console.log(query.toString());
     console.log(query.toString() === 'fullscreen()');
     this.clientsStatuses.set(socket, status);
 
+  }
+
+
+
+
+
+  private manageSpecialActions(query: string, status: TcpClientStatus): TcpClientStatus {
+
+    //download status action
+    if (this.play.info != null && query.toString().includes("desc")) {
+      if (query.toString() == "descvid360()") {
+        this.download.quenueDownload(this.play.info.video_url, "360p");
+      }
+      else
+        if (query.toString() == "descvid720()") {
+          this.download.quenueDownload(this.play.info.video_url, "720p");
+        }
+        else
+          if (query.toString() == "descmp3()") {
+            this.download.quenueDownload(this.play.info.video_url, null);
+          }
+    }
+    else
+      //requesting status action
+      if (status.isRequesting) {
+        if (parseInt(query.toString()) >= 0) {
+          this.play.loadVideo(this.play.quenue[parseInt(query.toString())].url);
+        }
+        status.isRequesting = false;
+      }
+      else
+        ///deleting status action
+        if (status.isDeleting === true) {
+
+          const index = parseInt(query.toString());
+          if (index >= 0) {
+
+            this.notification.notifyByPlayItem("Eliminado de la cola", this.play.quenue[index]);
+            this.play.removeFromQueue(this.play.quenue[index]);
+
+          }
+          status.isDeleting = false;
+        }
+        else
+          //without status (play) action
+          if (query.toString().includes('youtube.com')) {
+            if (status.isAdding) {
+              if (this.play.quenue.length == 0) {
+                this.play.loadVideo(query.toString());
+              }
+              else {
+                this.play.addToQuenueByUrl(query.toString());
+              }
+              status.isAdding = false;
+            }
+            else {
+              this.play.loadVideo(query.toString());
+            }
+          }
+    return status;
   }
 
 
