@@ -16,6 +16,15 @@ export class SettingsService {
 
   }
 
+
+  public get floatingPlayerEnabled(){
+    let setting = this.settingsInstance.get("settings.floatingPlayerEnabled");
+    return setting == null ? true : setting;
+  }
+  public set floatingPlayerEnabled(value:boolean){
+    this.settingsInstance.set("settings.floatingPlayerEnabled",value);
+  }
+
  public get notificationsStatus(){
     let setting = this.settingsInstance.get("settings.notificationsEnabled");
     return setting;
@@ -40,6 +49,7 @@ export class SettingsService {
     this.settingsInstance.set('settings', {
       downloadPath: this.electronInstance.app.getPath("downloads"),
         quality: "360p",
+        floatingPlayerEnabled: true,
         notificationsEnabled: true
     });
 

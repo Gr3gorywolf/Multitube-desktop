@@ -19,7 +19,22 @@
       <a class="secondary-content">
         <div class="switch ntf-switch">
           <label>
-            <input type="checkbox" id='notis' [(ngModel)]="sett.notificationsStatus" onchange="changeNotificationsStatus()">
+            <input type="checkbox" id='notis' [(ngModel)]="sett.notificationsStatus">
+            <span class="lever"></span>
+          </label>
+        </div>
+      </a>
+    </li>
+
+    <li class="collection-item avatar">
+      <i class="material-icons circle">featured_video</i>
+      <span class="title">Reproductor flotante</span>
+      <p class="grey-text "> {{ sett.floatingPlayerEnabled?"":"No" }} Aparecerá un video flotante al navegar entre menues
+      </p>
+      <a class="secondary-content">
+        <div class="switch ntf-switch">
+          <label>
+            <input type="checkbox"  [(ngModel)]="sett.floatingPlayerEnabled" >
             <span class="lever"></span>
           </label>
         </div>

@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef, ViewChild, AfterViewInit, NgZone } from 
 import { PlaybackserviceService } from 'src/app/services/playbackservice.service';
 import { OverflowHelper } from 'src/app/Utils/OverflowHelper';
 import { Router } from '@angular/router';
+import { SettingsService } from 'src/app/services/settings.service';
 declare var Plyr: any;
 declare var $: any;
 @Component({
@@ -12,7 +13,7 @@ declare var $: any;
 export class VideoPlayerComponent implements OnInit, AfterViewInit {
   player: any;
   currentElement: string;
-  constructor(public play: PlaybackserviceService, public route: Router, public zone: NgZone) { }
+  constructor(public play: PlaybackserviceService, public route: Router, public zone: NgZone, public settings: SettingsService) { }
 
   ngOnInit() {
 
@@ -69,10 +70,12 @@ export class VideoPlayerComponent implements OnInit, AfterViewInit {
         this.play.currentElementUrl = this.currentElement;
       }
       $(".plyr").removeClass("floating-video");
-      $(".plyr").removeClass("animated slideInLeft")
+      $(".plyr").removeClass("animated fadeInLeft")
       if (!this.isOnPlayer() && !this.play.isPlayerFullScreen) {
-        $(".plyr").addClass("animated slideInLeft")
-        $(".plyr").addClass("floating-video");
+        if (this.settings.floatingPlayerEnabled) {
+          $(".plyr").addClass("animated fadeInLeft")
+          $(".plyr").addClass("floating-video");
+        }
       }
 
     }, 600)
