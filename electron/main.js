@@ -58,7 +58,8 @@ function createWindow() {
     webPreferences: {
       nativeWindowOpen: true,
       nodeIntegration: true,
-      webgl: true
+      webgl: true,
+      webSecurity: false
     },
   })
 

@@ -3,6 +3,9 @@ import { ElectronService } from 'ngx-electron';
 import { async } from '@angular/core/testing';
 import { SearchResult, Kind } from '../interfaces/SearchResult';
 import { Remote } from 'electron';
+
+import { HttpClient } from '@angular/common/http';
+import { YoutubeVideosScraper } from '../Utils/YoutubeVideosScraper';
 @Injectable({
   providedIn: 'root'
 })
@@ -13,8 +16,9 @@ export class SearchService {
   private keys: Array<string> = [];
   private opts: any;
   public searchResults:Array<SearchResult> = [];
+  public recommendedVideos:Array<SearchResult> = [];
   public isLoading = false;
-  constructor(private electron: ElectronService, private zone: NgZone) {
+  constructor(private electron: ElectronService, private zone: NgZone,private client:HttpClient) {
     this.electronInstance = electron.remote;
     this.ytSearch = this.electronInstance.require('youtube-search');
     var fs = this.electronInstance.require('fs');
@@ -24,9 +28,11 @@ export class SearchService {
       maxResults: 50,
       key: this.keys[0]
     };
+
   }
 
   public searchForResults(query: string) {
+    this.getRecommendedVideos();
     this.isLoading = true;
     this.ytSearch(query, this.opts,(err, results:Array<SearchResult>) => {
       this.zone.run(() => {
@@ -43,6 +49,26 @@ export class SearchService {
       })
     });
   }
+
+
+  public getRecommendedVideos(){
+     this.client.get("https://m.youtube.com",{responseType: 'text'}).subscribe((res) => {
+            var scraper = new YoutubeVideosScraper(res);
+            let parsedResponse = scraper.scrapRecommendedPage();
+
+             console.log()
+     });
+
+  }
+
+  public getTrendingVideos(){
+
+
+  }
+
+
+
+
 
   private fillKeys() {
     this.keys = [];

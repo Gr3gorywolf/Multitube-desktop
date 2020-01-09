@@ -6,4 +6,8 @@ export class UrlHelper{
     return _image;
   }
 
+  public getYoutubeUrlById(videoId:string):string{
+     return "https://www.youtube.com/watch?v="+videoId;
+  }
+
 }
