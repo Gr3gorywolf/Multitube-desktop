@@ -13,10 +13,10 @@ declare var $:any
 export class NavbarComponent implements OnInit {
 
   constructor(
-    private play:PlaybackserviceService,
-    private router:Router,
-    private tcp:TcpService,
-    private download:DownloadService) { }
+    public play:PlaybackserviceService,
+    public router:Router,
+    public tcp:TcpService,
+    public download:DownloadService) { }
   searchQuery:string="";
   ngOnInit() {
   }

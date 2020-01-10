@@ -52,7 +52,7 @@
 }
 #backoo {
 
-  height: calc(90vh - 175px);
+  height: calc(90vh - 210px);
   width: 100%;
   overflow: auto;
   overflow-x: hidden;

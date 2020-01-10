@@ -35,7 +35,7 @@ export class SearcherComponent implements OnInit,OnDestroy {
      });
 
      this.detectionid =  setInterval(() => {
-      this.change.detectChanges();
+      this.change.markForCheck();
     }, 1000)
   }
 

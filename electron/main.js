@@ -52,8 +52,9 @@ function createWindow() {
     width: 800,
     height: 700,
     minHeight: 700,
-    minWidth: 600,
+    minWidth: 650,
     show: false,
+    icon:__dirname + "/icon.ico",
 
     webPreferences: {
       nativeWindowOpen: true,
@@ -67,11 +68,11 @@ function createWindow() {
     win.show();
     win.focus();
   });
-  win.toggleDevTools();
+ // win.toggleDevTools();
   win.setMenu(null);
   // and load the index.html of the app.
-  win.loadURL("http://localhost:4200");
-  //  win.loadURL(`file://${__dirname}/dist/index.html`);
+ // win.loadURL("http://localhost:4200");
+    win.loadURL(`file://${__dirname}/dist/index.html`);
   win.webContents.frameRate = 60;
 
 

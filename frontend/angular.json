@@ -38,6 +38,7 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
+              "baseHref": "./",
               "optimization": true,
               "outputHashing": "none",
               "sourceMap": false,

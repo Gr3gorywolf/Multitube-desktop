@@ -1,71 +1,43 @@
-<div style="margin-bottom:80px">
+<div style="margin-bottom:80px;" >
+
+
+
+  <app-page-header [icon]="sections[currentSection].icon" [title]="sections[currentSection].title" ></app-page-header>
+
   <div *ngIf="currentSection == 0">
 
-
-    <h5> Videos recomendados</h5>
-
-    <div class="row">
-
-      <div class="col s12 m6 xl4" *ngFor="let rec of search.recommendedVideos">
-        <div class="card large">
-          <div class="card-image">
-            <img src="{{ getImage(rec.link) }}">
-
-          </div>
-          <div class="card-content">
-            <span class="card-title truncate">{{ rec.title }}</span>
-            <p>{{rec.description}}</p>
-          </div>
-          <h6 class="card-action center">
-            <i class='material-icons red-text' style="margin-right:20px;" (click)="playVideo()" materialize="tooltip"
-            data-position="top" [materializeParams]="[{tooltip:'Reproducir elemento'}]">play_arrow</i>
-            <i class='material-icons red-text' style="margin-right:20px;" (click)="downloadVideo()" materialize="tooltip"
-            data-position="top" [materializeParams]="[{tooltip:'Descargar elemento'}]">file_download</i>
-          <i class='material-icons red-text'(click)="addVideo()" materialize="tooltip"
-            data-position="top" [materializeParams]="[{tooltip:'Agregar a la lista'}]">library_add</i>
-          </h6>
-        </div>
+    <div class="preloader-centered" *ngIf="search.recommendedVideos.length == 0">
+      <app-preloader [size]="'big'" ></app-preloader>
+    </div>
+    <cdk-virtual-scroll-viewport itemSize="200" class="infinite-scrolling-viewport" >
+    <div class="row container">
+      <div class="col s12 animated fadeIn" *cdkVirtualFor="let rec of search.recommendedVideos">
+        <app-search-result [result]="rec"></app-search-result>
       </div>
 
     </div>
+  </cdk-virtual-scroll-viewport>
   </div>
 
-  <div *ngIf="currentSection == 1">
+  <div *ngIf="currentSection == 1" >
 
-    <h5>Tendencia</h5>
-    <div class="row">
-
-      <div class="col s12 m6 xl4" *ngFor="let rec of search.trendsVideos">
-        <div class="card large">
-          <div class="card-image">
-            <img src="{{ getImage(rec.link) }}">
-
-          </div>
-          <div class="card-content">
-            <span class="card-title truncate">{{ rec.title }}</span>
-            <p>{{rec.description}}</p>
-          </div>
-          <h6 class="card-action center">
-            <i class='material-icons red-text' style="margin-right:20px;" (click)="playVideo()" materialize="tooltip"
-            data-position="top" [materializeParams]="[{tooltip:'Reproducir elemento'}]">play_arrow</i>
-            <i class='material-icons red-text' style="margin-right:20px;" (click)="downloadVideo()" materialize="tooltip"
-            data-position="top" [materializeParams]="[{tooltip:'Descargar elemento'}]">file_download</i>
-          <i class='material-icons red-text'(click)="addVideo()" materialize="tooltip"
-            data-position="top" [materializeParams]="[{tooltip:'Agregar a la lista'}]">library_add</i>
-          </h6>
-        </div>
-      </div>
-
+    <div class="preloader-centered" *ngIf="search.trendsVideos.length == 0">
+      <app-preloader [size]="'big'" ></app-preloader>
     </div>
+    <cdk-virtual-scroll-viewport itemSize="200" class="infinite-scrolling-viewport" >
+    <div class="row container" style="overflow-y:auto">
+      <div *cdkVirtualFor="let rec of search.trendsVideos" >
+        <div class="col s12 animated fadeIn">
 
+          <app-search-result [result]="rec"></app-search-result>
+        </div>
 
-
+      </div>
+    </div>
+  </cdk-virtual-scroll-viewport>
   </div>
 
   <div *ngIf="currentSection == 2">
-
-    <h5>Videos favoritos</h5>
-
   </div>
 
 </div>

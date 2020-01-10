@@ -20,7 +20,7 @@ export class ConnectedClientsComponent implements OnInit, OnDestroy {
       $('#infoModal').modal();
     });
     this.intervalKey = setInterval(() => {
-      this.detect.detectChanges();
+      this.detect.markForCheck();
    }, 1500);
 
   }

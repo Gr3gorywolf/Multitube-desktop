@@ -13,7 +13,6 @@ import { ModalsService } from 'src/app/services/modals.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ListItemComponent implements OnInit {
-  detectionid: any;
   @Input() relatedvideo: RelatedVideo = null;
   @Input() listItem: PlayListItem = null;
   @Input() currentPlayingUrl = null;
@@ -40,10 +39,6 @@ export class ListItemComponent implements OnInit {
     } else {
       return new UrlHelper().getThumbnailFromUrl(url);
     }
-
-  }
-  ngOnDestroy() {
-    clearInterval(this.detectionid);
 
   }
   canDelete() {

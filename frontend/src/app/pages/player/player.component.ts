@@ -27,11 +27,13 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
      private tcp: TcpService) { }
 
   ngOnInit() {
-    //this.tcp.initServer();
+    this.detectionid = setInterval(() => {
+      this.change.markForCheck();
+    }, 1500);
   }
 
   ngOnDestroy() {
-    clearImmediate(this.detectionid);
+    clearInterval(this.detectionid);
   }
 
 
@@ -47,9 +49,7 @@ export class PlayerComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
     });
-    this.detectionid = setInterval(() => {
-      this.change.detectChanges();
-    }, 1500)
+
   }
 
   trackByFn(index, item) {

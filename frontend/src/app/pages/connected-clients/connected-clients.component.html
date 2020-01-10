@@ -1,7 +1,5 @@
-<h6 class="center">
-  <i class="material-icons red-text center" style="font-size:45px;">settings_remote</i>
-</h6>
-<h5 style="font-size:23px;color:#323538" class="center">Controles remotos conectados</h5>
+
+<app-page-header [icon]="'settings_remote'" [title]="'Controles remotos conectados'" ></app-page-header>
 <ul class="collection container">
 
   <div *ngIf="tcp.connectedClients.length > 0">

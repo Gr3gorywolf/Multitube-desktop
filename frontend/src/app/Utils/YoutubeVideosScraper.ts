@@ -42,7 +42,7 @@ export class YoutubeVideosScraper {
     console.log(parsedData);
     for (let tab of parsedData.contents.twoColumnBrowseResultsRenderer.tabs) {
       for (var cont of tab.tabRenderer.content.richGridRenderer.contents) {
-        if (cont.richItemRenderer !== undefined) {
+        try {
           var video = cont.richItemRenderer.content.videoRenderer;
           var videoUrl = new UrlHelper().getYoutubeUrlById(video.videoId);
           results.push({
@@ -56,7 +56,7 @@ export class YoutubeVideosScraper {
             title: video.title.runs[0].text,
             thumbnails: null
           } as SearchResult)
-        }
+        }catch(ex){}
       }
     }
     console.log(results);
@@ -73,6 +73,7 @@ export class YoutubeVideosScraper {
     for (let tab of parsedData.contents.twoColumnBrowseResultsRenderer.tabs) {
       for (var cont of tab.tabRenderer.content.sectionListRenderer.contents) {
         for (var secContents of cont.itemSectionRenderer.contents) {
+           try{
           for (var secContents2 of secContents.shelfRenderer.content.expandedShelfContentsRenderer.items) {
             var video = secContents2.videoRenderer;
             var videoUrl = new UrlHelper().getYoutubeUrlById(video.videoId);
@@ -88,6 +89,7 @@ export class YoutubeVideosScraper {
               thumbnails: null
             } as SearchResult)
           }
+        }catch(ex){}
         }
       }
     }

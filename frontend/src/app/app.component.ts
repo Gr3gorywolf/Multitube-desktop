@@ -15,9 +15,10 @@ export class AppComponent implements OnInit {
 
   constructor(public routing: Router,
     public tcp:TcpService,
-    private play:PlaybackserviceService,
-    private settings:SettingsService,
-    private download:DownloadService) {
+    public play:PlaybackserviceService,
+    public settings:SettingsService,
+    public download:DownloadService,
+    public route:Router) {
     settings.initSettings();
     tcp.initServer();
     download.initDownloads();
@@ -25,7 +26,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-
+       this.route.navigateByUrl("/home");
   }
 
   isOnIndex() {

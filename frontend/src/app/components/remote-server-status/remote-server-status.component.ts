@@ -48,7 +48,7 @@ export class RemoteServerStatusComponent implements OnInit, OnDestroy {
             console.log(err)
             }
         });
-        this.detector.detectChanges();
+        this.detector.markForCheck();
     }, 1000);
 
   }

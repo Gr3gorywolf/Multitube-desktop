@@ -1,0 +1,19 @@
+<div class="card large">
+  <div class="card-image">
+    <img src="{{ getImage() }}">
+
+  </div>
+  <div class="card-content">
+    <span class="card-title truncate">{{ recommendation.title }}</span>
+    <p>{{recommendation.description}}</p>
+  </div>
+  <h6 class="card-action center">
+    <i class='material-icons red-text' style="margin-right:20px;" (click)="playVideo()" materialize="tooltip"
+      data-position="top" [materializeParams]="[{tooltip:'Reproducir elemento'}]">play_arrow</i>
+    <i class='material-icons red-text' style="margin-right:20px;" (click)="downloadVideo()"
+      materialize="tooltip" data-position="top"
+      [materializeParams]="[{tooltip:'Descargar elemento'}]">file_download</i>
+    <i class='material-icons red-text' (click)="addVideo()" materialize="tooltip" data-position="top"
+      [materializeParams]="[{tooltip:'Agregar a la lista'}]">library_add</i>
+  </h6>
+</div>
