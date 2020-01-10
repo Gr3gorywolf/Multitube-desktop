@@ -1,0 +1,21 @@
+
+main {
+  flex: 1 0 auto;
+}
+
+#frow {
+
+margin-top:-10px!important;
+
+}
+.tabs .indicator {
+  height: 5px;
+  background-color: #fff;
+
+}
+
+.card-actions a{
+
+  margin-right:5px;
+
+}

@@ -17,6 +17,7 @@ export class SearchService {
   private opts: any;
   public searchResults:Array<SearchResult> = [];
   public recommendedVideos:Array<SearchResult> = [];
+  public trendsVideos:Array<SearchResult> = [];
   public isLoading = false;
   constructor(private electron: ElectronService, private zone: NgZone,private client:HttpClient) {
     this.electronInstance = electron.remote;
@@ -54,15 +55,17 @@ export class SearchService {
   public getRecommendedVideos(){
      this.client.get("https://m.youtube.com",{responseType: 'text'}).subscribe((res) => {
             var scraper = new YoutubeVideosScraper(res);
-            let parsedResponse = scraper.scrapRecommendedPage();
+            this.recommendedVideos = scraper.scrapYoutubeHomePage().slice(0,25);
 
-             console.log()
      });
 
   }
 
   public getTrendingVideos(){
-
+    this.client.get("https://m.youtube.com/feed/trending",{responseType: 'text'}).subscribe((res) => {
+      var scraper = new YoutubeVideosScraper(res);
+      this.trendsVideos =  scraper.scrapYoutubeTrendsPage().slice(0,25);
+   });
 
   }
 

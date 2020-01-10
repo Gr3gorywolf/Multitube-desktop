@@ -57,6 +57,12 @@
     <h6 class="center"><img class="nbar-logo" src="assets/img/multitube-logo.png" alt=""></h6>
   </li>
   <li>
+    <a class="waves-effect white-text" [routerLink]="['/home']" (click)="closeSideNav()">
+      <i class="material-icons white-text">home</i>
+      Inicio
+    </a>
+  </li>
+  <li>
     <a class="waves-effect white-text" [routerLink]="['/']" (click)="closeSideNav()">
       <i class="material-icons white-text">play_arrow</i>
       Reproductor

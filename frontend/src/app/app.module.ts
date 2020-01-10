@@ -26,6 +26,7 @@ import { SettingsComponent } from './pages/settings/settings.component';
 import { DownloadItemComponent } from './components/download-item/download-item.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {ScrollingModule} from '@angular/cdk/scrolling';
+import { HomeComponent } from './pages/home/home.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +46,8 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
     SearchResultComponent,
     DownloadsComponent,
     SettingsComponent,
-    DownloadItemComponent
+    DownloadItemComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
