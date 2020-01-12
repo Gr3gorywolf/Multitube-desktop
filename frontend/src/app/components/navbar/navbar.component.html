@@ -23,19 +23,19 @@
       <li><a [routerLink]="['/']">
 
           <i class="material-icons">play_arrow</i>
-          <span class="custom-badge-first" *ngIf="play.quenue.length >0">{{ play.quenue.length }}</span>
+          <span class="custom-badge-first" *ngIf="play.quenue.length >0">{{ getChipValue(play.quenue.length) }}</span>
         </a></li>
       <li><a [routerLink]="['/clients']">
 
           <i class="material-icons">settings_remote</i>
           <span class="custom-badge-second"
-            *ngIf="tcp.connectedClients.length >0">{{ tcp.connectedClients.length }}</span>
+            *ngIf="tcp.connectedClients.length >0">{{ getChipValue(tcp.connectedClients.length) }}</span>
         </a></li>
 
       <li><a [routerLink]="['/downloads']">
 
           <i class="material-icons">file_download</i>
-          <span class="custom-badge-third" *ngIf="download.ongoingDownloads >0">{{download.ongoingDownloads  }}</span>
+          <span class="custom-badge-third" *ngIf="download.ongoingDownloads >0">{{getChipValue( download.ongoingDownloads)  }}</span>
         </a></li>
     </ul>
 

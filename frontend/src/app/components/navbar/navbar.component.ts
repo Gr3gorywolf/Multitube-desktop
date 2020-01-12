@@ -30,4 +30,12 @@ export class NavbarComponent implements OnInit {
 
   }
 
+  getChipValue(value:number){
+      if(value > 99){
+         return "99+"
+      }else{
+        return value.toString();
+      }
+  }
+
 }

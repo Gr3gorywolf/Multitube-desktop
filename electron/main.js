@@ -68,11 +68,11 @@ function createWindow() {
     win.show();
     win.focus();
   });
- // win.toggleDevTools();
   win.setMenu(null);
   // and load the index.html of the app.
- // win.loadURL("http://localhost:4200");
-    win.loadURL(`file://${__dirname}/dist/index.html`);
+  win.toggleDevTools();
+  win.loadURL("http://localhost:4200");
+    //win.loadURL(`file://${__dirname}/dist/index.html`);
   win.webContents.frameRate = 60;
 
 

@@ -55,7 +55,7 @@ export class SearchService {
   public getRecommendedVideos(){
      this.client.get("https://m.youtube.com",{responseType: 'text'}).subscribe((res) => {
             var scraper = new YoutubeVideosScraper(res);
-            this.recommendedVideos = scraper.scrapYoutubeHomePage().slice(0,25);
+            this.recommendedVideos = scraper.scrapYoutubeHomePage();
 
      });
 
@@ -64,7 +64,7 @@ export class SearchService {
   public getTrendingVideos(){
     this.client.get("https://m.youtube.com/feed/trending",{responseType: 'text'}).subscribe((res) => {
       var scraper = new YoutubeVideosScraper(res);
-      this.trendsVideos =  scraper.scrapYoutubeTrendsPage().slice(0,25);
+      this.trendsVideos =  scraper.scrapYoutubeTrendsPage();
    });
 
   }
