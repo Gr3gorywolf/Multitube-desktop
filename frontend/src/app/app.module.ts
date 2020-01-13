@@ -29,6 +29,7 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
 import { HomeComponent } from './pages/home/home.component';
 import { PageHeaderComponent } from './components/page-header/page-header.component';
 import { RecommendationCardComponent } from './components/recommendation-card/recommendation-card.component';
+import { LinkdragComponent } from './components/linkdrag/linkdrag.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,7 +52,8 @@ import { RecommendationCardComponent } from './components/recommendation-card/re
     DownloadItemComponent,
     HomeComponent,
     PageHeaderComponent,
-    RecommendationCardComponent
+    RecommendationCardComponent,
+    LinkdragComponent
   ],
   imports: [
     BrowserModule,

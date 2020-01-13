@@ -1,0 +1,33 @@
+.link-drag{
+  position: fixed;
+  z-index:850;
+  top: 0px;
+  left: 0px;
+  height:100vh;
+  width: 100vw;
+  background: none !important;
+  pointer-events: none;
+}
+
+
+
+.drag-placeholder * {
+	pointer-events: none;
+}
+.drag-placeholder{
+
+
+	position: absolute;
+  background-color: rgba(0, 0, 0, 0.67);
+  border-color:white ;
+  border-width: 5px;
+  border-style: dashed;
+  display: block;
+  z-index: 999999;
+  top: 0px;
+  left: 0px;
+  height:100vh;
+  width: 100vw;
+  pointer-events: none !important;
+
+}

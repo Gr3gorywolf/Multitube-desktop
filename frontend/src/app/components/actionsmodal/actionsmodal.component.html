@@ -1,9 +1,13 @@
 <div id='shadow4' (click)="modal.CloseActionsModal()"></div>
-    <div id='modal4' *ngIf="modal.selectedItem != undefined">
+    <div id='modal4' >
 
-        <img class='circle' id='imagenmodal33' src='{{ getThumbnail() }}'>
+
+      <div *ngIf="modal.selectedItem != undefined">
+        <img class='circle' id='imagenmodal33' src='{{ getThumbnail() }}'/>
+
         <h3 id='textomodal11'>{{ modal.selectedItem.title }}</h3>
         <h3 id='textomodal22'>{{ modal.selectedItem.url}}</h3>
+      </div>
         <div id='liniitaxddd'></div>
         <ul class="collection with-header" id='listin2'>
 
@@ -22,15 +26,7 @@
                 </div>
             </li>
 
-            <li class="collection-item" id='modalelem2' *ngIf="canDelete()" (click)="deleteVideo()">
-              <div id='contextico' class='textoagregar'>Eliminar de la cola
-                  <a class="secondary-content red-text">
-                      <i class="material-icons" id='imgsubelementd'>delete</i>
-                  </a>
-              </div>
-          </li>
-
-            <li class="collection-item" id='modalelem3'>
+            <li class="collection-item" id='modalelem3' (click)="downloadVideo()">
                 <div id='contextico'>Descargar
                     <a class="secondary-content red-text ">
                         <i class="material-icons" id='imgsubelement'>file_download</i>

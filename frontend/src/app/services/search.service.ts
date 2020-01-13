@@ -6,6 +6,7 @@ import { Remote } from 'electron';
 
 import { HttpClient } from '@angular/common/http';
 import { YoutubeVideosScraper } from '../Utils/YoutubeVideosScraper';
+import { VideoInfo } from '../interfaces/VideoInfo';
 @Injectable({
   providedIn: 'root'
 })
@@ -13,6 +14,7 @@ export class SearchService {
   private electronInstance: Remote;
   private ytSearch: any;
   private fs: any;
+  private ytdl: any;
   private keys: Array<string> = [];
   private opts: any;
   public searchResults:Array<SearchResult> = [];
@@ -23,6 +25,7 @@ export class SearchService {
     this.electronInstance = electron.remote;
     this.ytSearch = this.electronInstance.require('youtube-search');
     var fs = this.electronInstance.require('fs');
+    this.ytdl = this.electronInstance.require('ytdl-core');
     this.fillKeys();
     this.opts = {
 
@@ -48,6 +51,19 @@ export class SearchService {
           this.searchResults = results.filter(ax=>ax.kind == Kind.YoutubeVideo);
       }
       })
+    });
+  }
+
+
+  public getVideoInfo(url:string,callback:Function){
+    this.ytdl.getInfo(url, (err, info: VideoInfo) => {
+
+      if (err) {
+        callback(null);
+        return;
+      } else {
+        callback(info);
+      }
     });
   }
 

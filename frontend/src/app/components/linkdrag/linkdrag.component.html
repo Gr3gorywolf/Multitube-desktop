@@ -1,0 +1,11 @@
+<div class="drag-placeholder animated fadeIn" id="drag-target" *ngIf="dragging">
+
+  <div style="margin-top:24%">
+    <h6 class="center" >
+      <i class="material-icons white-text" style="font-size:65px" >insert_link</i>
+      <h5 class="white-text" *ngIf="!isLoadingInfo">Arrastre el link de youtube para realizar una accion</h5>
+      <h5 class="white-text animated zoomIn infinite" *ngIf="isLoadingInfo">Analizando link...</h5>
+    </h6>
+  </div>
+
+</div>
