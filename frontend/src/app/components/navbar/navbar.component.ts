@@ -29,7 +29,14 @@ export class NavbarComponent implements OnInit {
     $('.button-collapse').sideNav('hide');
 
   }
+  navigateToPlayer(){
+    if(this.play.quenue.length>0){
+      this.router.navigateByUrl("/");
+    }else{
+      toast("Debe tener almenos 1 elemento en reproduccion")
+    }
 
+  }
   getChipValue(value:number){
       if(value > 99){
          return "99+"

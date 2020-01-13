@@ -20,7 +20,7 @@
 
     <!--nav elements -->
     <ul id="nav-mobile" class="right">
-      <li><a [routerLink]="['/']">
+      <li><a (click)="navigateToPlayer()">
 
           <i class="material-icons">play_arrow</i>
           <span class="custom-badge-first" *ngIf="play.quenue.length >0">{{ getChipValue(play.quenue.length) }}</span>
@@ -63,7 +63,7 @@
     </a>
   </li>
   <li>
-    <a class="waves-effect white-text" [routerLink]="['/']" (click)="closeSideNav()">
+    <a class="waves-effect white-text" (click)="navigateToPlayer();closeSideNav()">
       <i class="material-icons white-text">play_arrow</i>
       Reproductor
     </a>
