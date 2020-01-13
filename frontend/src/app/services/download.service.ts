@@ -22,10 +22,10 @@ export class DownloadService {
   request: any;
   electronApp: Electron.App;
   constructor(
-    private electron: ElectronService, 
-    private zone: NgZone, 
+    private electron: ElectronService,
+    private zone: NgZone,
     private sett: SettingsService,
-    private notification:NotificationService) {
+    private notification: NotificationService) {
     this.electronInstance = electron.remote;
     this.ytdl = this.electronInstance.require('ytdl-core');
     this.request = this.electronInstance.require('request');
@@ -35,12 +35,27 @@ export class DownloadService {
 
 
 
-  public initDownloads(){
-    this.getDownloadHistory((down:Array<DownloadItem>) => {
+  public initDownloads() {
+    this.getDownloadHistory((down: Array<DownloadItem>) => {
       this.downloads = down;
     });
   }
-  public quenueDownload(url: string, qualityLabel: string,callback:Function = null) {
+
+  //if is a youtube music video the title by default doesnt contain the artist name
+  //so in that cases this function will use the channel name alongside with the title
+  private getYoutubeMusicTitle(info: VideoInfo) {
+    if (info.author.name.toLowerCase().indexOf("topic") > 0) {
+
+      let cleanChannelName = info.author.name;
+      if (cleanChannelName.includes("-")) {
+        cleanChannelName = cleanChannelName.split("-")[0].trim();
+      }
+      return `${cleanChannelName} - ${info.title}`;
+    } else {
+      return info.title;
+    }
+  }
+  public quenueDownload(url: string, qualityLabel: string, callback: Function = null) {
 
     this.ytdl.getInfo(url, (err, info: VideoInfo) => {
       callback()
@@ -52,7 +67,8 @@ export class DownloadService {
         for (var format of info.formats) {
           if (format.audioBitrate != null && format.qualityLabel === qualityLabel) {
             let rgx = new RegexHelper();
-            let cleanTitle = rgx.removeIllegalPathCharacters(info.title);
+
+            let cleanTitle = rgx.removeIllegalPathCharacters(this.getYoutubeMusicTitle(info));
             let fileExtension = qualityLabel == null ? ".mp3" : ".mp4";
             let cleanPath = rgx.normalizePath(this.sett.selectedDownloadPath);
             let fullPath = `${cleanPath}/${cleanTitle}${fileExtension}`;
@@ -83,15 +99,16 @@ export class DownloadService {
 
 
 
-  public getDownloadHistory(callback:Function){
+  public getDownloadHistory(callback: Function) {
     var dir = this.electronApp.getPath('userData').replace(/\\/g, "/") + '/gr3cache';
     let registryFile = dir + "/" + "downloads.json";
-    this.fs.readFile(registryFile, (err, data:Buffer) => {
+    this.fs.readFile(registryFile, (err, data: Buffer) => {
       if (!err) {
-        this.zone.run(()=>{
+        this.zone.run(() => {
           callback(JSON.parse(data.toString()))
         });
-      }});
+      }
+    });
   }
 
   private addDownloadToHistory(down: DownloadItem) {
@@ -102,7 +119,7 @@ export class DownloadService {
       this.fs.mkdirSync(dir);
     }
     var downloads: Array<DownloadItem> = [];
-    this.fs.readFile(registryFile, (err, data:Buffer) => {
+    this.fs.readFile(registryFile, (err, data: Buffer) => {
       if (!err) {
         downloads = JSON.parse(data.toString());
       }
@@ -123,10 +140,10 @@ export class DownloadService {
 
 
   private executeDownload(download: DownloadItem) {
-    
-    this.notification.notify("Descargando: "+ download.title
-    ,"Click el icono para ver el progreso"
-    ,download.url);
+
+    this.notification.notify("Descargando: " + download.title
+      , "Click el icono para ver el progreso"
+      , download.url);
 
     console.log("ejecute la descarga");
     var received_bytes = 0;
