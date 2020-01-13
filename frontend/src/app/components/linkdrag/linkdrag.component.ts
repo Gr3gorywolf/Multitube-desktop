@@ -22,6 +22,7 @@ export class LinkdragComponent implements OnInit {
   ngOnInit() {
 
     $(document).ready(() => {
+
       $(window).on('dragenter', (e) => {
         e.preventDefault();
         this.counter++;
@@ -29,23 +30,33 @@ export class LinkdragComponent implements OnInit {
           this.draggedOver(null);
         });
       });
+
       $(window).on('dragleave', (e) => {
         this.counter--;
         this.zone.run(() => {
           this.dragEnd();
         });
       });
+
       $(window).on('dragover', (event) => {
         event.preventDefault();
       })
+
       $(window).on('drop dragdrop', (e) => {
         this.zone.run(() => {
           this.dragDropped(e);
         });
+
+
       });
 
+      $(window).on('paste', (e) => {
+        this.zone.run(() => {
+          this.handleUrlInput(e);
+        });
     });
-  }
+  })
+}
 
   draggedOver(event) {
     console.log("pase");
@@ -55,42 +66,57 @@ export class LinkdragComponent implements OnInit {
   dragDropped(event) {
     console.log("dropie");
     console.log(event);
-    this.isLoadingInfo = true;
     try {
       event.originalEvent.dataTransfer.items[0].getAsString((str: string) => {
-        console.log(str);
-        if (str.includes("youtube.com") || str.includes("youtu.be")) {
-          this.search.getVideoInfo(str, (info: VideoInfo) => {
-            if (info) {
-              this.modal.selectedItem = ({
-                title: info.title,
-                url: info.video_url
-              } as PlayListItem);
-              this.modal.OpenActionsModal();
-            }
-            this.isLoadingInfo = false;
-            this.counter = 0;
-            this.dragging = false;
-          });
-        } else {
-          this.executeInvalidInput();
-        }
 
+         this.handleUrlInput(str);
       })
     } catch (ex) {
      this.executeInvalidInput();
     }
-
-
-
   }
 
+
+
+
+
+
+   handleUrlInput (e) {
+
+    // e.preventDefault();
+    let text =  (e.originalEvent || e).clipboardData.getData('text/plain')
+    this.dragging = true;
+    this.loadInfo(text);
+
+   }
+
+   loadInfo(url:string){
+    console.log(url);
+    if (url.includes("youtube.com") || url.includes("youtu.be")) {
+      this.isLoadingInfo = true;
+      this.search.getVideoInfo(url, (info: VideoInfo) => {
+        if (info) {
+          this.modal.selectedItem = ({
+            title: info.title,
+            url: info.video_url
+          } as PlayListItem);
+          this.modal.OpenActionsModal();
+        }
+        this.isLoadingInfo = false;
+        this.counter = 0;
+        this.dragging = false;
+      });
+    } else {
+      this.executeInvalidInput();
+    }
+   }
 
   private executeInvalidInput(){
     toast("Link no valido", 1000)
     this.isLoadingInfo = false;
     this.counter = 0;
     this.dragging = false;
+
   }
 
   dragEnd() {
