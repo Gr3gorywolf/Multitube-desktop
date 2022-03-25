@@ -27,7 +27,7 @@
     "angularx-qrcode": "^2.0.2",
     "buffer": "^5.4.3",
     "cheerio": "^1.0.0-rc.3",
-    "electron": "^7.1.7",
+    "electron": "^13.6.6",
     "events": "^3.1.0",
     "ngx-electron": "^2.2.0",
     "process": "^0.11.10",
