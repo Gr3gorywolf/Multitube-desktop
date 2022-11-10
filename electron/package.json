@@ -15,7 +15,7 @@
   "author": "gr3",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^7.1.7"
+    "electron": "^18.3.7"
   },
   "dependencies": {
     "electron-download-manager": "^2.3.0",
